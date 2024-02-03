@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <title>INFO 5311 HW1</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <style>
+        .mapping {
+            fill: #EEE;
+            stroke: white;
+            stroke-width: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <svg id="plot" height="900" width="900" style="background: #fff;">
+    </svg>
+    <script>
+        const svg = d3.select("#plot");
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const mapWidth = width - margin.left - margin.right;
+        const mapHeight = height - margin.top - margin.bottom;
+        const map = svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        const requestData = async function () {
+            const map_data = await d3.json("./SF-Neighborhoods.geo.json");
+
+            var sf_map = topojson.feature(map_data, map_data.objects.SFNeighborhoods);
+
+            var projection = d3.geoMercator().fitSize([mapWidth, mapHeight], sf_map);
+            var path = d3.geoPath().projection(projection);
+
+            map.selectAll("path.mapping").data(sf_map.features)
+                .join("path")
+                .attr("class", "mapping")
+                .attr("d", path);
+
+
+            const tree_data = await d3.csv("./Street_Tree_List-2022-01-30_FILTERED.csv");
+
+            let caretakers = ["Private", "DPW"];
+
+            let new_tree_data = tree_data.map(item => {
+                let species_name = item["qSpecies"].split('::')[0].trim();
+                item["species_name"] = species_name;
+                return item;
+            });
+
+            let species_values = new_tree_data.map(obj => obj["species_name"])
+            let species_counts = Object.values(species_values).reduce((counts, value) => {
+                counts[value] = (counts[value] || 0) + 1;
+                return counts;
+            }, {});
+
+            let sorted_species_counts = Object.entries(species_counts).sort((a, b) => b[1] - a[1]);
+
+            let top_species = sorted_species_counts.slice(0, 3).map(([key]) => key);
+
+            let filtered_trees = new_tree_data.filter(obj => top_species.includes(obj["species_name"]));
+
+            filtered_trees = filtered_trees.filter(obj => caretakers.includes(obj["qCaretaker"]));
+
+            console.log(filtered_trees);
+
+            //let colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+            //    .domain(top_species);
+
+            let colorScale = d3.scaleOrdinal()
+                .domain(top_species)
+                .range(['#8B5A2B', '#6B8E23','#1E88E5']); //,'#1E90FF','#1E88E5']);
+
+            filtered_trees.forEach(d => {
+                d.Position = projection([d.Longitude, d.Latitude]);
+            });
+
+            map.selectAll("circle").data(filtered_trees)
+                .join("circle")
+                .attr("r", 4)
+                .attr("fill", d => colorScale(d["species_name"]))
+                .attr("opacity", 0.4)
+                .attr("cx", d => d.Position[0])
+                .attr("cy", d => d.Position[1]);
+
+            let legend = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + (margin.top + 50) + ")");
+
+            legend.append("text")
+                .attr("x", 0)
+                .attr("y", -10)
+                .attr("font-weight", "bold")
+                .text("Top 5 Tree Species");
+
+            legend.selectAll("rect")
+                .data(top_species)
+                .enter()
+                .append("rect")
+                .attr("x", 0)
+                .attr("y", (d, i) => i * 20)
+                .attr("width", 15)
+                .attr("height", 15)
+                .attr("fill", d => colorScale(d));
+
+            legend.selectAll("legent-text")
+                .data(top_species)
+                .enter()
+                .append("text")
+                .attr("x", 20)
+                .attr("y", (d, i) => i * 20 + 12)
+                .text(d => d);
+
+        }
+        requestData();
+    </script>
+</body>
+
+</html>
