@@ -10,6 +10,14 @@
             stroke: white;
             stroke-width: 2px;
         }
+        body {
+            margin-top: 150px;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -42,7 +50,7 @@
 
             const tree_data = await d3.csv("./Street_Tree_List-2022-01-30_FILTERED.csv");
 
-            let caretakers = ["Private", "DPW"];
+            //let caretakers = ["Private", "DPW"];
 
             let new_tree_data = tree_data.map(item => {
                 let species_name = item["qSpecies"].split('::')[0].trim();
@@ -62,7 +70,7 @@
 
             let filtered_trees = new_tree_data.filter(obj => top_species.includes(obj["species_name"]));
 
-            filtered_trees = filtered_trees.filter(obj => caretakers.includes(obj["qCaretaker"]));
+            //filtered_trees = filtered_trees.filter(obj => caretakers.includes(obj["qCaretaker"]));
 
             console.log(filtered_trees);
 
@@ -71,7 +79,7 @@
 
             let colorScale = d3.scaleOrdinal()
                 .domain(top_species)
-                .range(['#8B5A2B', '#6B8E23','#1E88E5']); //,'#1E90FF','#1E88E5']);
+                .range(['#8B5A2B', '#6B8E23', '#1E88E5']); //,'#1E90FF','#1E88E5']);
 
             filtered_trees.forEach(d => {
                 d.Position = projection([d.Longitude, d.Latitude]);
@@ -85,6 +93,18 @@
                 .attr("cx", d => d.Position[0])
                 .attr("cy", d => d.Position[1]);
 
+            let header = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            header.append("text")
+                .attr("class", 'title')
+                .text("Distribution of tree species in San Francisco")
+                .attr("x", width / 4)
+                .attr("y", 0)
+                .attr("font-size", 20)
+                .attr("font-weight", "bold");
+
+
             let legend = svg.append("g")
                 .attr("transform", "translate(" + margin.left + "," + (margin.top + 50) + ")");
 
@@ -92,7 +112,7 @@
                 .attr("x", 0)
                 .attr("y", -10)
                 .attr("font-weight", "bold")
-                .text("Top 5 Tree Species");
+                .text("Top 3 Tree Species");
 
             legend.selectAll("rect")
                 .data(top_species)
