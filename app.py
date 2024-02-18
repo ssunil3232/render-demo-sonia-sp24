@@ -12,8 +12,8 @@ def secret():
     return make_response("This is a secret.")
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
-                          root='hw1/', 
-                          prefix='hw1/', 
+                          root='hw2/', 
+                          prefix='hw2/', 
                           index_file='index.htm', 
                           autorefresh=True)
 

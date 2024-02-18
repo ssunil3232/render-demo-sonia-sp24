@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <title>INFO 5311 HW2 - Sonia, Bandar</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+</head>
+
+<body>
+    <svg id="plot" height="900" width="900" style="background: #fff;">
+    </svg>
+    <script>
+        const svg = d3.select("#plot");
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+        const chart = svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        const requestData = async function () {
+            const ts_data1 = await d3.csv("./taylor_swift_spotify.csv");
+            const ts_data2 = await d3.csv("./swift_color_data.csv");
+
+            ts_albums2 = []
+            let filtered_ts_data2 = [];
+            ts_data2.forEach(item => {
+                if (item["Album"] !== "Taylor Swift (Bonus Track Version)") {
+                    ts_albums2.push(item["Album"]);
+                    let obj = {
+                        album: item["Album"],
+                        color: item["Family"],
+                        color_count: Number(item["Count"]),
+                        song: item["Song"]
+                    }
+                    filtered_ts_data2.push(obj)
+                }
+            })
+            let combined_data = {};
+            filtered_ts_data2.forEach(item => {
+                let key = `${item.album}-${item.song}-${item.color}`;
+                if (!combined_data[key]) {
+                    combined_data[key] = item.color_count;
+                } else {
+                    combined_data[key] += item.color_count;
+                }
+            })
+            filtered_ts_data2 = []
+            for (let key in combined_data) {
+                let color_count = combined_data[key];
+                let key_values = key.split("-");
+                let obj = {
+                    album: key_values[0],
+                    song: key_values[1],
+                    color: key_values[2],
+                    color_count: color_count
+                }
+                filtered_ts_data2.push(obj)
+            }
+            //console.log("newwwwww", filtered_ts_data2)
+            let unique_album2 = [... new Set(ts_albums2)];
+
+            let filtered_ts_data1 = []
+            ts_data1.forEach(item => {
+                if (unique_album2.includes(item.album)) {
+                    let obj = {
+                        song: item["name"],
+                        album: item["album"],
+                        danceability: Number(item["danceability"])
+                    }
+                    filtered_ts_data1.push(obj)
+                }
+            })
+            console.log(filtered_ts_data1)
+            console.log(filtered_ts_data2)
+
+            let merged_ts_data = [];
+            filtered_ts_data2.forEach(item => {
+                const match = filtered_ts_data1.find(inner => inner.album === item.album && item.song === inner.song);
+                let obj = {
+                    ...item,
+                    ...match
+                };
+                merged_ts_data.push(obj)
+            })
+            console.log(merged_ts_data)
+            let final_ts_data = [];
+            merged_ts_data.forEach(item => {
+                if (Object.keys(item).includes("danceability")) {
+                    final_ts_data.push(item)
+                }
+            })
+            console.log(final_ts_data);
+
+
+
+        }
+        requestData();
+    </script>
+</body>
+
+</html>
