@@ -1,14 +1,59 @@
-<html>
+<html lang="en">
+
+</html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INFO 5311 HW2 - Sonia, Bandar</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://d3js.org/topojson.v2.min.js"></script>
 </head>
+<style>
+    body {
+        justify-content: center;
+        display: flex;
+        background: #e3c3c3;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .title {
+        width: 100%;
+        font-size: larger;
+        font-weight: 700;
+        padding: 30px;
+        margin-left: 50px;
+    }
+
+    #details {
+        position: absolute;
+        top: 50vh;
+        width: 250px;
+        right: 5%;
+        padding: 10px;
+        background-color: #ffffff69;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .song-detail {
+        margin-top: 10px;
+        font-family: system-ui;
+    }
+
+    .song {
+        font-size: 20px;
+        font-weight: 700;
+        font-family: system-ui;
+    }
+</style>
 
 <body>
-    <svg id="plot" height="900" width="900" style="background: #fff;">
+    <p class="title">INFO 5311 HW2 - Sonia, Bandar</p>
+    <svg id="plot" height="700" width="1000" style="background: transparent">
     </svg>
+    <div id="details" style="visibility:hidden;"></div>
     <script>
         const svg = d3.select("#plot");
         const width = svg.attr("width");
@@ -16,6 +61,8 @@
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
         const chartWidth = width - margin.left - margin.right;
         const chartHeight = height - margin.top - margin.bottom;
+        const innerRadius = 180;
+        const outerRadius = Math.min(width, height) / 2 - 40;
         const chart = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -58,7 +105,6 @@
                 }
                 filtered_ts_data2.push(obj)
             }
-            //console.log("newwwwww", filtered_ts_data2)
             let unique_album2 = [... new Set(ts_albums2)];
 
             let filtered_ts_data1 = []
@@ -72,8 +118,6 @@
                     filtered_ts_data1.push(obj)
                 }
             })
-            console.log(filtered_ts_data1)
-            console.log(filtered_ts_data2)
 
             let merged_ts_data = [];
             filtered_ts_data2.forEach(item => {
@@ -93,10 +137,155 @@
             })
             console.log(final_ts_data);
 
+            const groupBySong = data => {
+                const groupedData = {};
+
+                data.forEach(item => {
+                    const { song, album, color, color_count, danceability } = item;
+
+                    if (!groupedData[song]) {
+                        groupedData[song] = {
+                            song: song,
+                            album: album,
+                            segments: [],
+                            total_danceability: 0,
+                            count: 0
+                        };
+                    }
+
+                    groupedData[song].segments.push({ color, color_count });
+                    groupedData[song].total_danceability += danceability;
+                    groupedData[song].count++;
+                });
+
+                return groupedData;
+            };
+
+            // Group data by song
+            const result = groupBySong(final_ts_data);
+
+            // Calculate average danceability
+            for (const song in result) {
+                result[song].danceability = result[song].total_danceability / result[song].count;
+                delete result[song].total_danceability;
+                delete result[song].count;
+            }
+
+            let ts_data = []
+            for (let key in result) {
+                let obj = result[key];
+                ts_data.push(obj);
+            }
+            console.log(ts_data);
+
+
+            //Creating the chart ///////////////////////////
+            const x = d3.scaleBand()
+                .range([0, 2 * Math.PI])
+                .domain(ts_data.map(d => d.song));
+
+            const y = scaleRadial()
+                .range([innerRadius, outerRadius])
+                .domain([0, d3.max(ts_data, d => d.danceability)]);
+
+            ts_data.forEach(song => {
+                let cumulativeCount = 0;
+                song.segments.forEach(segment => {
+                    const segmentHeight = y(segment.color_count / 10 + cumulativeCount) - y(cumulativeCount);
+                    cumulativeCount += segment.color_count / 10;
+
+                    chart.append("path")
+                        .attr("d", d3.arc()
+                            .innerRadius(innerRadius)
+                            .outerRadius(innerRadius + segmentHeight)
+                            .startAngle(x(song.song))
+                            .endAngle(x(song.song) + x.bandwidth())
+                            .padAngle(0.01)
+                            .padRadius(innerRadius))
+                        .attr("fill", d => {
+                            let seg_color = segment.color.toLowerCase()
+                            if (seg_color === "special") {
+                                return "orange";
+                            }
+                            else {
+                                return seg_color;
+                            }
+                        })
+                        .attr("transform", `translate(${width / 2}, ${height / 2 + 50})`)
+                        .on("mouseover", function (event, d) {
+                            console.log("seg", segment, song)
+                            const detailsDiv = d3.select("#details");
+                            detailsDiv.style("visibility", "visible")
+                            detailsDiv.html(`<p class="song">${song.song}</p><div class="song-detail"><p>Album: ${song.album}</p><p>Color: ${segment.color}</p><p>No. of times mentioned: ${segment.color_count}</p></div>`);
+                            detailsDiv.style("display", "block");
+                        })
+                        .on("mouseout", function (event, d) {
+                            d3.select("#details").style("display", "none");
+                        });
+                });
+            });
+
+            const path = chart.append("path")
+                .attr("id", "textPath")
+                .attr("d", "M 10,90 Q 100,15 200,70 Q 340,140 400,30")
+                .style("fill", "none")
+                .style("stroke", "#AAAAAA");
+
+            const text = chart.append("text")
+                .append("textPath")
+                .attr("xlink:href", "#textPath")
+                .attr("startOffset", "50%")
+                .text("Taylor Swift Songs")
+                .style("text-anchor", "middle")
+                .style("font-size", "30px")
+                .style("font-weight", "bold");
+
+            text.append("tspan").text(" ")
+                .append("tspan").html("&#127932;")
+                .append("tspan").html(" \uD83C\uDFB5")
+                .append("tspan").html(" \uD83C\uDFB6")
+                .append("tspan").html(" \uD83C\uDFB5")
+                .append("tspan").html(" \uD83C\uDFBC");
+
+
+            chart.append("image")
+                .attr("class", "ts")
+                .attr("xlink:href", "taylor-swift.webp")
+                .attr("x", chartWidth / 2 - 180)
+                .attr("y", chartHeight / 2 - 80)
+                .attr("width", "40%")
+                .attr("height", "40%");
+
+
 
 
         }
         requestData();
+
+        function scaleRadial() {
+            var linear = d3.scaleLinear();
+
+            function radial(d) {
+                return Math.sqrt(linear(d));
+            }
+
+            radial.domain = function (_) {
+                return arguments.length ? (linear.domain(_), radial) : linear.domain();
+            };
+
+            radial.nice = function (count) {
+                return linear.nice(count), radial;
+            };
+
+            radial.range = function (_) {
+                return arguments.length ? (linear.range(_.map(d => d * d)), radial) : linear.range().map(Math.sqrt);
+            };
+
+            radial.ticks = linear.ticks;
+            radial.tickFormat = linear.tickFormat;
+
+            return radial;
+        }
     </script>
 </body>
 
