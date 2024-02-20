@@ -4,11 +4,43 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INFO 5311 HW2 - Sonia, Bandar</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <style>
+    /*.toolTip {
+        pointer-events: none;
+        position: absolute;
+        display: none;
+        min-width: 50px;
+        height: auto;
+        background: none repeat scroll 0 0 #ffffff;
+        padding: 9px 14px 6px 14px;
+        border-radius: 2px;
+        text-align: center;
+        line-height: 1.3;
+        color: #5B6770;
+        box-shadow: 0px 3px 9px rgba(0, 0, 0, .15);
+    }
+
+    .toolTip:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 12px solid white;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        margin-left: -12px;
+    }
+
+    .toolTip span {
+        font-weight: 500;
+        color: #081F2C;
+    }*/
+
     body {
         justify-content: center;
         display: flex;
@@ -18,7 +50,7 @@
     }
 
     .title {
-        width: 100%;
+        width: 90vw;
         font-size: larger;
         font-weight: 700;
         padding: 30px;
@@ -27,14 +59,27 @@
 
     #details {
         position: absolute;
-        top: 50vh;
+        left: 40vw;
         width: 250px;
-        right: 5%;
+        top: 18%;
         padding: 10px;
         background-color: #ffffff69;
         border: 1px solid #ccc;
         border-radius: 15px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #songdetails {
+        position: absolute;
+        right: 40px;
+        width: 200px;
+        top: 40%;
+        padding: 10px;
+        background-color: #ffffff69;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: system-ui;
     }
 
     .song-detail {
@@ -47,15 +92,30 @@
         font-weight: 700;
         font-family: system-ui;
     }
+
+    .caption {
+        margin-top: 15px;
+        font-style: italic;
+        font-size: small;
+    }
 </style>
 
 <body>
     <p class="title">INFO 5311 HW2 - Sonia, Bandar</p>
-    <svg id="plot" height="700" width="1000" style="background: transparent">
-    </svg>
-    <div id="details" style="visibility:hidden;"></div>
+    <div id="header"></div>
+    <div style="display: flex;">
+        <svg id="plot" height="700" width="700" style="background: transparent">
+        </svg>
+        <div id="plot2" height="700" width="700" style="background: transparent">
+        </div>
+        <div id="details" style="visibility:hidden;"></div>
+        <div id="songdetails" style="visibility:hidden;"></div>
+    </div>
+
     <script>
         const svg = d3.select("#plot");
+        const svg2 = d3.select("#plot2");
+        const header = d3.select("#header");
         const width = svg.attr("width");
         const height = svg.attr("height");
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
@@ -63,8 +123,15 @@
         const chartHeight = height - margin.top - margin.bottom;
         const innerRadius = 180;
         const outerRadius = Math.min(width, height) / 2 - 40;
+        const radius = Math.min((chartWidth - 100) - margin.left - margin.right, (chartHeight - 100) - margin.top - margin.bottom) / 2;
         const chart = svg.append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            .attr("transform", "translate(" + 100 + "," + 10 + ") scale(" + 0.8 + "," + 0.8 + ")");
+        const radar = svg2
+            .append('svg')
+            .attr("width", chartWidth)
+            .attr("height", chartHeight)
+            .append("g")
+            .attr("transform", "translate(" + 20 + "," + 100 + ") scale(" + 0.7 + "," + 0.7 + ")");
 
         const requestData = async function () {
             const ts_data1 = await d3.csv("./taylor_swift_spotify.csv");
@@ -110,10 +177,16 @@
             let filtered_ts_data1 = []
             ts_data1.forEach(item => {
                 if (unique_album2.includes(item.album)) {
+
                     let obj = {
                         song: item["name"],
                         album: item["album"],
-                        danceability: Number(item["danceability"])
+                        danceability: Number(item["danceability"]),
+                        popularity: Number(item["popularity"]),
+                        energy: Number(item["energy"]),
+                        liveliness: Number(item["liveness"]),
+                        acousticness: Number(item["acousticness"]),
+
                     }
                     filtered_ts_data1.push(obj)
                 }
@@ -128,110 +201,195 @@
                 };
                 merged_ts_data.push(obj)
             })
-            console.log(merged_ts_data)
+            //console.log(merged_ts_data)
             let final_ts_data = [];
             merged_ts_data.forEach(item => {
                 if (Object.keys(item).includes("danceability")) {
                     final_ts_data.push(item)
                 }
-            })
-            console.log(final_ts_data);
+            });
 
             const groupBySong = data => {
                 const groupedData = {};
-
                 data.forEach(item => {
-                    const { song, album, color, color_count, danceability } = item;
-
+                    const { song, album, color, color_count, danceability, energy, liveliness, acousticness, popularity } = item;
                     if (!groupedData[song]) {
                         groupedData[song] = {
                             song: song,
                             album: album,
                             segments: [],
-                            total_danceability: 0,
-                            count: 0
+                            breakdown: {
+                                danceability: danceability,
+                                energy: energy,
+                                liveliness: liveliness,
+                                acousticness: acousticness
+                            },
+                            popularity: popularity
                         };
                     }
-
                     groupedData[song].segments.push({ color, color_count });
-                    groupedData[song].total_danceability += danceability;
-                    groupedData[song].count++;
                 });
 
                 return groupedData;
             };
 
-            // Group data by song
             const result = groupBySong(final_ts_data);
-
-            // Calculate average danceability
-            for (const song in result) {
-                result[song].danceability = result[song].total_danceability / result[song].count;
-                delete result[song].total_danceability;
-                delete result[song].count;
+            let breakdown_obj = {
+                title: "Overall of all Taylor's songs!",
+                data: []
             }
 
             let ts_data = []
+
+            let breakdown = {
+                danceability: 0,
+                energy: 0,
+                liveliness: 0,
+                acousticness: 0,
+            }
+
             for (let key in result) {
                 let obj = result[key];
                 ts_data.push(obj);
+
+                breakdown.danceability += obj.breakdown.danceability;
+                breakdown.energy += obj.breakdown.energy;
+                breakdown.liveliness += obj.breakdown.liveliness;
+                breakdown.acousticness += obj.breakdown.acousticness;
             }
+
+
+            breakdown_obj["data"] = []
+            let obj = {}
+            for (let key in breakdown) {
+                obj[key] = breakdown[key] / ts_data.length
+            }
+            breakdown_obj["data"].push(obj)
+            console.log(breakdown_obj);
             console.log(ts_data);
 
+            ///////////////////Creating the radar chart ///////////////////////////
+            let radialScale = d3.scaleLinear().domain([0, 1]).range([0, 230]);
 
-            //Creating the chart ///////////////////////////
+            let ticks = [0.2, 0.4, 0.6, 0.8, 1.0];
+
+            radar.selectAll("circle")
+                .data(ticks)
+                .join(
+                    enter => enter.append("circle")
+                        .attr("cx", chartWidth / 2)
+                        .attr("cy", chartHeight / 2)
+                        .attr("fill", "none")
+                        .attr("stroke", "gray")
+                        .attr("r", d => radialScale(d))
+                );
+
+            radar.selectAll(".ticklabel")
+                .data(ticks)
+                .join(
+                    enter => enter.append("text")
+                        .attr("class", "ticklabel")
+                        .attr("x", chartWidth / 2 + 5)
+                        .attr("y", d => chartHeight / 2 - radialScale(d) - 5)
+                        .text(d => d.toString())
+                );
+
+            let features = ["Danceability", "Energy", "Liveliness", "Acousticness"];
+
+            let featureData = features.map((f, i) => {
+                let angle = (Math.PI / 2) + (2 * Math.PI * i / 4);
+                return {
+                    "name": f,
+                    "angle": angle,
+                    "line_coord": angleToCoordinate(angle, 1, chartWidth, chartHeight, "line"),
+                    "label_coord": angleToCoordinate(angle, 1.15, chartWidth, chartHeight, "label")
+                };
+            });
+
+            radar.selectAll("line")
+                .data(featureData)
+                .join(
+                    enter => enter.append("line")
+                        .attr("x1", chartWidth / 2)
+                        .attr("y1", chartHeight / 2)
+                        .attr("x2", d => d.line_coord.x)
+                        .attr("y2", d => d.line_coord.y)
+                        .attr("stroke", "black")
+                );
+
+            radar.selectAll(".axislabel")
+                .data(featureData)
+                .join(
+                    enter => enter.append("text")
+                        .attr("x", d => d.label_coord.x)
+                        .attr("y", d => d.label_coord.y)
+                        .text(d => d.name)
+                );
+
+            createRadarChart(breakdown_obj.title, radar, breakdown_obj.data, chartWidth, chartHeight)
+
+            ///////////////////Creating the radial chart ///////////////////////////
             const x = d3.scaleBand()
                 .range([0, 2 * Math.PI])
                 .domain(ts_data.map(d => d.song));
 
-            const y = scaleRadial()
+            //const y = scaleRadial()
+            const y = d3.scalePow()
+                .exponent(2) // Adjust the exponent as needed
                 .range([innerRadius, outerRadius])
-                .domain([0, d3.max(ts_data, d => d.danceability)]);
+                .domain([0, d3.max(ts_data, d => d.popularity)]);
+
 
             ts_data.forEach(song => {
-                let cumulativeCount = 0;
-                song.segments.forEach(segment => {
-                    const segmentHeight = y(segment.color_count / 10 + cumulativeCount) - y(cumulativeCount);
-                    cumulativeCount += segment.color_count / 10;
+                //const totalColorCount = song.segments.reduce((acc, segment) => acc + segment.color_count, 0);
+                let nextHeight = innerRadius;
+                //song.segments.forEach(segment => {
+                //const proportion = segment.color_count / totalColorCount;
 
-                    chart.append("path")
-                        .attr("d", d3.arc()
-                            .innerRadius(innerRadius)
-                            .outerRadius(innerRadius + segmentHeight)
-                            .startAngle(x(song.song))
-                            .endAngle(x(song.song) + x.bandwidth())
-                            .padAngle(0.01)
-                            .padRadius(innerRadius))
-                        .attr("fill", d => {
-                            let seg_color = segment.color.toLowerCase()
-                            if (seg_color === "special") {
-                                return "orange";
-                            }
-                            else {
-                                return seg_color;
-                            }
-                        })
-                        .attr("transform", `translate(${width / 2}, ${height / 2 + 50})`)
-                        .on("mouseover", function (event, d) {
-                            console.log("seg", segment, song)
-                            const detailsDiv = d3.select("#details");
-                            detailsDiv.style("visibility", "visible")
-                            detailsDiv.html(`<p class="song">${song.song}</p><div class="song-detail"><p>Album: ${song.album}</p><p>Color: ${segment.color}</p><p>No. of times mentioned: ${segment.color_count}</p></div>`);
-                            detailsDiv.style("display", "block");
-                        })
-                        .on("mouseout", function (event, d) {
-                            d3.select("#details").style("display", "none");
-                        });
-                });
+                //let outerRad = y(proportion * song.danceability);
+                //console.log(outerRad)
+                chart.append("path")
+                    .attr("d", d3.arc()
+                        .innerRadius(nextHeight)
+                        .outerRadius(y(song.popularity))
+                        .startAngle(x(song.song))
+                        .endAngle(x(song.song) + x.bandwidth())
+                        .padAngle(0.1)
+                        .padRadius(innerRadius))
+                    .attr("fill", "#a80029b5")
+                    .attr("transform", `translate(${width / 2}, ${height / 2 + 50})`)
+                    .on("mouseover", function (event, d) {
+                        createRadarChart(song.song, radar, [song.breakdown], chartWidth, chartHeight)
+                        const detailsDiv = d3.select("#details");
+                        detailsDiv.style("visibility", "visible")
+                        detailsDiv.html(`<p class="song">${song.song}</p><div class="song-detail"><p>Album: ${song.album}</p>
+                            <p>Popularity: ${(song.popularity)}/100</p>
+                            <p class="caption">Hover to see more details!</p></div>`);
+                        detailsDiv.style("display", "block");
+                    })
+                    .on("mouseout", function (event, d) {
+                        d3.select("#details").style("display", "none");
+                        createRadarChart(breakdown_obj.title, radar, breakdown_obj.data, chartWidth, chartHeight)
+                    });
+                //nextHeight = outerRad;
+                //});
             });
 
-            const path = chart.append("path")
+            chart.append("image")
+                .attr("class", "ts")
+                .attr("xlink:href", "taylor-swift.webp")
+                .attr("x", chartWidth / 2 - 120)
+                .attr("y", chartHeight / 2 - 80)
+                .attr("width", "40%")
+                .attr("height", "40%");
+
+            const path = header.append("path")
                 .attr("id", "textPath")
                 .attr("d", "M 10,90 Q 100,15 200,70 Q 340,140 400,30")
                 .style("fill", "none")
                 .style("stroke", "#AAAAAA");
 
-            const text = chart.append("text")
+            const text = header.append("text")
                 .append("textPath")
                 .attr("xlink:href", "#textPath")
                 .attr("startOffset", "50%")
@@ -246,15 +404,6 @@
                 .append("tspan").html(" \uD83C\uDFB6")
                 .append("tspan").html(" \uD83C\uDFB5")
                 .append("tspan").html(" \uD83C\uDFBC");
-
-
-            chart.append("image")
-                .attr("class", "ts")
-                .attr("xlink:href", "taylor-swift.webp")
-                .attr("x", chartWidth / 2 - 180)
-                .attr("y", chartHeight / 2 - 80)
-                .attr("width", "40%")
-                .attr("height", "40%");
 
 
 
@@ -285,6 +434,75 @@
             radial.tickFormat = linear.tickFormat;
 
             return radial;
+        }
+
+        function angleToCoordinate(angle, value, width, height, type) {
+            let radialScale = d3.scaleLinear().domain([0, 1]).range([0, 230]);
+            if (type === "line") {
+                let x = Math.cos(angle) * radialScale(value);
+                let y = Math.sin(angle) * radialScale(value);
+                return { "x": width / 2 + x, "y": height / 2 - y };
+            }
+            else if (type === "label") {
+                let x = Math.cos(angle) * radialScale(value);
+                let y = Math.sin(angle) * radialScale(value);
+                return { "x": width / 2 + x - 25, "y": height / 2 - y };
+            }
+            else {
+                let x = Math.cos(angle) * radialScale(value);
+                let y = Math.sin(angle) * radialScale(value);
+                return { "x": width / 2 + x, "y": height / 2 - y };
+            }
+
+
+        }
+
+        function getPathCoordinates(data_point, width, height) {
+            let coordinates = [];
+            let features = Object.keys(data_point)
+            for (var i = 0; i < features.length; i++) {
+                let ft_name = features[i];
+                let angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+                coordinates.push(angleToCoordinate(angle, data_point[ft_name], width, height, "data"));
+            }
+            return coordinates;
+        }
+
+        function createRadarChart(title, radar, data, width, height) {
+            let line = d3.line()
+                .x(d => d.x)
+                .y(d => d.y);
+            radar.selectAll("path").remove();
+            radar.select("#title").remove();
+            radar.selectAll("path")
+                .data(data)
+                .join(
+                    enter => enter.append("path")
+                        .datum(d => getPathCoordinates(d, width, height))
+                        .attr("d", line)
+                        .attr("stroke-width", 3)
+                        .attr("stroke", (_, i) => "red")
+                        .attr("fill", (_, i) => "red")
+                        .attr("stroke-opacity", 1)
+                        .attr("opacity", 0.5)
+                );
+            radar.append("text")
+                .attr("id", "title")
+                .text(title)
+                .attr("x", width / 2)
+                .attr("y", 20)
+                .style("text-anchor", "middle")
+                .style("font-size", "22px")
+                .style("font-weight", "bold");
+
+            const songDetails = d3.select("#songdetails");
+                songDetails.style("visibility", "visible")
+                songDetails.html(`<p>Danceability: ${((data[0].danceability)*100).toFixed(2)}%</p>
+                    <p>Energy: ${((data[0].energy)*100).toFixed(2)}%</p>
+                    <p>Liveliness: ${((data[0].liveliness)*100).toFixed(2)}%</p>
+                    <p>Acousticness: ${((data[0].acousticness)*100).toFixed(2)}%</p>`);
+                    songDetails.style("display", "block");
+
         }
     </script>
 </body>
