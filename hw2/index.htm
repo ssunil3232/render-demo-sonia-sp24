@@ -8,7 +8,6 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <style>
-
     body {
         justify-content: center;
         display: flex;
@@ -41,7 +40,7 @@
         position: absolute;
         right: 40px;
         width: 200px;
-        top: 40%;
+        top: 30%;
         padding: 10px;
         background-color: #ffffff69;
         border: 1px solid #ccc;
@@ -69,9 +68,9 @@
 </style>
 
 <body>
-    <p class="title">INFO 5311 HW2 - Sonia, Bandar</p>
-    <svg id="header" height="50" width="500"></svg>
-    <div style="display: flex;">
+    <!-- <p class="title">INFO 5311 HW2 - Sonia, Bandar</p> -->
+    <svg id="header" height="60" width="500"></svg>
+    <div style="display: flex; height: 600px;">
         <svg id="plot" height="700" width="700" style="background: transparent">
         </svg>
         <div id="plot2" height="700" width="700" style="background: transparent">
@@ -79,11 +78,13 @@
         <div id="details" style="visibility:hidden;"></div>
         <div id="songdetails" style="visibility:hidden;"></div>
     </div>
+    <svg id="colors" height="100" width="650"></svg>
 
     <script>
         const svg = d3.select("#plot");
         const svg2 = d3.select("#plot2");
-        const header = d3.select("#header");
+        const header = d3.select("#header").attr("transform", "translate(" + 0 + "," + 30 + ")");
+        const colorLegend = d3.select("#colors");
         const width = svg.attr("width");
         const height = svg.attr("height");
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
@@ -107,18 +108,21 @@
 
             ts_albums2 = []
             let filtered_ts_data2 = [];
+            let color_present = [];
             ts_data2.forEach(item => {
                 if (item["Album"] !== "Taylor Swift (Bonus Track Version)") {
                     ts_albums2.push(item["Album"]);
                     let obj = {
                         album: item["Album"],
                         color: item["Family"],
-                        color_count: Number(item["Count"]),
+                        //color_count: Number(item["Count"]),
                         song: item["Song"]
                     }
                     filtered_ts_data2.push(obj)
+                    color_present.push(item["Family"]);
                 }
-            })
+            });
+            /*
             let combined_data = {};
             filtered_ts_data2.forEach(item => {
                 let key = `${item.album}-${item.song}-${item.color}`;
@@ -127,8 +131,8 @@
                 } else {
                     combined_data[key] += item.color_count;
                 }
-            })
-            filtered_ts_data2 = []
+            })*/
+            /*filtered_ts_data2 = []
             for (let key in combined_data) {
                 let color_count = combined_data[key];
                 let key_values = key.split("-");
@@ -136,10 +140,10 @@
                     album: key_values[0],
                     song: key_values[1],
                     color: key_values[2],
-                    color_count: color_count
+                    //color_count: color_count
                 }
                 filtered_ts_data2.push(obj)
-            }
+            }*/
             let unique_album2 = [... new Set(ts_albums2)];
 
             let filtered_ts_data1 = []
@@ -169,7 +173,10 @@
                 };
                 merged_ts_data.push(obj)
             })
-            //console.log(merged_ts_data)
+            color_present = [...new Set(color_present)]
+
+            console.log(color_present)
+
             let final_ts_data = [];
             merged_ts_data.forEach(item => {
                 if (Object.keys(item).includes("danceability")) {
@@ -180,7 +187,7 @@
             const groupBySong = data => {
                 const groupedData = {};
                 data.forEach(item => {
-                    const { song, album, color, color_count, danceability, energy, liveliness, acousticness, popularity } = item;
+                    const { song, album, color, danceability, energy, liveliness, acousticness, popularity } = item;
                     if (!groupedData[song]) {
                         groupedData[song] = {
                             song: song,
@@ -195,7 +202,7 @@
                             popularity: popularity
                         };
                     }
-                    groupedData[song].segments.push({ color, color_count });
+                    groupedData[song].segments.push(color);
                 });
 
                 return groupedData;
@@ -295,7 +302,30 @@
                 );
 
             createRadarChart(breakdown_obj.title, radar, breakdown_obj.data, chartWidth, chartHeight)
+            ///////////////////Creating Color Legend ///////////////////////////
+            const colorWidth = colorLegend.attr("width");
+            const colorHeight = colorLegend.attr("height");
+            
+            //createCircles(colorLegend, color_present, color_present, colorHeight);
 
+            colorLegend.selectAll("circle")
+                .data(color_present)
+                .attr("class", "colorCircle")
+                .enter().append("circle")
+                .attr("cx", (d, i) => 25 + i * 50) // Adjust the x-coordinate based on your requirement
+                .attr("cy", (d, i) => colorHeight / 2 + 10) // Adjust the y-coordinate based on your requirement
+                .attr("r", 20)
+                .attr("data-value", d => d)
+                .attr("fill", d => d.toLowerCase());
+
+            colorLegend.append("text")
+                .attr("id", "colorLegend")
+                .text("Colors mentioned")
+                .attr("x", colorWidth / 2)
+                .attr("y", 20)
+                .style("text-anchor", "middle")
+                .style("font-size", "22px")
+                .style("font-weight", "bold");
             ///////////////////Creating the radial chart ///////////////////////////
             const x = d3.scaleBand()
                 .range([0, 2 * Math.PI])
@@ -331,11 +361,15 @@
                     .on("mouseover", function (event, d) {
                         d3.select(this).style('stroke', 'black').style('stroke-width', 5);
                         d3.selectAll(".arcs")
-                        .transition()
-                        .duration(200)
-                        .style("opacity", function(e, j) {
-                            return index === j ? 1 : 0.3; // reduce opacity for non-hovered arcs
-                        });
+                            .transition()
+                            .duration(200)
+                            .style("opacity", function (e, j) {
+                                return index === j ? 1 : 0.3; // reduce opacity for non-hovered arcs
+                            });
+                        console.log("song", song)
+                        
+                        let selectedColors = song.segments;
+                        createCircles(colorLegend, color_present, selectedColors, colorHeight)
                         createRadarChart(song.song, radar, [song.breakdown], chartWidth, chartHeight)
                         const detailsDiv = d3.select("#details");
                         detailsDiv.style("visibility", "visible")
@@ -349,9 +383,10 @@
                         d3.select(this).style('stroke', 'transparent');
                         createRadarChart(breakdown_obj.title, radar, breakdown_obj.data, chartWidth, chartHeight)
                         d3.selectAll(".arcs")
-                        .transition()
-                        .duration(200)
-                        .style("opacity", 1);
+                            .transition()
+                            .duration(200)
+                            .style("opacity", 1);
+                        createCircles(colorLegend, color_present, color_present, colorHeight)
                     });
                 //nextHeight = outerRad;
                 //});
@@ -372,7 +407,7 @@
                 .attr("transform", "translate(" + 70 + "," + 100 + ")")
                 .style("stroke", "transparent");
 
-                
+
 
             chart.append("text")
                 .append("textPath")
@@ -501,13 +536,27 @@
                 .style("font-weight", "bold");
 
             const songDetails = d3.select("#songdetails");
-                songDetails.style("visibility", "visible")
-                songDetails.html(`<p>Danceability: ${((data[0].danceability)*100).toFixed(2)}%</p>
-                    <p>Energy: ${((data[0].energy)*100).toFixed(2)}%</p>
-                    <p>Liveliness: ${((data[0].liveliness)*100).toFixed(2)}%</p>
-                    <p>Acousticness: ${((data[0].acousticness)*100).toFixed(2)}%</p>`);
-                    songDetails.style("display", "block");
+            songDetails.style("visibility", "visible")
+            songDetails.html(`<p>Danceability: ${((data[0].danceability) * 100).toFixed(2)}%</p>
+                    <p>Energy: ${((data[0].energy) * 100).toFixed(2)}%</p>
+                    <p>Liveliness: ${((data[0].liveliness) * 100).toFixed(2)}%</p>
+                    <p>Acousticness: ${((data[0].acousticness) * 100).toFixed(2)}%</p>`);
+            songDetails.style("display", "block");
 
+        }
+
+        function createCircles(colorLegend, color_present, colors, colorHeight){
+            
+            colorLegend.selectAll("circle")
+                .style("opacity", function(d) {
+                    return colors.includes(d) ? 1 : 0.3; // reduce opacity for non-hovered arcs
+                })
+                .style('stroke', function(d) {
+                    return colors.includes(d) && colors.length !== color_present.length ? 'black': 'transparent'
+                })
+                .style('stroke-width', function(d) {
+                    return colors.includes(d) && colors.length !== color_present.length ? 5: 0
+                });
         }
     </script>
 </body>
