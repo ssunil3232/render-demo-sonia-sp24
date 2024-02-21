@@ -93,7 +93,7 @@
         const outerRadius = Math.min(width, height) / 2 - 40;
         const radius = Math.min((chartWidth - 100) - margin.left - margin.right, (chartHeight - 100) - margin.top - margin.bottom) / 2;
         const chart = svg.append("g")
-            .attr("transform", "translate(" + 100 + "," + 10 + ") scale(" + 0.8 + "," + 0.8 + ")");
+            .attr("transform", "translate(" + 70 + "," + 10 + ") scale(" + 0.8 + "," + 0.8 + ")");
         const radar = svg2
             .append('svg')
             .attr("width", chartWidth)
@@ -308,7 +308,7 @@
                 .domain([0, d3.max(ts_data, d => d.popularity)]);
 
 
-            ts_data.forEach(song => {
+            ts_data.forEach((song, index) => {
                 //const totalColorCount = song.segments.reduce((acc, segment) => acc + segment.color_count, 0);
                 let nextHeight = innerRadius;
                 //song.segments.forEach(segment => {
@@ -317,6 +317,8 @@
                 //let outerRad = y(proportion * song.danceability);
                 //console.log(outerRad)
                 chart.append("path")
+                    .datum(song)
+                    .attr("class", "arcs")
                     .attr("d", d3.arc()
                         .innerRadius(nextHeight)
                         .outerRadius(y(song.popularity))
@@ -327,6 +329,13 @@
                     .attr("fill", "#a80029b5")
                     .attr("transform", `translate(${width / 2}, ${height / 2 + 50})`)
                     .on("mouseover", function (event, d) {
+                        d3.select(this).style('stroke', 'black').style('stroke-width', 5);
+                        d3.selectAll(".arcs")
+                        .transition()
+                        .duration(200)
+                        .style("opacity", function(e, j) {
+                            return index === j ? 1 : 0.3; // reduce opacity for non-hovered arcs
+                        });
                         createRadarChart(song.song, radar, [song.breakdown], chartWidth, chartHeight)
                         const detailsDiv = d3.select("#details");
                         detailsDiv.style("visibility", "visible")
@@ -337,7 +346,12 @@
                     })
                     .on("mouseout", function (event, d) {
                         d3.select("#details").style("display", "none");
+                        d3.select(this).style('stroke', 'transparent');
                         createRadarChart(breakdown_obj.title, radar, breakdown_obj.data, chartWidth, chartHeight)
+                        d3.selectAll(".arcs")
+                        .transition()
+                        .duration(200)
+                        .style("opacity", 1);
                     });
                 //nextHeight = outerRad;
                 //});
