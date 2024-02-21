@@ -70,7 +70,7 @@
 
 <body>
     <p class="title">INFO 5311 HW2 - Sonia, Bandar</p>
-    <div id="header"></div>
+    <svg id="header" height="50" width="500"></svg>
     <div style="display: flex;">
         <svg id="plot" height="700" width="700" style="background: transparent">
         </svg>
@@ -351,30 +351,53 @@
                 .attr("width", "40%")
                 .attr("height", "40%");
 
-            const path = header.append("path")
-                .attr("id", "textPath")
+            chart.append("path")
+                .attr("id", "chartTitle")
+                .attr("d", "M 0,300 A 200,250 0 0,1 300,80")
+                .style("fill", "none")
+                .attr("transform", "translate(" + 70 + "," + 100 + ")")
+                .style("stroke", "transparent");
+
+                
+
+            chart.append("text")
+                .append("textPath")
+                .attr("xlink:href", "#chartTitle")
+                .attr("startOffset", "50%")
+                .text("Popularity score")
+                .style("text-anchor", "middle")
+                .style("font-size", "30px")
+                .style("font-weight", "bold");
+
+            header.append("image")
+                .attr("class", "ts")
+                .attr("xlink:href", "taylor-title.png")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("width", "100%")
+                .attr("height", "100%");
+
+            /*header.append("path")
+                .attr("id", "wavy")
                 .attr("d", "M 10,90 Q 100,15 200,70 Q 340,140 400,30")
                 .style("fill", "none")
                 .style("stroke", "#AAAAAA");
 
-            const text = header.append("text")
+            header.append("text")
                 .append("textPath")
-                .attr("xlink:href", "#textPath")
+                .attr("xlink:href", "#wavy")
                 .attr("startOffset", "50%")
                 .text("Taylor Swift Songs")
                 .style("text-anchor", "middle")
                 .style("font-size", "30px")
                 .style("font-weight", "bold");
 
-            text.append("tspan").text(" ")
+            header.append("tspan").text(" ")
                 .append("tspan").html("&#127932;")
                 .append("tspan").html(" \uD83C\uDFB5")
                 .append("tspan").html(" \uD83C\uDFB6")
                 .append("tspan").html(" \uD83C\uDFB5")
-                .append("tspan").html(" \uD83C\uDFBC");
-
-
-
+                .append("tspan").html(" \uD83C\uDFBC");*/
 
         }
         requestData();
