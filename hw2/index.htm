@@ -11,7 +11,9 @@
     body {
         justify-content: center;
         display: flex;
-        background: #e3c3c3;
+        background-image: url(https://miro.medium.com/v2/resize:fit:739/1*wHsM4lnTwnnkszc-depMbA.jpeg);
+        background-size: cover;
+        background-position: center;
         flex-direction: column;
         align-items: center;
     }
@@ -40,7 +42,7 @@
         position: absolute;
         right: 40px;
         width: 200px;
-        top: 30%;
+        top: 20%;
         padding: 10px;
         background-color: #ffffff69;
         border: 1px solid #ccc;
@@ -210,7 +212,7 @@
 
             const result = groupBySong(final_ts_data);
             let breakdown_obj = {
-                title: "Overall of all Taylor's songs!",
+                title: "Swift Moves & Vibes!",
                 data: []
             }
 
@@ -305,7 +307,7 @@
             ///////////////////Creating Color Legend ///////////////////////////
             const colorWidth = colorLegend.attr("width");
             const colorHeight = colorLegend.attr("height");
-            
+
             //createCircles(colorLegend, color_present, color_present, colorHeight);
 
             colorLegend.selectAll("circle")
@@ -320,12 +322,14 @@
 
             colorLegend.append("text")
                 .attr("id", "colorLegend")
-                .text("Colors mentioned")
+                .text("COLORS MENTIONED")
                 .attr("x", colorWidth / 2)
                 .attr("y", 20)
                 .style("text-anchor", "middle")
+                .style("font-family", "Helvetica")
+                .style("fill", "#AE3FC1")
                 .style("font-size", "22px")
-                .style("font-weight", "bold");
+                .style("font-weight", "thin");
             ///////////////////Creating the radial chart ///////////////////////////
             const x = d3.scaleBand()
                 .range([0, 2 * Math.PI])
@@ -356,10 +360,10 @@
                         .endAngle(x(song.song) + x.bandwidth())
                         .padAngle(0.1)
                         .padRadius(innerRadius))
-                    .attr("fill", "#a80029b5")
+                    .attr("fill", "#8DA8FF")
                     .attr("transform", `translate(${width / 2}, ${height / 2 + 50})`)
                     .on("mouseover", function (event, d) {
-                        d3.select(this).style('stroke', 'black').style('stroke-width', 5);
+                        d3.select(this).style('stroke', 'white').style('stroke-width', 5);
                         d3.selectAll(".arcs")
                             .transition()
                             .duration(200)
@@ -367,7 +371,7 @@
                                 return index === j ? 1 : 0.3; // reduce opacity for non-hovered arcs
                             });
                         console.log("song", song)
-                        
+
                         let selectedColors = song.segments;
                         createCircles(colorLegend, color_present, selectedColors, colorHeight)
                         createRadarChart(song.song, radar, [song.breakdown], chartWidth, chartHeight)
@@ -394,7 +398,7 @@
 
             chart.append("image")
                 .attr("class", "ts")
-                .attr("xlink:href", "taylor-swift.webp")
+                .attr("xlink:href", "Taylor_Swift_.png")
                 .attr("x", chartWidth / 2 - 120)
                 .attr("y", chartHeight / 2 - 80)
                 .attr("width", "40%")
@@ -404,7 +408,7 @@
                 .attr("id", "chartTitle")
                 .attr("d", "M 0,300 A 200,250 0 0,1 300,80")
                 .style("fill", "none")
-                .attr("transform", "translate(" + 70 + "," + 100 + ")")
+                .attr("transform", "translate(" + 5 + "," + 20 + ")")
                 .style("stroke", "transparent");
 
 
@@ -413,14 +417,20 @@
                 .append("textPath")
                 .attr("xlink:href", "#chartTitle")
                 .attr("startOffset", "50%")
-                .text("Popularity score")
+                .text("Popularity Score")
+                .style("font-family", "Helvetica")
                 .style("text-anchor", "middle")
-                .style("font-size", "30px")
+                .style("font-size", "40px")
+                .style("fill", "#AE3FC1")
                 .style("font-weight", "bold");
+
+                chart.select("#chartTitle")
+                    .transition().duration(3000).delay(2000)
+                    .attr("d", "M10,100 Q200,-50 300,100");
 
             header.append("image")
                 .attr("class", "ts")
-                .attr("xlink:href", "taylor-title.png")
+                .attr("xlink:href", "NEW-TITLE.png")
                 .attr("x", 0)
                 .attr("y", 0)
                 .attr("width", "100%")
@@ -532,7 +542,9 @@
                 .attr("x", width / 2)
                 .attr("y", 20)
                 .style("text-anchor", "middle")
-                .style("font-size", "22px")
+                .style("font-family", "Helvetica")
+                .style("fill", "#AE3FC1")
+                .style("font-size", "40px")
                 .style("font-weight", "bold");
 
             const songDetails = d3.select("#songdetails");
@@ -545,17 +557,17 @@
 
         }
 
-        function createCircles(colorLegend, color_present, colors, colorHeight){
-            
+        function createCircles(colorLegend, color_present, colors, colorHeight) {
+
             colorLegend.selectAll("circle")
-                .style("opacity", function(d) {
+                .style("opacity", function (d) {
                     return colors.includes(d) ? 1 : 0.3; // reduce opacity for non-hovered arcs
                 })
-                .style('stroke', function(d) {
-                    return colors.includes(d) && colors.length !== color_present.length ? 'black': 'transparent'
+                .style('stroke', function (d) {
+                    return colors.includes(d) && colors.length !== color_present.length ? 'white' : 'transparent'
                 })
-                .style('stroke-width', function(d) {
-                    return colors.includes(d) && colors.length !== color_present.length ? 5: 0
+                .style('stroke-width', function (d) {
+                    return colors.includes(d) && colors.length !== color_present.length ? 5 : 0
                 });
         }
     </script>
