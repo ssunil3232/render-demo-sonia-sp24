@@ -81,6 +81,19 @@
         <div id="songdetails" style="visibility:hidden;"></div>
     </div>
     <svg id="colors" height="100" width="650"></svg>
+    
+    <svg width="500" height="100">
+        <defs>
+            <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+                <stop offset="20%" style="stop-color:rgb(255,165,0);stop-opacity:1" />
+                <stop offset="40%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+                <stop offset="60%" style="stop-color:rgb(0,255,0);stop-opacity:1" />
+                <stop offset="80%" style="stop-color:rgb(0,127,255);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(134,0,255);stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
 
     <script>
         const svg = d3.select("#plot");
@@ -318,7 +331,7 @@
                 .attr("cy", (d, i) => colorHeight / 2 + 10) // Adjust the y-coordinate based on your requirement
                 .attr("r", 20)
                 .attr("data-value", d => d)
-                .attr("fill", d => d.toLowerCase());
+                .attr("fill", d => d === "Special" ? "url(#rainbowGradient)" : d.toLowerCase());
 
             colorLegend.append("text")
                 .attr("id", "colorLegend")
@@ -408,7 +421,7 @@
                 .attr("id", "chartTitle")
                 .attr("d", "M 0,300 A 200,250 0 0,1 300,80")
                 .style("fill", "none")
-                .attr("transform", "translate(" + 5 + "," + 20 + ")")
+                .attr("transform", "translate(" + 70 + "," + 100 + ")")
                 .style("stroke", "transparent");
 
 
@@ -424,9 +437,7 @@
                 .style("fill", "#AE3FC1")
                 .style("font-weight", "bold");
 
-                chart.select("#chartTitle")
-                    .transition().duration(3000).delay(2000)
-                    .attr("d", "M10,100 Q200,-50 300,100");
+                
 
             header.append("image")
                 .attr("class", "ts")
