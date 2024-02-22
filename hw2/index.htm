@@ -28,7 +28,7 @@
 
     #details {
         position: absolute;
-        left: 40vw;
+        left: 41vw;
         width: 250px;
         top: 18%;
         padding: 10px;
@@ -406,9 +406,9 @@
 
             chart.append("path")
                 .attr("id", "chartTitle")
-                .attr("d", "M 0,300 A 200,250 0 0,1 300,80")
+                .attr("d", "M -20,320 A 280,500, 1 0,1 200,40")
                 .style("fill", "none")
-                .attr("transform", "translate(" + 5 + "," + 20 + ")")
+                .attr("transform", "translate(" + 70 + "," + 100 + ")")
                 .style("stroke", "transparent");
 
 
@@ -424,9 +424,9 @@
                 .style("fill", "#AE3FC1")
                 .style("font-weight", "bold");
 
-                chart.select("#chartTitle")
+            /*    chart.select("#chartTitle")
                     .transition().duration(3000).delay(2000)
-                    .attr("d", "M10,100 Q200,-50 300,100");
+                    .attr("d", "M10,100 Q200,-50 300,100");*/
 
             header.append("image")
                 .attr("class", "ts")
@@ -540,11 +540,12 @@
                 .attr("id", "title")
                 .text(title)
                 .attr("x", width / 2)
-                .attr("y", 20)
+                .attr("y", 0)
                 .style("text-anchor", "middle")
                 .style("font-family", "Helvetica")
                 .style("fill", "#AE3FC1")
-                .style("font-size", "40px")
+                .style("font-size", "35px")
+                .call(wrap, 400)
                 .style("font-weight", "bold");
 
             const songDetails = d3.select("#songdetails");
@@ -569,6 +570,31 @@
                 .style('stroke-width', function (d) {
                     return colors.includes(d) && colors.length !== color_present.length ? 5 : 0
                 });
+        }
+
+        function wrap(text, width) {
+            text.each(function() {
+                var text = d3.select(this),
+                words = text.text().split(/\s+/).reverse(),
+                word,
+                line = [],
+                lineNumber = 0, //<-- 0!
+                lineHeight = 1.2, // ems
+                x = text.attr("x"), //<-- include the x!
+                y = text.attr("y"),
+                dy = text.attr("dy") ? text.attr("dy") : 0; //<-- null check
+                tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                }
+            });
         }
     </script>
 </body>
