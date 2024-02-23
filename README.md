@@ -1,4 +1,8 @@
 ## HW 2
+<img width="1459" alt="Screenshot 2024-02-23 at 4 28 07 PM" src="https://github.com/ssunil3232/render-demo-sonia-sp24/assets/37371431/9e3f1ece-228a-4fa1-a678-e052de4a971f">
+<img width="1459" alt="Screenshot 2024-02-23 at 4 28 17 PM" src="https://github.com/ssunil3232/render-demo-sonia-sp24/assets/37371431/b27ca133-d848-467c-ac60-d4941bb6fd82">
+
+
 
 References:
 - Datasets:
