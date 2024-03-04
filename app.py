@@ -8,7 +8,7 @@ app = Flask(__name__)
 #     return make_response("Hello, World!")
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
-                          root='hw2/', 
+                          root='hw3/', 
                           prefix='/', 
                           index_file='index.htm', 
                           autorefresh=True)

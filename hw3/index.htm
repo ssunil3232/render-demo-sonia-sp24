@@ -1,0 +1,129 @@
+<html lang="en">
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>INFO 5311 HW3</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<style>
+    body {
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <svg id="header" height="60" width="500"></svg>
+    <div style="display: flex;">
+        <svg id="plot" height="650" width="1400" style="background: transparent">
+        </svg>
+    </div>
+    <div style="display: flex;">
+        <svg id="plot2" height="650" width="1400" style="background: transparent">
+        </svg>
+    </div>
+
+    <script>
+        const svg = d3.select("#plot");
+        const header = d3.select('#header');
+        const headerWidth = header.attr("width");
+        const headerHeight = header.attr("height");
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+
+        var originBtns = [{ "name": "Category" }, { "name": "Rating" }, { "name": "Neighbourhood" }];
+        svg.attr("transform", "translate(" + 0 + "," + 30 + ")");
+        header.attr("transform", "translate(" + 0 + "," + 30 + ")");
+        header.append("text")
+            .text("View by...")
+            .attr("x", headerWidth / 2 - 40)
+            .attr("y", 50)
+            .style("font-family", "Helvetica")
+            .style("text-anchor", "middle")
+            .style("font-size", "30px")
+            .style("font-weight", "bold");
+
+
+        var node = svg.append("g")
+            .selectAll("circle")
+            .data(originBtns)
+            .enter()
+            .append("circle")
+            .attr("r", 100)
+            .attr("cx", width / 2)
+            .attr("cy", height / 2)
+            .style("fill", "#19d3a2")
+            .style("fill-opacity", 0.3)
+            .attr("stroke", "#b3a2c8")
+            .style("stroke-width", 4)
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        var circleText = svg.selectAll("text")
+            .data(originBtns)
+            .enter()
+            .append("text")
+            .text(function (d) { return d.name; })
+            .attr("x", function (d) { return d.x; })
+            .attr("y", function (d) { return d.y; })
+            .attr("text-anchor", "middle")
+            .attr("dy", ".35em")
+            .attr("font-family", "monospace")
+            .style("font-size", "20px");
+
+        var simulation = d3.forceSimulation()
+            .force("center", d3.forceCenter().x(width / 2).y(height / 2))
+            .force("charge", d3.forceManyBody().strength(1))
+            .force("collide", d3.forceCollide().strength(.1).radius(110).iterations(1))
+
+        simulation
+            .nodes(originBtns)
+            .on("tick", function (d) {
+                node
+                    .attr("cx", function (d) { return d.x; })
+                    .attr("cy", function (d) { return d.y; })
+                circleText
+                    .attr("x", function (d) { return d.x; })
+                    .attr("y", function (d) { return d.y; })
+            });
+
+        function dragstarted(d) {
+            if (!d3.event.active) simulation.alphaTarget(.03).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        function dragged(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
+        function dragended(d) {
+            if (!d3.event.active) simulation.alphaTarget(.03);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        const requestData = async function () {
+            const data = await d3.csv("./yelp_pittsburgh.csv");
+            data.forEach(d => {
+                d["rating"] = Number(d["rating"])
+            })
+            console.log("data", data)
+
+
+        }
+        requestData();
+
+
+    </script>
+</body>
+
+</html>
