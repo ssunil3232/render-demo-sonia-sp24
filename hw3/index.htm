@@ -55,7 +55,7 @@
         </svg>
     </div>
     <div id="treeContainer" style="display: flex;">
-        <svg id="plot2" height="1000" width="1200" style="background: transparent">
+        <svg id="plot2" height="1200" width="1200" style="background: transparent">
         </svg>
     </div>
     <div id="details" style="visibility:hidden;"></div>
@@ -175,9 +175,10 @@
 
         const requestData = async function (groupByOrder) {
             const data = await d3.csv("./yelp_pittsburgh.csv");
-            //data.forEach(d => {
-            //d["rating"] = Number(d["rating"])
-            //})
+            data.forEach(d => {
+                d["review_count"] = Number(d["review count"])
+            })
+            console.log("original data", data)
 
             let finalData = remapData(data, groupByOrder);
 
@@ -245,7 +246,6 @@
 
         function createTreeMap(svg, data, order) {
             order.unshift("");
-            console.log("order final", order)
             svg.selectAll("g").remove();
 
             let width = svg.attr("width");
@@ -295,7 +295,8 @@
                 });
                 let padding = 80
                 let height = bottom.x - top.x + padding;
-                svg.attr("height", height);
+                console.log("helllp", height, bottom.x, top.x, padding)
+                svg.attr("min-height", height);
 
                 linkGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
                 nodeGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
@@ -363,7 +364,7 @@
                                         const detailsDiv = d3.select("#details");
                                         detailsDiv.style("top", posY + "px")
                                         detailsDiv.style("visibility", "visible")
-                                        detailsDiv.html(`<p>${detail.name}</p><div class="detail-text"><p>${detail.type}</p></div>`);
+                                        detailsDiv.html(`<p>${detail.name}</p><p>Review Count: ${detail.review_count}</p><div class="detail-text"><p>${detail.snippet}</p></div>`);
                                         detailsDiv.style("display", "block");
                                     }
                                 })
