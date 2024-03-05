@@ -54,7 +54,7 @@
         <svg id="plot" height="500" width="1400" style="background: transparent">
         </svg>
     </div>
-    <div id="treeContainer" style="display: flex;">
+    <div id="treeContainer">
         <svg id="plot2" height="1200" width="1200" style="background: transparent">
         </svg>
     </div>
@@ -174,9 +174,20 @@
         });
 
         const requestData = async function (groupByOrder) {
-            const data = await d3.csv("./yelp_pittsburgh.csv");
-            data.forEach(d => {
-                d["review_count"] = Number(d["review count"])
+            const oGdata = await d3.csv("./yelp_pittsburgh.csv");
+            let data = []
+            oGdata.forEach(d => {
+                if (d.type === "food" && d.neighborhood !== "" && d.rating !== "" && d.category !== "") {
+                    let obj = {
+                        review_count: Number(d["review count"]),
+                        category: d["category"],
+                        neighborhood: d["neighborhood"],
+                        snippet: d["snippet"],
+                        rating: d["rating"],
+                        name: d["name"]
+                    }
+                    data.push(obj)
+                }
             })
             console.log("original data", data)
 
@@ -239,7 +250,6 @@
                 name: "Pittsburgh Food",
                 children: mappedData
             }
-            console.log("finalData", finalData)
             return finalData;
         }
 
@@ -247,6 +257,8 @@
         function createTreeMap(svg, data, order) {
             order.unshift("");
             svg.selectAll("g").remove();
+            let container = d3.select("#treeContainer");
+            container.selectAll("button").remove();
 
             let width = svg.attr("width");
             let linkGroup = svg.append("g").attr("class", "links")
@@ -270,8 +282,8 @@
 
             virtualText.text("thisisatest");
 
-            let xPadding = 100
-            let yPadding = 4;
+            let xPadding = 110
+            let yPadding = 5;
             treeGen.nodeSize(node => {
                 virtualText.text(node.data.name);
                 let width = xPadding + virtualText.node().getComputedTextLength();
@@ -294,9 +306,8 @@
                     if (node.x > bottom.x) { bottom = node };
                 });
                 let padding = 80
-                let height = bottom.x - top.x + padding;
-                console.log("helllp", height, bottom.x, top.x, padding)
-                svg.attr("min-height", height);
+                let height = bottom.x - top.x + padding +200;
+                svg.attr("height", height);
 
                 linkGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
                 nodeGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
@@ -358,7 +369,6 @@
                                 })
                                 .on("mouseover", function (event, d) {
                                     var posY = event.pageY - 50;
-
                                     if (!d.backupChildren) {
                                         let detail = d.data;
                                         const detailsDiv = d3.select("#details");
@@ -369,7 +379,7 @@
                                     }
                                 })
                                 .on("mouseout", function (event, d) {
-                                  d3.select("#details").style("display", "none");
+                                    d3.select("#details").style("display", "none");
                                 });
                         },
                         update => {
@@ -396,6 +406,42 @@
                         });
             }
             updateChart();
+
+            function expand(node) {
+                if (node.backupChildren) {
+                    node.children = node.backupChildren;
+                    node.children.forEach(n2 => {
+                        expand(n2);
+                    })
+                }
+            }
+
+            d3.select("#treeContainer")
+                .append("button").lower()
+                .text("OPEN ALL NODES")
+                .attr("cursor", "pointer")
+                .attr("x", 10)
+                .attr("y", 20)
+                .attr("class", "collapsed") // store state of the button as a class - a handy trick
+                .on("click", function () {
+                    let e = d3.select(this);
+                    if (e.classed("collapsed")) {
+                        // OPEN ALL
+                        expand(root);
+                        updateChart(root);
+                        e.text("CLOSE ALL NODES")
+                            .classed("collapsed", false)
+                    }
+                    else {
+                        // CLOSE ALL
+                        root.descendants().forEach(node => {
+                            if (node.depth > 0) { node.children = null; }
+                        });
+                        updateChart(root);
+                        e.text("OPEN ALL NODES")
+                            .classed("collapsed", true)
+                    }
+                })
 
         }
 
