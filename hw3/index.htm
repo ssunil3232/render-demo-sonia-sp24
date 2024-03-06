@@ -12,6 +12,7 @@
     body {
         justify-content: center;
         display: flex;
+        background-color: lavender;
         flex-direction: column;
         align-items: center;
     }
@@ -54,7 +55,7 @@
         <svg id="plot" height="500" width="1400" style="background: transparent">
         </svg>
     </div>
-    <div id="treeContainer">
+    <div id="treeContainer" style="display: flex;">
         <svg id="plot2" height="1200" width="1200" style="background: transparent">
         </svg>
     </div>
@@ -74,17 +75,15 @@
 
         var originBtns = [{ "name": "Category" }, { "name": "Rating" }, { "name": "Neighbourhood" }];
         svg.attr("transform", "translate(" + 0 + "," + 30 + ")");
-        svg.style("border", "2px solid black");
+        svg.style("border", "1px solid black");
         svg2.attr("transform", "translate(" + 0 + "," + 50 + ")");
         header.attr("transform", "translate(" + 0 + "," + 30 + ")");
-        header.append("text")
-            .text("Pittsburgh Yelp food locations - view by...")
-            .attr("x", headerWidth / 2 - 40)
-            .attr("y", 50)
-            .style("font-family", "Helvetica")
-            .style("text-anchor", "middle")
-            .style("font-size", "30px")
-            .style("font-weight", "bold");
+        header.append("image")
+            .attr("xlink:href", "Group 1.png")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", "100%")
+            .attr("height", "100%");
 
 
         var circleNode = svg.append("g")
@@ -174,20 +173,9 @@
         });
 
         const requestData = async function (groupByOrder) {
-            const oGdata = await d3.csv("./yelp_pittsburgh.csv");
-            let data = []
-            oGdata.forEach(d => {
-                if (d.type === "food" && d.neighborhood !== "" && d.rating !== "" && d.category !== "") {
-                    let obj = {
-                        review_count: Number(d["review count"]),
-                        category: d["category"],
-                        neighborhood: d["neighborhood"],
-                        snippet: d["snippet"],
-                        rating: d["rating"],
-                        name: d["name"]
-                    }
-                    data.push(obj)
-                }
+            const data = await d3.csv("./yelp_pittsburgh.csv");
+            data.forEach(d => {
+                d["review_count"] = Number(d["review count"])
             })
             console.log("original data", data)
 
@@ -250,6 +238,7 @@
                 name: "Pittsburgh Food",
                 children: mappedData
             }
+            console.log("finalData", finalData)
             return finalData;
         }
 
@@ -257,13 +246,12 @@
         function createTreeMap(svg, data, order) {
             order.unshift("");
             svg.selectAll("g").remove();
-            let container = d3.select("#treeContainer");
-            container.selectAll("button").remove();
 
             let width = svg.attr("width");
             let linkGroup = svg.append("g").attr("class", "links")
             let nodeGroup = svg.append("g").attr("class", "nodes")
             let root = d3.hierarchy(data);
+        
 
             root.descendants().forEach((d, i) => {
                 d.id = i;
@@ -282,8 +270,8 @@
 
             virtualText.text("thisisatest");
 
-            let xPadding = 110
-            let yPadding = 5;
+            let xPadding = 100
+            let yPadding = 4;
             treeGen.nodeSize(node => {
                 virtualText.text(node.data.name);
                 let width = xPadding + virtualText.node().getComputedTextLength();
@@ -306,8 +294,9 @@
                     if (node.x > bottom.x) { bottom = node };
                 });
                 let padding = 80
-                let height = bottom.x - top.x + padding +200;
-                svg.attr("height", height);
+                let height = bottom.x - top.x + padding;
+                console.log("helllp", height, bottom.x, top.x, padding)
+                svg.attr("min-height", height);
 
                 linkGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
                 nodeGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
@@ -369,6 +358,7 @@
                                 })
                                 .on("mouseover", function (event, d) {
                                     var posY = event.pageY - 50;
+
                                     if (!d.backupChildren) {
                                         let detail = d.data;
                                         const detailsDiv = d3.select("#details");
@@ -406,42 +396,6 @@
                         });
             }
             updateChart();
-
-            function expand(node) {
-                if (node.backupChildren) {
-                    node.children = node.backupChildren;
-                    node.children.forEach(n2 => {
-                        expand(n2);
-                    })
-                }
-            }
-
-            d3.select("#treeContainer")
-                .append("button").lower()
-                .text("OPEN ALL NODES")
-                .attr("cursor", "pointer")
-                .attr("x", 10)
-                .attr("y", 20)
-                .attr("class", "collapsed") // store state of the button as a class - a handy trick
-                .on("click", function () {
-                    let e = d3.select(this);
-                    if (e.classed("collapsed")) {
-                        // OPEN ALL
-                        expand(root);
-                        updateChart(root);
-                        e.text("CLOSE ALL NODES")
-                            .classed("collapsed", false)
-                    }
-                    else {
-                        // CLOSE ALL
-                        root.descendants().forEach(node => {
-                            if (node.depth > 0) { node.children = null; }
-                        });
-                        updateChart(root);
-                        e.text("OPEN ALL NODES")
-                            .classed("collapsed", true)
-                    }
-                })
 
         }
 
