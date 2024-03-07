@@ -1,0 +1,455 @@
+<html lang="en">
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>INFO 5311 HW3</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-flextree@2.0.0/build/d3-flextree.min.js"></script>
+</head>
+<style>
+    body {
+        justify-content: center;
+        display: flex;
+        background-color: lavender;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .node {
+        cursor: pointer;
+    }
+
+    .node circle {
+        fill: #fff;
+        stroke: steelblue;
+        stroke-width: 2px;
+    }
+
+    .node text {
+        font: 12px sans-serif;
+    }
+
+    .link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 2px;
+    }
+
+    #details {
+        position: absolute;
+        right: 5%;
+        width: 250px;
+        padding: 10px;
+        background-color: #ffffff69;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<body>
+    <svg id="header" height="60" width="1400"></svg>
+    <div style="display: flex;">
+        <svg id="plot" height="500" width="1400" style="background: transparent">
+        </svg>
+    </div>
+    <div id="treeContainer">
+        <svg id="plot2" height="1200" width="1200" style="background: transparent">
+        </svg>
+    </div>
+    <div id="details" style="visibility:hidden;"></div>
+
+    <script>
+        const svg = d3.select("#plot");
+        const svg2 = d3.select("#plot2")
+        const header = d3.select('#header');
+        const headerWidth = header.attr("width");
+        const headerHeight = header.attr("height");
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+
+        var originBtns = [{ "name": "Category" }, { "name": "Rating" }, { "name": "Neighbourhood" }];
+        svg.attr("transform", "translate(" + 0 + "," + 30 + ")");
+        svg.style("border", "1px solid black");
+        svg2.attr("transform", "translate(" + 0 + "," + 50 + ")");
+        header.attr("transform", "translate(" + 0 + "," + 30 + ")");
+        header.append("image")
+            .attr("xlink:href", "Group 1.png")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", "100%")
+            .attr("height", "100%");
+
+
+        var circleNode = svg.append("g")
+            .selectAll("circle")
+            .data(originBtns)
+            .enter()
+            .append("circle")
+            .attr("r", 100)
+            .attr("cx", width / 2)
+            .attr("cy", height / 2)
+            .style("fill", function (d) {
+                let color;
+                d.name === "Category" ? color = "red" : color = "#19d3a2";
+                return color;
+            })
+            .style("fill-opacity", 0.3)
+            .attr("stroke", "#b3a2c8")
+            .style("stroke-width", 4)
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        var circleText = svg.selectAll(".label")
+            .data(originBtns)
+            .enter()
+            .append("text")
+            .text(function (d) { return d.name; })
+            .attr("x", width / 2)
+            .attr("y", height / 2)
+            .attr("text-anchor", "middle")
+            .attr("dy", ".35em")
+            .attr("font-family", "monospace")
+            .style("font-size", "20px");
+
+        var simulation = d3.forceSimulation()
+            .force("center", d3.forceCenter().x(width / 2).y(height / 2))
+            .force("charge", d3.forceManyBody().strength(1))
+            .force("collide", d3.forceCollide().strength(.1).radius(110).iterations(1));
+
+        simulation
+            .nodes(originBtns)
+            .on("tick", function () {
+                circleNode
+                    .attr("cx", function (d) { return d.x; })
+                    .attr("cy", function (d) { return d.y; });
+                circleText
+                    .attr("x", function (d) { return d.x; })
+                    .attr("y", function (d) { return d.y; });
+            });
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(.03).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(.03);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        let groupByOrder = ["category", "rating", "neighborhood"];
+        circleNode.on("click", function (event, d) {
+            if (d.name === "Category") {
+                groupByOrder = ["category", "rating", "neighborhood"];
+            }
+            else if (d.name === "Rating") {
+                groupByOrder = ["rating", "neighborhood", "category"];
+            }
+            else {
+                groupByOrder = ["neighborhood", "category", "rating"];
+            }
+            d3.select(event.currentTarget)
+                .style("fill", "red");
+
+            circleNode.style("fill", function (data) {
+                return data === d ? "red" : "#19d3a2";
+            });
+            requestData(groupByOrder)
+        });
+
+        const requestData = async function (groupByOrder) {
+            const oGdata = await d3.csv("./yelp_pittsburgh.csv");
+            let data = []
+            oGdata.forEach(d => {
+                if (d.type === "food" && d.neighborhood !== "" && d.rating !== "" && d.category !== "") {
+                    let obj = {
+                        review_count: Number(d["review count"]),
+                        category: d["category"],
+                        neighborhood: d["neighborhood"],
+                        snippet: d["snippet"],
+                        rating: d["rating"],
+                        name: d["name"]
+                    }
+                    data.push(obj)
+                }
+            })
+            console.log("original data", data)
+
+            let finalData = remapData(data, groupByOrder);
+
+            createTreeMap(svg2, finalData, groupByOrder);
+
+        }
+        requestData(groupByOrder);
+
+        function remapData(data, groupByOrder) {
+
+            function groupByCategory(data, mapBy) {
+                const groupedData = {};
+                data.forEach(item => {
+                    const mapByItem1 = item[mapBy[0]];
+                    if (!groupedData[mapByItem1]) {
+                        groupedData[mapByItem1] = {};
+                    }
+                    const mapByItem2 = item[mapBy[1]];
+                    if (!groupedData[mapByItem1][mapByItem2]) {
+                        groupedData[mapByItem1][mapByItem2] = {};
+                    }
+                    const mapByItem3 = item[mapBy[2]];
+                    if (!groupedData[mapByItem1][mapByItem2][mapByItem3]) {
+                        groupedData[mapByItem1][mapByItem2][mapByItem3] = [];
+                    }
+                    groupedData[mapByItem1][mapByItem2][mapByItem3].push(item);
+                });
+
+                return groupedData;
+            }
+
+            const groupedData = groupByCategory(data, groupByOrder);
+
+            function convertToHierarchy(data, depth = 0) {
+                const result = [];
+                for (const key in data) {
+                    if (Object.hasOwnProperty.call(data, key)) {
+                        const item = data[key];
+                        if (depth < 2 && typeof item === 'object') {
+                            const children = convertToHierarchy(item, depth + 1);
+                            result.push({
+                                name: key,
+                                children: children
+                            });
+                        } else {
+                            result.push({
+                                name: key,
+                                children: item
+                            });
+                        }
+                    }
+
+                }
+                return result;
+            }
+            let mappedData = convertToHierarchy(groupedData);
+            let finalData = {
+                name: "Pittsburgh Food",
+                children: mappedData
+            }
+            return finalData;
+        }
+
+
+        function createTreeMap(svg, data, order) {
+            order.unshift("");
+            svg.selectAll("g").remove();
+            let container = d3.select("#treeContainer");
+            container.selectAll("button").remove();
+
+            let width = svg.attr("width");
+            let linkGroup = svg.append("g").attr("class", "links")
+            let nodeGroup = svg.append("g").attr("class", "nodes")
+            let root = d3.hierarchy(data);
+        
+        
+
+
+
+            root.descendants().forEach((d, i) => {
+                d.id = i;
+                d.backupChildren = d.children;
+            });
+
+            root.descendants().forEach(node => {
+                if (node.depth > 0) { node.children = null; }
+            });
+
+            let fontScale = d3.scaleLinear().domain([0, 5]).clamp(true).range([20, 10]);
+
+            let treeGen = d3.flextree();
+            let virtualText = d3.select("body").append("svg").attr("width", 0).attr("height", 0)
+                .append("text").attr("class", "node-label");
+
+            virtualText.text("thisisatest");
+
+            let xPadding = 110
+            let yPadding = 5;
+            treeGen.nodeSize(node => {
+                virtualText.text(node.data.name);
+                let width = xPadding + virtualText.node().getComputedTextLength();
+                let height = fontScale(node.depth) + 2 * yPadding;
+                return [height, width];
+            });
+            treeGen.spacing(10);
+
+            let lineGen = d3.linkHorizontal().x(d => d.y).y(d => d.x)
+
+            let updateChart = async function () {
+                let nodeDat = root.descendants();
+                let linkDat = root.links();
+                let tree = treeGen(root);
+
+                let top = root;
+                let bottom = root;
+                root.each(node => {
+                    if (node.x < top.x) { top = node };
+                    if (node.x > bottom.x) { bottom = node };
+                });
+                let padding = 80
+                let height = bottom.x - top.x + padding +200;
+                svg.attr("height", height);
+
+                linkGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
+                nodeGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
+
+                let nodes = nodeGroup.selectAll("g.node").data(nodeDat, d => d.id)
+                    .join(
+                        enter => {
+                            let g = enter.append("g").attr("class", "node")
+
+                            g.append("circle")
+                                .attr("r", 8)
+                                .style("fill", (d) => {
+                                    if (d.depth === 4) {
+                                        return "#ffbebb"
+                                    }
+                                    else {
+                                        return "#c8f1e3";
+                                    }
+                                })
+                                .attr("stroke", "#b3a2c8")
+                                .attr("stroke-width", 2)
+
+                            g.append("text").attr("class", "node-label no-select")
+                                .attr("x", 14)
+                                .attr("text-anchor", "start")
+                                .style("font-size", d => { scale = fontScale(d.depth); return `${scale}px` })
+                                .attr("dy", d => fontScale(d.depth) / 4)
+                                .text(d => {
+                                    let str = d.data.name;
+                                    return str.charAt(0).toUpperCase() + str.slice(1);
+                                });
+
+                            g.append("text").attr("class", "node-shadow no-select")
+                                .attr("x", 14)
+                                .attr("text-anchor", "start")
+                                .style("font-size", d => `${fontScale(d.depth)}px`)
+                                .attr("dy", d => fontScale(d.depth) / 4)
+                                .attr("stroke", "white")
+                                .attr("fill", "white")
+                                .attr("stroke-width", d => fontScale(d.depth) / 3)
+                                .attr("opacity", 0.8)
+                                .text(d => {
+                                    let str = d.data.name;
+                                    return str.charAt(0).toUpperCase() + str.slice(1);
+                                })
+                                .lower();
+
+                            g.attr("transform", d => `translate(${d.y},${d.x})`)
+
+                            g.style("cursor", "pointer")
+                                .on("click", function (event, d) {
+                                    if (d.children) {
+                                        d.children = null;
+                                    }
+                                    else {
+                                        d.children = d.backupChildren;
+                                    }
+                                    updateChart();
+                                })
+                                .on("mouseover", function (event, d) {
+                                    var posY = event.pageY - 50;
+                                    if (!d.backupChildren) {
+                                        let detail = d.data;
+                                        const detailsDiv = d3.select("#details");
+                                        detailsDiv.style("top", posY + "px")
+                                        detailsDiv.style("visibility", "visible")
+                                        detailsDiv.html(`<p>${detail.name}</p><p>Review Count: ${detail.review_count}</p><div class="detail-text"><p>${detail.snippet}</p></div>`);
+                                        detailsDiv.style("display", "block");
+                                    }
+                                })
+                                .on("mouseout", function (event, d) {
+                                    d3.select("#details").style("display", "none");
+                                });
+                        },
+                        update => {
+                            update.attr("transform", d => `translate(${d.y},${d.x})`);
+                        },
+                        exit => {
+                            exit.remove();
+                        })
+
+                let links = linkGroup.selectAll("path.link").data(linkDat, d => d.target.id)
+                    .join(
+                        enter => {
+                            enter.append("path").attr("class", "link")
+                                .attr("fill", "none")
+                                .attr("stroke", "#AAA")
+                                .attr("stroke-width", 2)
+                                .attr("d", lineGen)
+                        },
+                        update => {
+                            update.attr("d", lineGen)
+                        },
+                        exit => {
+                            exit.remove()
+                        });
+            }
+            updateChart();
+
+            function expand(node) {
+                if (node.backupChildren) {
+                    node.children = node.backupChildren;
+                    node.children.forEach(n2 => {
+                        expand(n2);
+                    })
+                }
+            }
+
+            d3.select("#treeContainer")
+                .append("button").lower()
+                .text("OPEN ALL NODES")
+                .attr("cursor", "pointer")
+                .attr("x", 10)
+                .attr("y", 20)
+                .attr("class", "collapsed") // store state of the button as a class - a handy trick
+                .on("click", function () {
+                    let e = d3.select(this);
+                    if (e.classed("collapsed")) {
+                        // OPEN ALL
+                        expand(root);
+                        updateChart(root);
+                        e.text("CLOSE ALL NODES")
+                            .classed("collapsed", false)
+                    }
+                    else {
+                        // CLOSE ALL
+                        root.descendants().forEach(node => {
+                            if (node.depth > 0) { node.children = null; }
+                        });
+                        updateChart(root);
+                        e.text("OPEN ALL NODES")
+                            .classed("collapsed", true)
+                    }
+                })
+
+        }
+
+
+    </script>
+</body>
+
+</html>

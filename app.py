@@ -3,13 +3,19 @@ from whitenoise import WhiteNoise
 
 app = Flask(__name__)
 
-# @app.route('/', methods=['GET'])
-# def hello():
-#     return make_response("Hello, World!")
+@app.route('/')
+def index(): 
+    return render_template("home.html")
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
-                          root='hw3/', 
-                          prefix='/', 
+                          root='project1/', 
+                          prefix='/project1/', 
+                          index_file='index.htm', 
+                          autorefresh=True)
+
+app.wsgi_app = WhiteNoise(app.wsgi_app, 
+                          root='project2/', 
+                          prefix='/project2/', 
                           index_file='index.htm', 
                           autorefresh=True)
 

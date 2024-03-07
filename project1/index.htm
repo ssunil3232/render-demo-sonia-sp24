@@ -1,0 +1,615 @@
+<html lang="en">
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>INFO 5311 HW2 - Sonia, Bandar</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<style>
+    body {
+        justify-content: center;
+        display: flex;
+        background-image: url(https://miro.medium.com/v2/resize:fit:739/1*wHsM4lnTwnnkszc-depMbA.jpeg);
+        background-size: cover;
+        background-position: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .title {
+        width: 90vw;
+        font-size: larger;
+        font-weight: 700;
+        padding: 30px;
+        margin-left: 50px;
+    }
+
+    #details {
+        position: absolute;
+        left: 41vw;
+        width: 250px;
+        top: 18%;
+        padding: 10px;
+        background-color: #ffffff69;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #songdetails {
+        position: absolute;
+        right: 40px;
+        width: 200px;
+        top: 20%;
+        padding: 10px;
+        background-color: #ffffff69;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: system-ui;
+    }
+
+    .song-detail {
+        margin-top: 10px;
+        font-family: system-ui;
+    }
+
+    .song {
+        font-size: 20px;
+        font-weight: 700;
+        font-family: system-ui;
+    }
+
+    .caption {
+        margin-top: 15px;
+        font-style: italic;
+        font-size: small;
+    }
+</style>
+
+<body>
+    <!-- <p class="title">INFO 5311 HW2 - Sonia, Bandar</p> -->
+    <svg id="header" height="60" width="500"></svg>
+    <div style="display: flex; height: 600px;">
+        <svg id="plot" height="700" width="700" style="background: transparent">
+        </svg>
+        <div id="plot2" height="700" width="700" style="background: transparent">
+        </div>
+        <div id="details" style="visibility:hidden;"></div>
+        <div id="songdetails" style="visibility:hidden;"></div>
+    </div>
+    <svg id="colors" height="100" width="650"></svg>
+    
+    <svg width="500" height="100">
+        <defs>
+            <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+                <stop offset="20%" style="stop-color:rgb(255,165,0);stop-opacity:1" />
+                <stop offset="40%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+                <stop offset="60%" style="stop-color:rgb(0,255,0);stop-opacity:1" />
+                <stop offset="80%" style="stop-color:rgb(0,127,255);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(134,0,255);stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <script>
+        const svg = d3.select("#plot");
+        const svg2 = d3.select("#plot2");
+        const header = d3.select("#header").attr("transform", "translate(" + 0 + "," + 30 + ")");
+        const colorLegend = d3.select("#colors");
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+        const innerRadius = 180;
+        const outerRadius = Math.min(width, height) / 2 - 40;
+        const radius = Math.min((chartWidth - 100) - margin.left - margin.right, (chartHeight - 100) - margin.top - margin.bottom) / 2;
+        const chart = svg.append("g")
+            .attr("transform", "translate(" + 70 + "," + 10 + ") scale(" + 0.8 + "," + 0.8 + ")");
+        const radar = svg2
+            .append('svg')
+            .attr("width", chartWidth)
+            .attr("height", chartHeight)
+            .append("g")
+            .attr("transform", "translate(" + 20 + "," + 100 + ") scale(" + 0.7 + "," + 0.7 + ")");
+
+        const requestData = async function () {
+            const ts_data1 = await d3.csv("./taylor_swift_spotify.csv");
+            const ts_data2 = await d3.csv("./swift_color_data.csv");
+
+            ts_albums2 = []
+            let filtered_ts_data2 = [];
+            let color_present = [];
+            ts_data2.forEach(item => {
+                if (item["Album"] !== "Taylor Swift (Bonus Track Version)") {
+                    ts_albums2.push(item["Album"]);
+                    let obj = {
+                        album: item["Album"],
+                        color: item["Family"],
+                        //color_count: Number(item["Count"]),
+                        song: item["Song"]
+                    }
+                    filtered_ts_data2.push(obj)
+                    color_present.push(item["Family"]);
+                }
+            });
+            /*
+            let combined_data = {};
+            filtered_ts_data2.forEach(item => {
+                let key = `${item.album}-${item.song}-${item.color}`;
+                if (!combined_data[key]) {
+                    combined_data[key] = item.color_count;
+                } else {
+                    combined_data[key] += item.color_count;
+                }
+            })*/
+            /*filtered_ts_data2 = []
+            for (let key in combined_data) {
+                let color_count = combined_data[key];
+                let key_values = key.split("-");
+                let obj = {
+                    album: key_values[0],
+                    song: key_values[1],
+                    color: key_values[2],
+                    //color_count: color_count
+                }
+                filtered_ts_data2.push(obj)
+            }*/
+            let unique_album2 = [... new Set(ts_albums2)];
+
+            let filtered_ts_data1 = []
+            ts_data1.forEach(item => {
+                if (unique_album2.includes(item.album)) {
+
+                    let obj = {
+                        song: item["name"],
+                        album: item["album"],
+                        danceability: Number(item["danceability"]),
+                        popularity: Number(item["popularity"]),
+                        energy: Number(item["energy"]),
+                        liveliness: Number(item["liveness"]),
+                        acousticness: Number(item["acousticness"]),
+
+                    }
+                    filtered_ts_data1.push(obj)
+                }
+            })
+
+            let merged_ts_data = [];
+            filtered_ts_data2.forEach(item => {
+                const match = filtered_ts_data1.find(inner => inner.album === item.album && item.song === inner.song);
+                let obj = {
+                    ...item,
+                    ...match
+                };
+                merged_ts_data.push(obj)
+            })
+            color_present = [...new Set(color_present)]
+
+            console.log(color_present)
+
+            let final_ts_data = [];
+            merged_ts_data.forEach(item => {
+                if (Object.keys(item).includes("danceability")) {
+                    final_ts_data.push(item)
+                }
+            });
+
+            const groupBySong = data => {
+                const groupedData = {};
+                data.forEach(item => {
+                    const { song, album, color, danceability, energy, liveliness, acousticness, popularity } = item;
+                    if (!groupedData[song]) {
+                        groupedData[song] = {
+                            song: song,
+                            album: album,
+                            segments: [],
+                            breakdown: {
+                                danceability: danceability,
+                                energy: energy,
+                                liveliness: liveliness,
+                                acousticness: acousticness
+                            },
+                            popularity: popularity
+                        };
+                    }
+                    groupedData[song].segments.push(color);
+                });
+
+                return groupedData;
+            };
+
+            const result = groupBySong(final_ts_data);
+            let breakdown_obj = {
+                title: "Swift Moves & Vibes!",
+                data: []
+            }
+
+            let ts_data = []
+
+            let breakdown = {
+                danceability: 0,
+                energy: 0,
+                liveliness: 0,
+                acousticness: 0,
+            }
+
+            for (let key in result) {
+                let obj = result[key];
+                ts_data.push(obj);
+
+                breakdown.danceability += obj.breakdown.danceability;
+                breakdown.energy += obj.breakdown.energy;
+                breakdown.liveliness += obj.breakdown.liveliness;
+                breakdown.acousticness += obj.breakdown.acousticness;
+            }
+
+
+            breakdown_obj["data"] = []
+            let obj = {}
+            for (let key in breakdown) {
+                obj[key] = breakdown[key] / ts_data.length
+            }
+            breakdown_obj["data"].push(obj)
+            console.log(breakdown_obj);
+            console.log(ts_data);
+
+            ///////////////////Creating the radar chart ///////////////////////////
+            let radialScale = d3.scaleLinear().domain([0, 1]).range([0, 230]);
+
+            let ticks = [0.2, 0.4, 0.6, 0.8, 1.0];
+
+            radar.selectAll("circle")
+                .data(ticks)
+                .join(
+                    enter => enter.append("circle")
+                        .attr("cx", chartWidth / 2)
+                        .attr("cy", chartHeight / 2)
+                        .attr("fill", "none")
+                        .attr("stroke", "gray")
+                        .attr("r", d => radialScale(d))
+                );
+
+            radar.selectAll(".ticklabel")
+                .data(ticks)
+                .join(
+                    enter => enter.append("text")
+                        .attr("class", "ticklabel")
+                        .attr("x", chartWidth / 2 + 5)
+                        .attr("y", d => chartHeight / 2 - radialScale(d) - 5)
+                        .text(d => d.toString())
+                );
+
+            let features = ["Danceability", "Energy", "Liveliness", "Acousticness"];
+
+            let featureData = features.map((f, i) => {
+                let angle = (Math.PI / 2) + (2 * Math.PI * i / 4);
+                return {
+                    "name": f,
+                    "angle": angle,
+                    "line_coord": angleToCoordinate(angle, 1, chartWidth, chartHeight, "line"),
+                    "label_coord": angleToCoordinate(angle, 1.15, chartWidth, chartHeight, "label")
+                };
+            });
+
+            radar.selectAll("line")
+                .data(featureData)
+                .join(
+                    enter => enter.append("line")
+                        .attr("x1", chartWidth / 2)
+                        .attr("y1", chartHeight / 2)
+                        .attr("x2", d => d.line_coord.x)
+                        .attr("y2", d => d.line_coord.y)
+                        .attr("stroke", "black")
+                );
+
+            radar.selectAll(".axislabel")
+                .data(featureData)
+                .join(
+                    enter => enter.append("text")
+                        .attr("x", d => d.label_coord.x)
+                        .attr("y", d => d.label_coord.y)
+                        .text(d => d.name)
+                );
+
+            createRadarChart(breakdown_obj.title, radar, breakdown_obj.data, chartWidth, chartHeight)
+            ///////////////////Creating Color Legend ///////////////////////////
+            const colorWidth = colorLegend.attr("width");
+            const colorHeight = colorLegend.attr("height");
+
+            //createCircles(colorLegend, color_present, color_present, colorHeight);
+
+            colorLegend.selectAll("circle")
+                .data(color_present)
+                .attr("class", "colorCircle")
+                .enter().append("circle")
+                .attr("cx", (d, i) => 25 + i * 50) // Adjust the x-coordinate based on your requirement
+                .attr("cy", (d, i) => colorHeight / 2 + 10) // Adjust the y-coordinate based on your requirement
+                .attr("r", 20)
+                .attr("data-value", d => d)
+                .attr("fill", d => d === "Special" ? "url(#rainbowGradient)" : d.toLowerCase());
+
+            colorLegend.append("text")
+                .attr("id", "colorLegend")
+                .text("COLORS MENTIONED")
+                .attr("x", colorWidth / 2)
+                .attr("y", 20)
+                .style("text-anchor", "middle")
+                .style("font-family", "Helvetica")
+                .style("fill", "#AE3FC1")
+                .style("font-size", "22px")
+                .style("font-weight", "thin");
+            ///////////////////Creating the radial chart ///////////////////////////
+            const x = d3.scaleBand()
+                .range([0, 2 * Math.PI])
+                .domain(ts_data.map(d => d.song));
+
+            //const y = scaleRadial()
+            const y = d3.scalePow()
+                .exponent(2) // Adjust the exponent as needed
+                .range([innerRadius, outerRadius])
+                .domain([0, d3.max(ts_data, d => d.popularity)]);
+
+
+            ts_data.forEach((song, index) => {
+                //const totalColorCount = song.segments.reduce((acc, segment) => acc + segment.color_count, 0);
+                let nextHeight = innerRadius;
+                //song.segments.forEach(segment => {
+                //const proportion = segment.color_count / totalColorCount;
+
+                //let outerRad = y(proportion * song.danceability);
+                //console.log(outerRad)
+                chart.append("path")
+                    .datum(song)
+                    .attr("class", "arcs")
+                    .attr("d", d3.arc()
+                        .innerRadius(nextHeight)
+                        .outerRadius(y(song.popularity))
+                        .startAngle(x(song.song))
+                        .endAngle(x(song.song) + x.bandwidth())
+                        .padAngle(0.1)
+                        .padRadius(innerRadius))
+                    .attr("fill", "#8DA8FF")
+                    .attr("transform", `translate(${width / 2}, ${height / 2 + 50})`)
+                    .on("mouseover", function (event, d) {
+                        d3.select(this).style('stroke', 'white').style('stroke-width', 5);
+                        d3.selectAll(".arcs")
+                            .transition()
+                            .duration(200)
+                            .style("opacity", function (e, j) {
+                                return index === j ? 1 : 0.3; // reduce opacity for non-hovered arcs
+                            });
+                        console.log("song", song)
+
+                        let selectedColors = song.segments;
+                        createCircles(colorLegend, color_present, selectedColors, colorHeight)
+                        createRadarChart(song.song, radar, [song.breakdown], chartWidth, chartHeight)
+                        const detailsDiv = d3.select("#details");
+                        detailsDiv.style("visibility", "visible")
+                        detailsDiv.html(`<p class="song">${song.song}</p><div class="song-detail"><p>Album: ${song.album}</p>
+                            <p>Popularity: ${(song.popularity)}/100</p>
+                            <p class="caption">Hover to see more details!</p></div>`);
+                        detailsDiv.style("display", "block");
+                    })
+                    .on("mouseout", function (event, d) {
+                        d3.select("#details").style("display", "none");
+                        d3.select(this).style('stroke', 'transparent');
+                        createRadarChart(breakdown_obj.title, radar, breakdown_obj.data, chartWidth, chartHeight)
+                        d3.selectAll(".arcs")
+                            .transition()
+                            .duration(200)
+                            .style("opacity", 1);
+                        createCircles(colorLegend, color_present, color_present, colorHeight)
+                    });
+                //nextHeight = outerRad;
+                //});
+            });
+
+            chart.append("image")
+                .attr("class", "ts")
+                .attr("xlink:href", "TaylorCurved.png")
+                .attr("x", chartWidth / 2 - 120)
+                .attr("y", chartHeight / 2 - 80)
+                .attr("width", "40%")
+                .attr("height", "40%");
+
+            chart.append("path")
+                .attr("id", "chartTitle")
+                .attr("d", "M -20,320 A 280,500, 1 0,1 200,40")
+                .style("fill", "none")
+                .attr("transform", "translate(" + 70 + "," + 100 + ")")
+                .style("stroke", "transparent");
+
+
+
+            chart.append("text")
+                .append("textPath")
+                .attr("xlink:href", "#chartTitle")
+                .attr("startOffset", "50%")
+                .text("Popularity Score")
+                .style("font-family", "Helvetica")
+                .style("text-anchor", "middle")
+                .style("font-size", "40px")
+                .style("fill", "#AE3FC1")
+                .style("font-weight", "bold");
+
+            /*    chart.select("#chartTitle")
+                    .transition().duration(3000).delay(2000)
+                    .attr("d", "M10,100 Q200,-50 300,100");*/
+
+            header.append("image")
+                .attr("class", "ts")
+                .attr("xlink:href", "NEW-TITLE.png")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("width", "100%")
+                .attr("height", "100%");
+
+            /*header.append("path")
+                .attr("id", "wavy")
+                .attr("d", "M 10,90 Q 100,15 200,70 Q 340,140 400,30")
+                .style("fill", "none")
+                .style("stroke", "#AAAAAA");
+
+            header.append("text")
+                .append("textPath")
+                .attr("xlink:href", "#wavy")
+                .attr("startOffset", "50%")
+                .text("Taylor Swift Songs")
+                .style("text-anchor", "middle")
+                .style("font-size", "30px")
+                .style("font-weight", "bold");
+
+            header.append("tspan").text(" ")
+                .append("tspan").html("&#127932;")
+                .append("tspan").html(" \uD83C\uDFB5")
+                .append("tspan").html(" \uD83C\uDFB6")
+                .append("tspan").html(" \uD83C\uDFB5")
+                .append("tspan").html(" \uD83C\uDFBC");*/
+
+        }
+        requestData();
+
+        function scaleRadial() {
+            var linear = d3.scaleLinear();
+
+            function radial(d) {
+                return Math.sqrt(linear(d));
+            }
+
+            radial.domain = function (_) {
+                return arguments.length ? (linear.domain(_), radial) : linear.domain();
+            };
+
+            radial.nice = function (count) {
+                return linear.nice(count), radial;
+            };
+
+            radial.range = function (_) {
+                return arguments.length ? (linear.range(_.map(d => d * d)), radial) : linear.range().map(Math.sqrt);
+            };
+
+            radial.ticks = linear.ticks;
+            radial.tickFormat = linear.tickFormat;
+
+            return radial;
+        }
+
+        function angleToCoordinate(angle, value, width, height, type) {
+            let radialScale = d3.scaleLinear().domain([0, 1]).range([0, 230]);
+            if (type === "line") {
+                let x = Math.cos(angle) * radialScale(value);
+                let y = Math.sin(angle) * radialScale(value);
+                return { "x": width / 2 + x, "y": height / 2 - y };
+            }
+            else if (type === "label") {
+                let x = Math.cos(angle) * radialScale(value);
+                let y = Math.sin(angle) * radialScale(value);
+                return { "x": width / 2 + x - 25, "y": height / 2 - y };
+            }
+            else {
+                let x = Math.cos(angle) * radialScale(value);
+                let y = Math.sin(angle) * radialScale(value);
+                return { "x": width / 2 + x, "y": height / 2 - y };
+            }
+
+
+        }
+
+        function getPathCoordinates(data_point, width, height) {
+            let coordinates = [];
+            let features = Object.keys(data_point)
+            for (var i = 0; i < features.length; i++) {
+                let ft_name = features[i];
+                let angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+                coordinates.push(angleToCoordinate(angle, data_point[ft_name], width, height, "data"));
+            }
+            return coordinates;
+        }
+
+        function createRadarChart(title, radar, data, width, height) {
+            let line = d3.line()
+                .x(d => d.x)
+                .y(d => d.y);
+            radar.selectAll("path").remove();
+            radar.select("#title").remove();
+            radar.selectAll("path")
+                .data(data)
+                .join(
+                    enter => enter.append("path")
+                        .datum(d => getPathCoordinates(d, width, height))
+                        .attr("d", line)
+                        .attr("stroke-width", 3)
+                        .attr("stroke", (_, i) => "red")
+                        .attr("fill", (_, i) => "red")
+                        .attr("stroke-opacity", 1)
+                        .attr("opacity", 0.5)
+                );
+            radar.append("text")
+                .attr("id", "title")
+                .text(title)
+                .attr("x", width / 2)
+                .attr("y", 0)
+                .style("text-anchor", "middle")
+                .style("font-family", "Helvetica")
+                .style("fill", "#AE3FC1")
+                .style("font-size", "35px")
+                .call(wrap, 400)
+                .style("font-weight", "bold");
+
+            const songDetails = d3.select("#songdetails");
+            songDetails.style("visibility", "visible")
+            songDetails.html(`<p>Danceability: ${((data[0].danceability) * 100).toFixed(2)}%</p>
+                    <p>Energy: ${((data[0].energy) * 100).toFixed(2)}%</p>
+                    <p>Liveliness: ${((data[0].liveliness) * 100).toFixed(2)}%</p>
+                    <p>Acousticness: ${((data[0].acousticness) * 100).toFixed(2)}%</p>`);
+            songDetails.style("display", "block");
+
+        }
+
+        function createCircles(colorLegend, color_present, colors, colorHeight) {
+
+            colorLegend.selectAll("circle")
+                .style("opacity", function (d) {
+                    return colors.includes(d) ? 1 : 0.3; // reduce opacity for non-hovered arcs
+                })
+                .style('stroke', function (d) {
+                    return colors.includes(d) && colors.length !== color_present.length ? 'white' : 'transparent'
+                })
+                .style('stroke-width', function (d) {
+                    return colors.includes(d) && colors.length !== color_present.length ? 5 : 0
+                });
+        }
+
+        function wrap(text, width) {
+            text.each(function() {
+                var text = d3.select(this),
+                words = text.text().split(/\s+/).reverse(),
+                word,
+                line = [],
+                lineNumber = 0, //<-- 0!
+                lineHeight = 1.2, // ems
+                x = text.attr("x"), //<-- include the x!
+                y = text.attr("y"),
+                dy = text.attr("dy") ? text.attr("dy") : 0; //<-- null check
+                tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
