@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Eat Up Pittsburgh</title>
+    <title>INFO 5311 HW3</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3-flextree@2.0.0/build/d3-flextree.min.js"></script>
 </head>
@@ -12,7 +12,7 @@
     body {
         justify-content: center;
         display: flex;
-        background: linear-gradient(to bottom, rgb(185, 227, 231), rgb(219, 235, 200), rgb(204, 152, 220));
+        background-color: lavender;
         flex-direction: column;
         align-items: center;
     }
@@ -23,12 +23,12 @@
 
     .node circle {
         fill: #fff;
-        stroke: #1254ce;
+        stroke: steelblue;
         stroke-width: 2px;
     }
 
     .node text {
-        font: 12px helvetica;
+        font: 12px sans-serif;
     }
 
     .link {
@@ -73,44 +73,13 @@
         const chartWidth = width - margin.left - margin.right;
         const chartHeight = height - margin.top - margin.bottom;
 
-        const defs = svg.append("defs");
-        const gradient = defs.append("linearGradient")
-            .attr("id", "svgGradient")
-            .attr("x1", "0%")
-            .attr("x2", "100%")
-            .attr("y1", "0%")
-            .attr("y2", "100%")
-            .attr("rx", 150) 
-            .attr("ry", 150);
-
-        gradient.append("stop")
-            .attr("offset", "0%")
-            .attr("stop-color", "skyblue")
-            .attr("stop-opacity", 1);
-
-        gradient.append("stop")
-            .attr("offset", "100%")
-            .attr("stop-color", "teal")
-            .attr("stop-opacity", 1);
-
-        svg.insert("rect", ":first-child")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("fill", "none")
-            .attr("stroke", "url(#svgGradient)")
-            .attr("stroke-width", 10)
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("rx", 10) 
-            .attr("ry", 10);
-
-
         var originBtns = [{ "name": "Category" }, { "name": "Rating" }, { "name": "Neighbourhood" }];
         svg.attr("transform", "translate(" + 0 + "," + 30 + ")");
+        svg.style("border", "1px solid black");
         svg2.attr("transform", "translate(" + 0 + "," + 50 + ")");
         header.attr("transform", "translate(" + 0 + "," + 30 + ")");
         header.append("image")
-            .attr("xlink:href", "Group 4.png")
+            .attr("xlink:href", "Group 1.png")
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", "100%")
@@ -127,7 +96,7 @@
             .attr("cy", height / 2)
             .style("fill", function (d) {
                 let color;
-                d.name === "Category" ? color = "#7fb6db" : color = "#d319ab";
+                d.name === "Category" ? color = "red" : color = "#19d3a2";
                 return color;
             })
             .style("fill-opacity", 0.3)
@@ -147,8 +116,7 @@
             .attr("y", height / 2)
             .attr("text-anchor", "middle")
             .attr("dy", ".35em")
-            .attr("font-family", "helvetica")
-            .style("fill", "white")
+            .attr("font-family", "monospace")
             .style("font-size", "20px");
 
         var simulation = d3.forceSimulation()
@@ -174,15 +142,8 @@
         }
 
         function dragged(event, d) {
-            const minX = margin.left + d3.max([d3.max(circleNode.data(), d => d.r), 0]) + 200;
-            const maxX = chartWidth - d3.max([d3.max(circleNode.data(), d => d.r), 0]) - 200;
-            const minY = margin.top + d3.max([d3.max(circleNode.data(), d => d.r), 0]) + 100;
-            const maxY = chartHeight - d3.max([d3.max(circleNode.data(), d => d.r), 0]) - 100;
-
-            d.fx = Math.max(minX, Math.min(maxX, event.x));
-            d.fy = Math.max(minY, Math.min(maxY, event.y));
-            //d.fx = event.x;
-            //d.fy = event.y;
+            d.fx = event.x;
+            d.fy = event.y;
         }
 
         function dragended(event, d) {
@@ -203,10 +164,10 @@
                 groupByOrder = ["neighborhood", "category", "rating"];
             }
             d3.select(event.currentTarget)
-                .style("fill", "#7fb6d");
+                .style("fill", "red");
 
             circleNode.style("fill", function (data) {
-                return data === d ? "#7fb6db" : "#d319ab";
+                return data === d ? "red" : "#19d3a2";
             });
             requestData(groupByOrder)
         });
@@ -302,8 +263,8 @@
             let linkGroup = svg.append("g").attr("class", "links")
             let nodeGroup = svg.append("g").attr("class", "nodes")
             let root = d3.hierarchy(data);
-
-
+        
+        
 
 
 
@@ -348,7 +309,7 @@
                     if (node.x > bottom.x) { bottom = node };
                 });
                 let padding = 80
-                let height = bottom.x - top.x + padding + 200;
+                let height = bottom.x - top.x + padding +200;
                 svg.attr("height", height);
 
                 linkGroup.attr("transform", `translate(100,${-top.x + padding / 2 + 50})`)
@@ -363,7 +324,7 @@
                                 .attr("r", 8)
                                 .style("fill", (d) => {
                                     if (d.depth === 4) {
-                                        return "#dc13f2"
+                                        return "#ffbebb"
                                     }
                                     else {
                                         return "#c8f1e3";
