@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>INFO 5311 HW3</title>
+    <title>Project 2</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3-flextree@2.0.0/build/d3-flextree.min.js"></script>
 </head>
@@ -142,8 +142,15 @@
         }
 
         function dragged(event, d) {
-            d.fx = event.x;
-            d.fy = event.y;
+            const minX = margin.left + d3.max([d3.max(circleNode.data(), d => d.r), 0]) + 200;
+            const maxX = chartWidth - d3.max([d3.max(circleNode.data(), d => d.r), 0]) - 200;
+            const minY = margin.top + d3.max([d3.max(circleNode.data(), d => d.r), 0]) + 100;
+            const maxY = chartHeight - d3.max([d3.max(circleNode.data(), d => d.r), 0]) - 100;
+
+            d.fx = Math.max(minX, Math.min(maxX, event.x));
+            d.fy = Math.max(minY, Math.min(maxY, event.y));
+            //d.fx = event.x;
+            //d.fy = event.y;
         }
 
         function dragended(event, d) {
