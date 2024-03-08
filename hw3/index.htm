@@ -12,7 +12,7 @@
     body {
         justify-content: center;
         display: flex;
-        background-color: lavender;
+        background-color: #c0d9f0;
         flex-direction: column;
         align-items: center;
     }
@@ -23,12 +23,12 @@
 
     .node circle {
         fill: #fff;
-        stroke: steelblue;
+        stroke: #1254ce;
         stroke-width: 2px;
     }
 
     .node text {
-        font: 12px sans-serif;
+        font: 12px helvetica;
     }
 
     .link {
@@ -75,11 +75,11 @@
 
         var originBtns = [{ "name": "Category" }, { "name": "Rating" }, { "name": "Neighbourhood" }];
         svg.attr("transform", "translate(" + 0 + "," + 30 + ")");
-        svg.style("border", "1px solid black");
+        svg.style("border", "1px solid blue");
         svg2.attr("transform", "translate(" + 0 + "," + 50 + ")");
         header.attr("transform", "translate(" + 0 + "," + 30 + ")");
         header.append("image")
-            .attr("xlink:href", "Group 1.png")
+            .attr("xlink:href", "Group 4.png")
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", "100%")
@@ -116,7 +116,7 @@
             .attr("y", height / 2)
             .attr("text-anchor", "middle")
             .attr("dy", ".35em")
-            .attr("font-family", "monospace")
+            .attr("font-family", "helvetica")
             .style("font-size", "20px");
 
         var simulation = d3.forceSimulation()
@@ -409,6 +409,7 @@
                         });
             }
             updateChart();
+            
 
             function expand(node) {
                 if (node.backupChildren) {
