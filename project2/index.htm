@@ -17,6 +17,14 @@
         align-items: center;
     }
 
+    .expandButton {
+        background: #741255;
+        border-radius: 5px;
+        padding: 10px;
+        border: none;
+        color: white;
+    }
+
     .node {
         cursor: pointer;
     }
@@ -80,7 +88,7 @@
             .attr("x2", "100%")
             .attr("y1", "0%")
             .attr("y2", "100%")
-            .attr("rx", 150) 
+            .attr("rx", 150)
             .attr("ry", 150);
 
         gradient.append("stop")
@@ -101,10 +109,13 @@
             .attr("stroke-width", 10)
             .attr("x", 0)
             .attr("y", 0)
-            .attr("rx", 10) 
+            .attr("rx", 10)
             .attr("ry", 10);
 
-
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
         var originBtns = [{ "name": "Category" }, { "name": "Rating" }, { "name": "Neighbourhood" }];
         svg.attr("transform", "translate(" + 0 + "," + 30 + ")");
         svg2.attr("transform", "translate(" + 0 + "," + 50 + ")");
@@ -209,7 +220,13 @@
                 return data === d ? "#7fb6db" : "#d319ab";
             });
             requestData(groupByOrder)
-        });
+
+            var scrollToPosition = 1000;
+            window.scrollTo({
+                top: scrollToPosition,
+                behavior: "smooth"
+            });
+        }).style("cursor", "pointer");
 
         const requestData = async function (groupByOrder) {
             const oGdata = await d3.csv("./yelp_pittsburgh.csv");
@@ -460,18 +477,19 @@
 
             d3.select("#treeContainer")
                 .append("button").lower()
-                .text("OPEN ALL NODES")
-                .attr("cursor", "pointer")
-                .attr("x", 10)
-                .attr("y", 20)
-                .attr("class", "collapsed") // store state of the button as a class - a handy trick
+                .text("Expand Nodes")
+                .style("cursor", "pointer")
+                .style("position", "fixed")
+                .style("bottom", "10px")
+                .style("left", "10px")
+                .attr("class", "collapsed expandButton")
                 .on("click", function () {
                     let e = d3.select(this);
                     if (e.classed("collapsed")) {
                         // OPEN ALL
                         expand(root);
                         updateChart(root);
-                        e.text("CLOSE ALL NODES")
+                        e.text("Collapse Nodes")
                             .classed("collapsed", false)
                     }
                     else {
@@ -480,7 +498,7 @@
                             if (node.depth > 0) { node.children = null; }
                         });
                         updateChart(root);
-                        e.text("OPEN ALL NODES")
+                        e.text("Expand Nodes")
                             .classed("collapsed", true)
                     }
                 })
