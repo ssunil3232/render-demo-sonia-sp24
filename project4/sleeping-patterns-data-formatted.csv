@@ -1,0 +1,426 @@
+relationship_status,relationship_years,sleep_freq,snores,frequent bathroom trips in the night,sick,no longer physically intimate,different temperature preferences for the room,argument/fight,not enough space,do not want to share the covers,needs to sleep with a child,night working/very different sleeping times,sleeping in separate beds helps us to stay together.,we sleep better when we sleep in separate beds.,our sex life has improved as a result of sleeping in separate beds.,Gender,Age,location
+"Single, but cohabiting with a significant other",1-5 years,A few times per month,True,True,True,False,False,True,False,True,False,False,Somewhat agree,Strongly agree,Strongly disagree,Male,18-29,South Atlantic
+Married,6-10 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Somewhat disagree,Male,30-44,West North Central
+In a domestic partnership or civil union,1-5 years,A few times per week,True,False,True,True,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Male,30-44,South Atlantic
+"Single, but cohabiting with a significant other",6-10 years,Once a month or less,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Male,30-44,East North Central
+Married,16-20 years,A few times per week,False,False,False,False,False,False,False,False,True,False,Neither agree nor disagree,Somewhat disagree,Somewhat disagree,Male,30-44,East North Central
+Married,11-15 years,A few times per week,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,30-44,South Atlantic
+Married,6-10 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Neither agree nor disagree,Male,30-44,New England
+Married,11-15 years,Once a month or less,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Male,30-44,East North Central
+"Single, but cohabiting with a significant other",1-5 years,Once a year or less,False,False,False,False,False,True,False,False,False,True,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,18-29,New England
+Married,11-15 years,Once a month or less,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,Pacific
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Neither agree nor disagree,Neither agree nor disagree,Male,30-44,West North Central
+Married,11-15 years,Once a year or less,True,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Strongly agree,Somewhat disagree,Male,30-44,West North Central
+In a domestic partnership or civil union,11-15 years,A few times per week,False,False,False,False,False,True,False,False,False,True,Strongly agree,Somewhat agree,Somewhat agree,Male,30-44,Pacific
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,False,False,False,False,False,False,True,False,False,False,Neither agree nor disagree,Somewhat disagree,Somewhat disagree,Male,18-29,West South Central
+Married,16-20 years,Once a month or less,True,False,False,False,True,True,False,False,False,True,Strongly agree,Neither agree nor disagree,Somewhat disagree,Male,30-44,Pacific
+"Single, but cohabiting with a significant other",Less than 1 year,Every night,True,False,False,False,False,False,True,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,18-29,East North Central
+Married,6-10 years,Once a year or less,False,False,False,False,False,False,False,False,False,True,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,Pacific
+Married,6-10 years,Once a year or less,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,30-44,Pacific
+Married,11-15 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,East North Central
+Married,16-20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,30-44,West North Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Male,45-60,East North Central
+Married,16-20 years,Once a month or less,False,False,True,False,False,True,False,False,False,True,Neither agree nor disagree,Somewhat agree,Strongly disagree,Male,45-60,New England
+Married,1-5 years,Every night,False,False,False,False,False,True,False,False,False,False,Strongly disagree,Strongly disagree,Neither agree nor disagree,Male,18-29,Middle Atlantic
+Married,11-15 years,A few times per month,True,True,False,True,False,False,False,True,False,False,Neither agree nor disagree,Neither agree nor disagree,Somewhat disagree,Male,45-60,West North Central
+Married,11-15 years,Once a year or less,True,False,False,False,False,False,False,False,True,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Male,30-44,West North Central
+Married,6-10 years,A few times per month,False,False,False,False,False,False,False,False,False,True,Somewhat disagree,Neither agree nor disagree,Somewhat disagree,Male,30-44,West North Central
+Married,1-5 years,Once a year or less,False,False,True,False,False,True,False,False,True,True,Somewhat disagree,Somewhat disagree,Strongly disagree,Male,18-29,East North Central
+Married,More than 20 years,A few times per month,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Somewhat disagree,Male,45-60,West North Central
+Married,1-5 years,Once a month or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat agree,Male,18-29,West South Central
+In a domestic partnership or civil union,1-5 years,Every night,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Somewhat disagree,Female,18-29,South Atlantic
+In a domestic partnership or civil union,1-5 years,A few times per month,True,False,False,False,False,True,False,False,False,False,Somewhat agree,Somewhat disagree,Strongly disagree,Male,30-44,Pacific
+Married,11-15 years,A few times per month,False,False,False,False,False,False,False,False,False,True,Strongly agree,Strongly agree,Strongly agree,Male,45-60,Middle Atlantic
+Married,1-5 years,Every night,True,True,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Strongly agree,Male,45-60,Middle Atlantic
+In a domestic partnership or civil union,11-15 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Neither agree nor disagree,Male,45-60,South Atlantic
+Married,11-15 years,Once a month or less,False,False,False,True,False,True,False,False,True,False,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Male,30-44,Middle Atlantic
+"Single, but cohabiting with a significant other",6-10 years,Once a month or less,True,False,False,False,False,True,False,False,False,False,Strongly disagree,Somewhat agree,Strongly disagree,Male,18-29,West South Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat agree,Somewhat agree,Male,45-60,New England
+Married,More than 20 years,Every night,True,True,False,True,False,False,False,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Male,45-60,Middle Atlantic
+Married,6-10 years,Once a month or less,False,False,True,False,False,True,False,False,True,False,Somewhat disagree,Strongly disagree,Strongly disagree,Male,30-44,East North Central
+Married,16-20 years,A few times per week,False,False,False,False,False,True,False,False,True,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,30-44,East North Central
+Married,More than 20 years,A few times per month,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,45-60,West North Central
+"Single, but cohabiting with a significant other",11-15 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,Middle Atlantic
+"Single, but cohabiting with a significant other",1-5 years,Every night,False,False,False,True,False,False,False,False,False,True,Somewhat disagree,Somewhat agree,Neither agree nor disagree,Male,45-60,Middle Atlantic
+Married,11-15 years,Once a year or less,True,False,True,False,False,True,False,False,False,False,Somewhat disagree,Strongly disagree,Strongly disagree,Male,30-44,East North Central
+Married,More than 20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Neither agree nor disagree,Female,> 60,West North Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Male,45-60,East North Central
+"Single, but cohabiting with a significant other",More than 20 years,A few times per month,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,Pacific
+"Single, but cohabiting with a significant other",11-15 years,Once a year or less,True,False,True,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Male,30-44,Middle Atlantic
+Married,More than 20 years,Every night,True,True,False,False,True,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,> 60,Pacific
+Married,More than 20 years,Every night,True,True,False,False,True,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,> 60,West North Central
+Married,11-15 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,East South Central
+Married,11-15 years,Every night,True,False,False,False,True,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,30-44,New England
+"Single, but cohabiting with a significant other",1-5 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Male,45-60,New England
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,True,False,True,False,False,True,False,False,True,False,Somewhat agree,Somewhat agree,Neither agree nor disagree,Male,45-60,Middle Atlantic
+In a domestic partnership or civil union,6-10 years,A few times per week,False,True,False,False,False,False,False,True,False,False,Somewhat agree,Somewhat agree,Somewhat disagree,Female,> 60,South Atlantic
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,False,False,False,False,False,False,False,False,False,True,Strongly disagree,Strongly disagree,Strongly disagree,Male,18-29,East North Central
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Somewhat agree,Somewhat agree,Somewhat disagree,Male,45-60,West North Central
+Married,6-10 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly agree,Somewhat agree,Strongly agree,Female,> 60,New England
+Married,6-10 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,45-60,South Atlantic
+Married,1-5 years,Once a year or less,True,True,False,False,False,True,False,False,False,True,Somewhat disagree,Strongly agree,Strongly disagree,Male,30-44,West North Central
+"Single, but cohabiting with a significant other",6-10 years,Every night,False,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Female,> 60,Pacific
+Married,More than 20 years,Every night,False,False,False,True,False,False,False,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Female,> 60,South Atlantic
+Married,More than 20 years,Every night,True,False,False,True,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Strongly disagree,Male,45-60,West South Central
+Married,More than 20 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,45-60,Middle Atlantic
+Married,More than 20 years,Every night,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,45-60,South Atlantic
+Married,More than 20 years,Once a year or less,False,False,False,False,False,False,False,False,False,True,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,Middle Atlantic
+Married,More than 20 years,Once a month or less,True,False,True,False,False,False,False,False,True,False,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Male,45-60,East North Central
+Married,More than 20 years,Every night,True,False,False,False,True,False,False,False,False,False,Strongly disagree,Neither agree nor disagree,Strongly disagree,Male,30-44,New England
+Married,11-15 years,Every night,True,False,False,True,True,False,False,False,True,False,Strongly agree,Strongly agree,Neither agree nor disagree,Male,30-44,Middle Atlantic
+Married,16-20 years,Once a year or less,False,False,True,False,True,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,45-60,East North Central
+Married,16-20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Female,> 60,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,New England
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,True,Neither agree nor disagree,Strongly agree,Somewhat disagree,Male,> 60,East North Central
+Married,More than 20 years,A few times per month,True,False,False,False,False,False,True,False,False,False,Somewhat agree,Somewhat agree,Neither agree nor disagree,Male,> 60,South Atlantic
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,> 60,New England
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,> 60,South Atlantic
+"Single, but cohabiting with a significant other",More than 20 years,A few times per month,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Female,> 60,South Atlantic
+Married,16-20 years,A few times per week,True,True,False,True,False,False,True,True,False,False,Strongly agree,Strongly agree,Strongly disagree,Male,45-60,West North Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,East North Central
+Married,11-15 years,Once a year or less,True,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,New England
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Somewhat agree,Male,> 60,West South Central
+"Single, but cohabiting with a significant other",11-15 years,Every night,True,True,True,True,False,False,False,False,False,False,Somewhat agree,Somewhat agree,Somewhat agree,Male,> 60,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+Married,11-15 years,Every night,True,True,False,True,True,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Male,> 60,South Atlantic
+Married,More than 20 years,A few times per week,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Female,> 60,East North Central
+Married,More than 20 years,Every night,False,False,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Strongly agree,Male,> 60,East North Central
+Married,More than 20 years,Once a month or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,> 60,East South Central
+Married,1-5 years,A few times per month,False,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Female,30-44,West South Central
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Strongly agree,Female,> 60,West North Central
+"Single, but cohabiting with a significant other",Less than 1 year,A few times per week,False,False,False,False,True,False,True,False,False,True,Somewhat disagree,Somewhat disagree,Strongly disagree,Female,18-29,West North Central
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,False,False,True,False,False,True,False,False,False,True,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,18-29,West North Central
+Married,6-10 years,Every night,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,30-44,East North Central
+Married,More than 20 years,Every night,True,False,False,False,True,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,> 60,East South Central
+Married,1-5 years,Once a month or less,False,False,False,False,False,True,False,False,False,False,Somewhat disagree,Neither agree nor disagree,Somewhat disagree,Female,30-44,South Atlantic
+Married,6-10 years,A few times per month,True,False,True,False,False,False,False,False,True,True,Somewhat agree,Neither agree nor disagree,Somewhat disagree,Male,30-44,South Atlantic
+Married,11-15 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly disagree,Strongly disagree,Female,30-44,West North Central
+Married,More than 20 years,A few times per month,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,> 60,South Atlantic
+"Single, but cohabiting with a significant other",1-5 years,Every night,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,18-29,Middle Atlantic
+Married,11-15 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,East North Central
+Married,More than 20 years,A few times per week,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Female,> 60,West North Central
+Married,6-10 years,Every night,True,False,False,False,True,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,> 60,South Atlantic
+Married,11-15 years,A few times per week,False,False,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Strongly agree,Female,30-44,West South Central
+Married,11-15 years,A few times per week,False,False,False,False,False,False,False,False,False,False,Somewhat disagree,Strongly agree,Neither agree nor disagree,Female,30-44,West South Central
+Married,6-10 years,Once a month or less,False,False,False,False,False,True,False,False,False,False,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,30-44,Middle Atlantic
+Married,More than 20 years,Every night,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,> 60,East North Central
+Married,More than 20 years,Every night,True,True,False,False,True,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Male,> 60,Pacific
+Married,1-5 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Strongly disagree,Neither agree nor disagree,Female,18-29,Pacific
+In a domestic partnership or civil union,6-10 years,A few times per month,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,30-44,Pacific
+Married,11-15 years,A few times per month,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Female,30-44,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Neither agree nor disagree,Neither agree nor disagree,Male,> 60,East North Central
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Strongly disagree,Neither agree nor disagree,Male,30-44,Middle Atlantic
+"Single, but cohabiting with a significant other",1-5 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Somewhat disagree,Female,18-29,East North Central
+"Single, but cohabiting with a significant other",1-5 years,Every night,True,True,False,False,True,False,False,False,False,True,Somewhat agree,Strongly agree,Strongly disagree,Male,30-44,West South Central
+Married,More than 20 years,Every night,False,False,False,True,True,False,False,False,False,False,Strongly agree,Strongly agree,Strongly disagree,Male,> 60,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,> 60,West North Central
+Married,1-5 years,Once a month or less,False,False,False,False,False,False,False,False,True,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,30-44,West South Central
+Married,6-10 years,Once a year or less,False,False,False,False,True,True,True,False,False,True,Somewhat agree,Somewhat disagree,Neither agree nor disagree,Female,30-44,Pacific
+Married,11-15 years,A few times per week,True,False,False,False,True,False,False,True,False,False,Somewhat agree,Neither agree nor disagree,Somewhat agree,Male,45-60,Pacific
+Married,More than 20 years,Once a year or less,False,False,True,False,False,True,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,> 60,East North Central
+Married,11-15 years,Once a month or less,True,True,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat agree,Somewhat disagree,Female,45-60,South Atlantic
+Married,6-10 years,A few times per month,True,True,False,False,True,False,True,True,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,45-60,East South Central
+Married,16-20 years,Once a month or less,False,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,30-44,South Atlantic
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Male,45-60,Pacific
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,> 60,New England
+"Single, but cohabiting with a significant other",6-10 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Male,18-29,West North Central
+Married,6-10 years,Once a month or less,False,False,False,False,False,True,False,False,False,False,Somewhat disagree,Somewhat disagree,Somewhat disagree,Female,30-44,Pacific
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat agree,Somewhat disagree,Female,45-60,West North Central
+Married,6-10 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,30-44,East North Central
+Married,16-20 years,Once a year or less,False,False,False,False,False,False,False,False,True,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Male,45-60,New England
+In a domestic partnership or civil union,More than 20 years,Once a month or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Female,30-44,Pacific
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Male,45-60,West North Central
+Married,More than 20 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,West North Central
+Married,More than 20 years,Once a month or less,True,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Male,45-60,East North Central
+Married,More than 20 years,Once a month or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,> 60,East North Central
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,True,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Somewhat disagree,Male,30-44,West North Central
+Married,11-15 years,Every night,True,False,False,True,False,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,> 60,West South Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Somewhat disagree,Male,> 60,East North Central
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Female,45-60,West North Central
+Married,More than 20 years,Every night,True,True,False,True,False,False,False,False,False,False,Strongly disagree,Strongly agree,Neither agree nor disagree,Male,45-60,Middle Atlantic
+In a domestic partnership or civil union,16-20 years,Every night,True,False,False,False,True,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,45-60,East North Central
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,False,False,False,False,False,False,False,False,False,True,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,30-44,Pacific
+Married,1-5 years,Once a year or less,False,False,True,False,False,False,False,False,False,True,Strongly disagree,Strongly disagree,Strongly disagree,Female,45-60,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Somewhat agree,Strongly disagree,Male,> 60,West North Central
+Married,16-20 years,A few times per month,True,False,True,False,False,True,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,30-44,Pacific
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,Pacific
+Married,6-10 years,Once a year or less,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Strongly disagree,Strongly disagree,Male,18-29,East North Central
+Married,More than 20 years,A few times per month,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly disagree,Neither agree nor disagree,Male,> 60,Middle Atlantic
+Married,More than 20 years,Every night,False,False,False,False,False,False,False,False,False,False,Somewhat disagree,Strongly agree,Strongly disagree,Male,> 60,East North Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,45-60,South Atlantic
+Married,More than 20 years,A few times per week,True,False,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Male,> 60,New England
+Married,More than 20 years,Once a year or less,True,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Male,> 60,South Atlantic
+Married,More than 20 years,Every night,False,False,False,False,False,False,False,False,False,True,Strongly agree,Somewhat agree,Strongly disagree,Female,> 60,East North Central
+Married,11-15 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,30-44,West North Central
+"Single, but cohabiting with a significant other",1-5 years,Every night,True,False,False,False,False,False,True,True,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Female,18-29,West North Central
+Married,11-15 years,A few times per week,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,30-44,South Atlantic
+In a domestic partnership or civil union,11-15 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,> 60,East North Central
+Married,11-15 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Male,> 60,East North Central
+Married,More than 20 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,East North Central
+"Single, but cohabiting with a significant other",1-5 years,A few times per week,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,East North Central
+Married,6-10 years,Once a month or less,False,False,True,False,False,True,False,False,False,True,Neither agree nor disagree,Somewhat disagree,Somewhat disagree,Female,18-29,Pacific
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat agree,Somewhat agree,Female,> 60,New England
+Married,11-15 years,Once a year or less,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly disagree,Neither agree nor disagree,Female,45-60,East North Central
+Married,1-5 years,Once a year or less,False,False,True,False,False,True,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,18-29,West North Central
+"Single, but cohabiting with a significant other",1-5 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,18-29,Pacific
+Married,More than 20 years,Every night,True,False,False,True,False,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Male,> 60,New England
+Married,6-10 years,Every night,False,False,False,False,False,False,False,False,False,True,Strongly disagree,Strongly disagree,Strongly disagree,Female,30-44,Middle Atlantic
+In a domestic partnership or civil union,11-15 years,A few times per month,False,False,False,False,True,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,> 60,West North Central
+"Single, but cohabiting with a significant other",Less than 1 year,Once a month or less,False,False,False,False,True,True,False,False,False,False,Strongly disagree,Somewhat agree,Neither agree nor disagree,Female,18-29,West North Central
+Married,16-20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Somewhat agree,Somewhat agree,Strongly disagree,Male,45-60,Pacific
+Married,6-10 years,Once a month or less,False,False,False,False,False,True,False,False,False,False,Somewhat agree,Strongly disagree,Strongly disagree,Male,30-44,East North Central
+Married,More than 20 years,Once a year or less,True,False,True,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Somewhat disagree,Female,45-60,East North Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,45-60,East North Central
+Married,11-15 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,> 60,West South Central
+Married,More than 20 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,45-60,West South Central
+Married,More than 20 years,Every night,True,False,False,True,False,False,True,False,False,False,Strongly agree,Strongly agree,Strongly disagree,Female,> 60,Pacific
+Married,More than 20 years,Once a year or less,True,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,45-60,West South Central
+Married,More than 20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,45-60,East North Central
+Married,6-10 years,A few times per month,False,False,False,False,False,False,False,False,True,False,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Female,30-44,South Atlantic
+Married,More than 20 years,Every night,False,True,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Male,> 60,Middle Atlantic
+In a domestic partnership or civil union,1-5 years,Every night,True,True,False,False,True,False,True,True,False,True,Somewhat disagree,Somewhat agree,Strongly disagree,Female,30-44,East South Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,> 60,South Atlantic
+Married,11-15 years,Every night,True,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat agree,Strongly disagree,Female,30-44,East North Central
+Married,11-15 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Female,30-44,West North Central
+Married,16-20 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Strongly agree,Somewhat disagree,Neither agree nor disagree,Male,30-44,Pacific
+Married,11-15 years,A few times per month,True,True,True,False,True,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,45-60,Middle Atlantic
+Married,16-20 years,A few times per week,True,False,False,False,False,False,False,False,False,True,Strongly agree,Strongly agree,Strongly agree,Female,30-44,East North Central
+Married,11-15 years,Every night,False,False,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Strongly disagree,Female,45-60,New England
+Married,1-5 years,Once a year or less,False,False,False,False,False,False,False,False,False,True,Strongly disagree,Somewhat disagree,Strongly disagree,Female,30-44,South Atlantic
+Married,More than 20 years,A few times per week,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,South Atlantic
+Married,6-10 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,18-29,South Atlantic
+Married,More than 20 years,Once a year or less,True,False,True,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Male,45-60,Pacific
+Married,6-10 years,A few times per month,True,True,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Female,18-29,Pacific
+Married,11-15 years,Every night,False,False,False,False,False,True,False,True,False,False,Strongly disagree,Strongly agree,Somewhat disagree,Male,45-60,South Atlantic
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,East North Central
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,True,False,Neither agree nor disagree,Strongly disagree,Neither agree nor disagree,Male,> 60,South Atlantic
+Married,6-10 years,Every night,True,True,False,False,False,False,False,False,False,True,Strongly agree,Strongly agree,Strongly agree,Male,> 60,New England
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Somewhat agree,Somewhat agree,Neither agree nor disagree,Male,> 60,Pacific
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,East North Central
+Married,6-10 years,Once a month or less,False,False,True,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,18-29,West North Central
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,45-60,West North Central
+Married,More than 20 years,A few times per week,True,True,False,False,False,False,False,False,False,False,Somewhat disagree,Strongly agree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+"Single, but cohabiting with a significant other",1-5 years,Every night,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Somewhat agree,Male,> 60,East North Central
+Married,More than 20 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat agree,Somewhat disagree,Male,> 60,New England
+Married,More than 20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,> 60,East North Central
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly disagree,Strongly disagree,Female,> 60,South Atlantic
+Married,More than 20 years,A few times per week,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,45-60,West South Central
+Married,11-15 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Female,30-44,East South Central
+Married,6-10 years,Once a month or less,False,False,False,False,False,False,False,False,True,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,30-44,West South Central
+Married,6-10 years,Once a year or less,False,False,True,False,False,False,False,False,True,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,Middle Atlantic
+Married,6-10 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,East North Central
+Married,6-10 years,Every night,True,False,False,False,False,False,False,False,True,False,Somewhat disagree,Strongly agree,Strongly disagree,Female,45-60,West North Central
+Married,More than 20 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Female,45-60,Middle Atlantic
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,> 60,East South Central
+Married,11-15 years,Every night,False,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,> 60,West South Central
+Married,1-5 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Female,18-29,Middle Atlantic
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly agree,Neither agree nor disagree,Female,30-44,East North Central
+Married,More than 20 years,A few times per month,False,True,False,False,False,False,False,True,False,True,Strongly disagree,Somewhat agree,Neither agree nor disagree,Male,45-60,East South Central
+Married,11-15 years,A few times per week,False,False,False,True,True,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Strongly disagree,Female,30-44,East North Central
+"Single, but cohabiting with a significant other",Less than 1 year,Once a month or less,False,False,False,False,False,False,False,False,False,True,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,West South Central
+Married,More than 20 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Female,45-60,New England
+Married,6-10 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,Pacific
+Married,16-20 years,Every night,True,False,False,False,False,False,False,False,True,False,Neither agree nor disagree,Neither agree nor disagree,Strongly disagree,Female,30-44,East South Central
+Married,1-5 years,Every night,False,False,False,False,False,False,False,False,True,False,Somewhat disagree,Somewhat agree,Strongly disagree,Female,30-44,Middle Atlantic
+Married,More than 20 years,Once a month or less,True,False,False,False,False,False,False,False,True,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,45-60,South Atlantic
+"Single, but cohabiting with a significant other",11-15 years,Once a year or less,False,False,True,False,False,True,False,False,False,False,Somewhat disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,Pacific
+Married,More than 20 years,Once a year or less,False,False,True,False,True,False,False,False,False,False,Somewhat agree,Neither agree nor disagree,Strongly disagree,Female,45-60,New England
+Married,16-20 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Neither agree nor disagree,Strongly disagree,Female,> 60,New England
+Married,More than 20 years,Every night,True,True,False,False,True,False,False,False,False,True,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,45-60,East South Central
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Female,> 60,Pacific
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat agree,Strongly disagree,Female,45-60,New England
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,Pacific
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Strongly disagree,Strongly disagree,Female,> 60,Pacific
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Strongly agree,Neither agree nor disagree,Female,45-60,Pacific
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,True,False,False,False,False,False,False,False,False,True,Strongly disagree,Somewhat disagree,Strongly disagree,Female,45-60,Middle Atlantic
+"Single, but cohabiting with a significant other",11-15 years,Every night,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Female,45-60,South Atlantic
+Married,More than 20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,West North Central
+In a domestic partnership or civil union,6-10 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Female,30-44,Pacific
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,Middle Atlantic
+"Single, but cohabiting with a significant other",6-10 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,45-60,East North Central
+In a domestic partnership or civil union,More than 20 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Strongly disagree,Neither agree nor disagree,Female,30-44,South Atlantic
+Married,More than 20 years,A few times per week,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat agree,Somewhat agree,Male,> 60,East North Central
+Married,16-20 years,Every night,True,True,False,False,True,False,False,True,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,45-60,East North Central
+Married,16-20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Somewhat disagree,Female,30-44,Middle Atlantic
+Married,More than 20 years,Once a month or less,True,False,True,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,Pacific
+Married,16-20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Female,45-60,East North Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,45-60,South Atlantic
+Married,1-5 years,Once a year or less,False,False,False,False,True,False,True,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Female,18-29,New England
+Married,6-10 years,Once a month or less,False,False,True,False,False,False,False,False,True,False,Somewhat agree,Neither agree nor disagree,Somewhat disagree,Female,45-60,West North Central
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Female,45-60,East North Central
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Somewhat agree,Somewhat agree,Somewhat agree,Male,> 60,East North Central
+Married,More than 20 years,Once a month or less,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Female,> 60,Middle Atlantic
+Married,16-20 years,A few times per month,False,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,45-60,Pacific
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Strongly disagree,Male,> 60,Pacific
+Married,6-10 years,Once a month or less,True,False,True,False,False,True,False,False,False,False,Somewhat disagree,Somewhat disagree,Neither agree nor disagree,Male,30-44,New England
+Married,More than 20 years,Once a month or less,True,False,False,False,False,False,False,False,False,True,Somewhat disagree,Somewhat disagree,Neither agree nor disagree,Female,30-44,East North Central
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Male,> 60,Pacific
+Married,11-15 years,Every night,False,False,False,False,False,False,False,False,True,True,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,30-44,East North Central
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,True,Strongly disagree,Somewhat disagree,Somewhat disagree,Female,45-60,Middle Atlantic
+"Single, but cohabiting with a significant other",1-5 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Female,18-29,Middle Atlantic
+Married,6-10 years,Every night,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Female,30-44,West North Central
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,> 60,East North Central
+Married,More than 20 years,A few times per month,False,False,False,True,True,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,45-60,Middle Atlantic
+Married,1-5 years,Once a month or less,False,False,False,False,False,False,False,False,True,False,Somewhat disagree,Somewhat disagree,Somewhat disagree,Female,18-29,East North Central
+Married,More than 20 years,A few times per month,True,True,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Somewhat disagree,Male,> 60,West North Central
+Married,More than 20 years,Every night,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Neither agree nor disagree,Somewhat disagree,Male,45-60,Middle Atlantic
+Married,16-20 years,A few times per week,False,False,False,False,False,False,False,False,False,True,Strongly agree,Strongly agree,Neither agree nor disagree,Female,45-60,South Atlantic
+Married,6-10 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Male,30-44,West South Central
+Married,11-15 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,30-44,Middle Atlantic
+Married,1-5 years,Once a month or less,False,False,False,False,True,False,False,False,False,True,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Female,18-29,West South Central
+Married,16-20 years,Every night,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Neither agree nor disagree,Strongly disagree,Female,> 60,South Atlantic
+"Single, but cohabiting with a significant other",6-10 years,Once a year or less,True,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,30-44,Middle Atlantic
+Married,More than 20 years,A few times per month,False,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Male,> 60,New England
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,45-60,Middle Atlantic
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Somewhat disagree,Male,45-60,East North Central
+Married,More than 20 years,Every night,True,False,False,True,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Strongly disagree,Female,> 60,East North Central
+In a domestic partnership or civil union,16-20 years,A few times per month,False,True,False,False,False,False,False,False,False,False,Strongly agree,Somewhat disagree,Somewhat disagree,Female,45-60,New England
+Married,11-15 years,Once a month or less,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Somewhat agree,Strongly disagree,Male,30-44,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Neither agree nor disagree,Male,> 60,New England
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Female,45-60,Pacific
+Married,More than 20 years,Every night,False,False,False,True,False,False,False,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Male,> 60,East North Central
+Married,More than 20 years,Once a year or less,True,False,True,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Male,> 60,Pacific
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,False,False,False,False,False,False,True,False,False,True,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,18-29,Pacific
+Married,11-15 years,A few times per month,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,30-44,South Atlantic
+Married,More than 20 years,Every night,True,True,False,True,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Strongly disagree,Male,45-60,West North Central
+Married,More than 20 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+Married,11-15 years,Every night,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,45-60,Pacific
+Married,More than 20 years,Once a month or less,False,False,False,True,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Male,> 60,West North Central
+Married,16-20 years,Every night,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,South Atlantic
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,> 60,South Atlantic
+Married,6-10 years,Once a year or less,False,False,True,False,False,True,False,False,True,True,Strongly disagree,Somewhat disagree,Strongly disagree,Female,18-29,Middle Atlantic
+Married,11-15 years,A few times per week,True,False,False,False,True,True,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Female,30-44,South Atlantic
+Married,11-15 years,Every night,True,False,False,False,False,False,False,False,True,False,Neither agree nor disagree,Strongly agree,Strongly disagree,Female,30-44,Pacific
+Married,More than 20 years,Every night,False,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,> 60,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,45-60,East South Central
+In a domestic partnership or civil union,6-10 years,A few times per month,True,True,True,False,True,True,False,False,False,False,Somewhat disagree,Strongly agree,Strongly disagree,Female,45-60,East North Central
+Married,11-15 years,Every night,True,False,False,False,True,False,False,False,False,False,Strongly agree,Strongly agree,Somewhat agree,Male,45-60,South Atlantic
+Married,6-10 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Somewhat agree,Neither agree nor disagree,Male,30-44,Middle Atlantic
+Married,6-10 years,A few times per month,False,False,False,False,False,True,False,False,False,True,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,South Atlantic
+In a domestic partnership or civil union,16-20 years,Every night,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Female,45-60,South Atlantic
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,South Atlantic
+"Single, but cohabiting with a significant other",11-15 years,Once a month or less,True,False,True,False,False,True,False,False,False,False,Somewhat agree,Somewhat agree,Neither agree nor disagree,Female,30-44,West South Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Strongly disagree,Female,> 60,Middle Atlantic
+Married,More than 20 years,A few times per month,False,False,False,False,True,False,True,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,18-29,Middle Atlantic
+Married,1-5 years,Once a month or less,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,30-44,Pacific
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Somewhat disagree,Male,45-60,East North Central
+"Single, but cohabiting with a significant other",16-20 years,Every night,False,False,False,False,False,False,True,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Male,45-60,New England
+Married,6-10 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,30-44,East North Central
+Married,More than 20 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Female,45-60,East North Central
+"Single, but cohabiting with a significant other",6-10 years,Every night,True,False,False,True,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,45-60,South Atlantic
+In a domestic partnership or civil union,6-10 years,Once a month or less,False,False,True,False,True,True,False,False,False,False,Strongly disagree,Somewhat disagree,Strongly disagree,Female,18-29,East North Central
+Married,11-15 years,A few times per week,False,False,False,False,False,False,False,False,True,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,New England
+Married,16-20 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Somewhat agree,Neither agree nor disagree,Female,45-60,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat agree,Strongly disagree,Male,> 60,Pacific
+Married,More than 20 years,Every night,False,False,False,True,False,False,False,False,False,False,Strongly disagree,Strongly agree,Strongly disagree,Male,> 60,East North Central
+Married,16-20 years,Every night,True,False,False,False,False,False,True,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Female,30-44,East North Central
+Married,11-15 years,Once a year or less,False,False,False,False,False,True,False,False,True,False,Neither agree nor disagree,Somewhat disagree,Somewhat disagree,Female,30-44,Pacific
+Married,More than 20 years,Every night,True,False,False,False,True,False,False,False,False,False,Strongly agree,Strongly agree,Strongly agree,Male,> 60,East North Central
+Married,11-15 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,45-60,West North Central
+Married,More than 20 years,A few times per month,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,45-60,West North Central
+Married,6-10 years,A few times per month,False,False,False,False,False,True,False,False,True,False,Somewhat disagree,Somewhat disagree,Strongly disagree,Female,18-29,East South Central
+"Single, but cohabiting with a significant other",6-10 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,> 60,East North Central
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Strongly disagree,Strongly disagree,Female,45-60,West South Central
+Married,1-5 years,A few times per week,True,False,True,True,False,True,False,False,False,False,Somewhat disagree,Somewhat agree,Strongly disagree,Male,30-44,South Atlantic
+Married,11-15 years,Every night,True,False,False,False,False,False,False,True,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,> 60,New England
+Married,16-20 years,Every night,True,False,False,False,True,False,False,False,False,True,Somewhat disagree,Strongly agree,Somewhat disagree,Female,45-60,West South Central
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,True,Somewhat agree,Somewhat agree,Neither agree nor disagree,Female,> 60,Pacific
+Married,More than 20 years,Every night,False,False,False,False,True,False,False,False,False,True,Strongly agree,Strongly agree,Neither agree nor disagree,Male,> 60,West North Central
+Married,More than 20 years,Every night,False,False,True,False,False,True,False,False,False,True,Somewhat agree,Strongly agree,Neither agree nor disagree,Female,45-60,East South Central
+Married,16-20 years,Once a year or less,False,False,True,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,45-60,Pacific
+Married,11-15 years,Once a month or less,True,False,True,False,False,False,False,False,True,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,18-29,East South Central
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,New England
+Married,16-20 years,Every night,True,False,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Somewhat disagree,Male,> 60,East North Central
+Married,11-15 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly disagree,Strongly disagree,Female,45-60,East North Central
+Married,6-10 years,A few times per week,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,30-44,East North Central
+Married,6-10 years,Every night,True,False,False,False,False,False,False,False,True,True,Strongly disagree,Somewhat agree,Neither agree nor disagree,Female,30-44,East North Central
+Married,More than 20 years,Every night,True,False,True,False,True,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+Married,6-10 years,Once a year or less,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Strongly agree,Somewhat disagree,Male,30-44,Pacific
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,True,Strongly disagree,Strongly disagree,Strongly disagree,Female,45-60,New England
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,> 60,East North Central
+Married,More than 20 years,Once a month or less,False,False,False,True,False,True,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,45-60,Middle Atlantic
+Married,More than 20 years,Once a year or less,True,False,False,False,True,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Strongly disagree,Female,45-60,New England
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly disagree,Neither agree nor disagree,Female,45-60,Middle Atlantic
+Married,More than 20 years,Every night,True,True,True,True,False,False,False,False,False,False,Somewhat agree,Strongly agree,Somewhat disagree,Male,> 60,West North Central
+"Single, but cohabiting with a significant other",1-5 years,Every night,False,False,False,True,True,False,True,True,False,False,Somewhat agree,Strongly agree,Somewhat disagree,Male,30-44,South Atlantic
+Married,11-15 years,Once a month or less,False,False,True,False,False,False,True,False,False,False,Strongly disagree,Somewhat agree,Strongly disagree,Male,30-44,Middle Atlantic
+Married,More than 20 years,Once a month or less,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,45-60,South Atlantic
+Married,11-15 years,Once a month or less,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Somewhat disagree,Strongly disagree,Male,45-60,West South Central
+Married,11-15 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,45-60,Middle Atlantic
+Married,6-10 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,18-29,West South Central
+Married,16-20 years,Every night,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly agree,Neither agree nor disagree,Female,45-60,South Atlantic
+Married,More than 20 years,Every night,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,South Atlantic
+Married,More than 20 years,Every night,False,False,True,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Strongly disagree,Female,> 60,West South Central
+Married,More than 20 years,Once a month or less,True,False,False,False,False,True,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Male,45-60,Middle Atlantic
+Married,More than 20 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,45-60,East North Central
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Somewhat disagree,Strongly disagree,Strongly disagree,Female,45-60,West North Central
+Married,16-20 years,Every night,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,45-60,Middle Atlantic
+"Single, but cohabiting with a significant other",6-10 years,Once a month or less,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat disagree,Neither agree nor disagree,Male,18-29,Middle Atlantic
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,> 60,West North Central
+Married,16-20 years,Once a year or less,True,False,True,False,False,False,False,False,False,False,Strongly agree,Somewhat disagree,Neither agree nor disagree,Male,45-60,South Atlantic
+Married,11-15 years,Every night,False,False,False,False,False,True,False,False,False,False,Strongly disagree,Neither agree nor disagree,Somewhat disagree,Male,45-60,South Atlantic
+Married,More than 20 years,Every night,True,False,False,False,False,False,True,False,False,False,Somewhat disagree,Strongly agree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly disagree,Strongly disagree,Female,> 60,Middle Atlantic
+Married,More than 20 years,A few times per week,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Somewhat agree,Neither agree nor disagree,Female,45-60,East North Central
+"Single, but cohabiting with a significant other",1-5 years,A few times per month,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,30-44,South Atlantic
+Married,11-15 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Strongly disagree,Female,30-44,East North Central
+Married,More than 20 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Neither agree nor disagree,Neither agree nor disagree,Female,45-60,West North Central
+Married,More than 20 years,Once a month or less,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+Married,6-10 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,30-44,South Atlantic
+"Single, but cohabiting with a significant other",11-15 years,A few times per month,True,True,True,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,30-44,Pacific
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,True,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Female,30-44,Pacific
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,45-60,South Atlantic
+Married,11-15 years,A few times per month,True,False,True,False,False,False,False,False,False,False,Somewhat disagree,Strongly agree,Strongly disagree,Female,45-60,Pacific
+"Single, but cohabiting with a significant other",1-5 years,A few times per week,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,18-29,New England
+Married,16-20 years,Once a year or less,False,False,True,False,False,False,False,False,True,False,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,45-60,West North Central
+Married,More than 20 years,Every night,True,True,False,False,False,False,False,False,False,True,Somewhat disagree,Somewhat agree,Neither agree nor disagree,Female,> 60,South Atlantic
+Married,16-20 years,Every night,True,False,True,False,False,False,True,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Female,45-60,West South Central
+Married,More than 20 years,Every night,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Male,> 60,Middle Atlantic
+In a domestic partnership or civil union,1-5 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Somewhat agree,Somewhat agree,Neither agree nor disagree,Male,30-44,Pacific
+Married,More than 20 years,Once a month or less,True,False,True,False,False,False,False,False,False,False,Strongly disagree,Somewhat agree,Strongly disagree,Female,> 60,East North Central
+Married,16-20 years,Every night,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,30-44,Middle Atlantic
+Married,11-15 years,Every night,True,False,False,False,True,False,True,True,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Female,30-44,Pacific
+Married,16-20 years,A few times per month,False,False,False,False,False,False,False,False,True,False,Strongly agree,Somewhat disagree,Somewhat agree,Male,30-44,New England
+Married,More than 20 years,Once a month or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Somewhat agree,Strongly disagree,Male,> 60,Middle Atlantic
+Married,16-20 years,Once a month or less,True,False,False,False,True,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,45-60,Middle Atlantic
+Married,More than 20 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Female,> 60,Middle Atlantic
+Married,More than 20 years,Once a month or less,True,True,False,False,False,False,False,False,False,False,Strongly disagree,Somewhat agree,Strongly disagree,Male,> 60,East North Central
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat disagree,Strongly agree,Strongly disagree,Female,45-60,New England
+Married,11-15 years,Every night,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat agree,Somewhat disagree,Female,30-44,East North Central
+Married,6-10 years,A few times per week,False,False,False,False,False,False,False,False,True,False,Somewhat disagree,Neither agree nor disagree,Somewhat disagree,Female,30-44,West North Central
+Married,More than 20 years,A few times per month,True,True,True,False,False,False,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,> 60,Pacific
+Married,16-20 years,Once a year or less,False,False,False,False,False,False,False,False,False,False,Strongly disagree,Strongly disagree,Strongly disagree,Female,45-60,Middle Atlantic
+Married,6-10 years,A few times per month,False,False,False,False,False,False,False,False,True,False,Strongly disagree,Somewhat disagree,Strongly disagree,Male,30-44,East South Central
+Married,11-15 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Neither agree nor disagree,Male,45-60,West North Central
+Married,More than 20 years,Once a year or less,True,False,False,False,False,False,False,False,False,False,Strongly disagree,Neither agree nor disagree,Strongly disagree,Female,> 60,East North Central
+Married,11-15 years,Once a year or less,False,False,True,False,False,True,False,False,True,False,Somewhat disagree,Strongly disagree,Strongly disagree,Female,30-44,South Atlantic
+Married,16-20 years,Once a month or less,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,West South Central
+Married,6-10 years,Every night,False,True,True,False,False,False,False,False,False,False,Strongly agree,Strongly agree,Neither agree nor disagree,Female,30-44,South Atlantic
+Married,More than 20 years,Every night,True,False,False,False,False,False,False,False,False,False,Somewhat agree,Strongly agree,Neither agree nor disagree,Male,> 60,New England
+Married,11-15 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Strongly agree,Somewhat agree,Neither agree nor disagree,Female,30-44,West South Central
+"Single, but cohabiting with a significant other",More than 20 years,Once a year or less,True,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,Pacific
+Married,More than 20 years,Every night,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,> 60,Middle Atlantic
+Married,More than 20 years,A few times per week,False,True,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Somewhat agree,Male,45-60,East North Central
+Married,16-20 years,Once a month or less,True,False,True,False,False,False,False,False,False,False,Somewhat disagree,Neither agree nor disagree,Neither agree nor disagree,Female,45-60,West North Central
+Married,More than 20 years,Every night,True,True,False,False,False,False,True,False,False,False,Neither agree nor disagree,Strongly agree,Somewhat disagree,Female,> 60,New England
+Married,16-20 years,A few times per week,True,False,False,True,False,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Strongly disagree,Female,45-60,Pacific
+Married,1-5 years,A few times per month,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,45-60,South Atlantic
+Married,6-10 years,A few times per week,False,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,South Atlantic
+"Single, but cohabiting with a significant other",1-5 years,Once a month or less,False,False,False,False,False,False,False,False,False,True,Neither agree nor disagree,Somewhat agree,Neither agree nor disagree,Female,18-29,Pacific
+Married,More than 20 years,Every night,False,False,False,False,False,False,True,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,45-60,Pacific
+Married,16-20 years,A few times per week,True,False,False,False,True,False,False,False,False,False,Somewhat agree,Strongly agree,Strongly disagree,Male,45-60,East North Central
+Married,11-15 years,Once a month or less,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,30-44,West North Central
+Married,11-15 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,30-44,South Atlantic
+Married,More than 20 years,Once a month or less,True,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Strongly disagree,Female,> 60,South Atlantic
+Married,6-10 years,Once a year or less,False,False,False,False,False,True,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,Pacific
+"Single, but cohabiting with a significant other",1-5 years,Every night,True,False,False,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat agree,Strongly disagree,Male,30-44,West North Central
+Married,11-15 years,A few times per week,False,False,False,False,False,False,False,False,True,False,Somewhat agree,Somewhat disagree,Somewhat agree,Male,30-44,East North Central
+Married,More than 20 years,Once a year or less,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Somewhat disagree,Strongly disagree,Male,45-60,Middle Atlantic
+Married,6-10 years,Once a month or less,False,False,True,False,False,False,False,False,False,False,Somewhat agree,Somewhat agree,Strongly disagree,Male,45-60,New England
+Married,More than 20 years,A few times per week,True,False,False,False,True,False,False,False,False,False,Neither agree nor disagree,Strongly agree,Somewhat agree,Female,45-60,East North Central
+Married,More than 20 years,Every night,False,False,True,False,False,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,> 60,Pacific
+Married,Less than 1 year,Once a year or less,True,True,True,False,True,True,False,False,False,True,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Female,30-44,South Atlantic
+Married,More than 20 years,Every night,False,False,False,False,True,False,False,False,False,False,Neither agree nor disagree,Neither agree nor disagree,Neither agree nor disagree,Male,> 60,East North Central

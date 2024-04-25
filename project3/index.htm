@@ -1,0 +1,497 @@
+<html lang="en">
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Couple Sleeping Habits</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+</head>
+<style>
+    .state {
+        fill: lightgrey;
+    }
+
+    .outline {
+        fill: none;
+        stroke: black;
+        stroke-width: 1px;
+    }
+
+    .graticule {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1px;
+    }
+
+    #details {
+        position: absolute;
+        right: 5%;
+        width: 250px;
+        padding: 10px;
+        background-color: #ffffff69;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<body>
+    <div style="display: flex;height: 100%; align-items: center;">
+        <div style="display: flex; flex-direction:column;">
+            <svg id="plot2" height="250" width="400" style="background: transparent">
+            </svg>
+            <svg id="plot3" height="450" width="400" style="background: transparent">
+            </svg>
+        </div>
+
+        <svg id="plot" height="700" width="900" style="background: transparent">
+        </svg>
+        <div id="details" style="visibility:hidden;"></div>
+    </div>
+
+    <script>
+        const svg = d3.select("#plot");
+        const svg2 = d3.select("#plot2");
+        const svg3 = d3.select("#plot3")
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const mapWidth = width - margin.left - margin.right;
+        const mapHeight = height - margin.top - margin.bottom;
+        const margin2 = { top: 20, right: 30, bottom: 40, left: 10 };
+        const width2 = svg3.attr("width");
+        const height2 = svg3.attr("height");
+        const chartWidth = width2 - margin2.left - margin2.right;
+        const chartHeight = height2 - margin2.top - margin2.bottom;
+
+        const map = svg.append("g")
+            .attr("transform", "translate(" + (margin.left + 10) + "," + (margin.top + 20) + ")");
+
+        const requestData = async function () {
+            const oGdata = await d3.csv("./sleeping-alone-data-reformat.csv");
+            let data = []
+
+            const us = await d3.json("./us-smaller.json");
+            var states = topojson.feature(us, us.objects.states);
+            var statesMesh = topojson.mesh(us, us.objects.states);
+            var projection = d3.geoAlbersUsa().fitSize([mapWidth, mapHeight], states);
+            var path = d3.geoPath().projection(projection);
+
+            let statePaths = map.selectAll("path.state").data(states.features)
+                .join("path")
+                .attr("class", "state")
+                .attr("d", path);
+
+            map.append("path").datum(statesMesh)
+                .attr("class", "outline")
+                .attr("d", path);
+
+            const mappingReasons = {
+                    snores: {
+                        original: "Snoring",
+                        trunc: "Snoring"
+                    },
+                    bathroom_trip: {
+                        original: "Frequent bathroom trips in the night",
+                        trunc: "Frequenting bathroom"
+                    },
+                    sick: {
+                        original: "Sick/Ill",
+                        trunc: "Sick/Ill"
+                    },
+                    intimacy: {
+                        original: "No longer physically intimate",
+                        trunc: "Physically intimacy"
+                    },
+                    temperature: {
+                        original: "Different temperature preferences for the room",
+                        trunc: "Temperature preference"
+                    },
+                    fight: {
+                        original: "Argument/Fight",
+                        trunc: "Argument/Fight"
+                    },
+                    space: {
+                        original: "Not enough space to sleep",
+                        trunc: "Sleeping space"
+                    },
+                    cover_sharing: {
+                        original: "Do not want to share the covers",
+                        trunc: "Sharing covers"
+                    },
+                    child: {
+                        original: "One needs to sleep with the child",
+                        trunc: "Child needs"
+                    },
+                    work: {
+                        original: "Night working/Very different sleeping times",
+                        trunc: "Different sleeping times"
+                    },
+                    others: {
+                        original: "Others",
+                        trunc: "Others"
+                    }
+            }
+
+            oGdata.forEach(d => {
+
+                if (d["location"] !== "Response" && d["location"] !== "Mountain" && d["location"] !== "") {
+                    if (d["relationship_status"] !== "Response" && d["relationship_status"] !== "Divorced" && d["relationship_status"] !== "Widowed" && d["relationship_status"] !== "Separated") {
+                        let obj = {
+                            location: d["location"],
+                            sleep_freq: d["sleep_freq"],
+                            relationship_years: d["relationship_years"],
+                            relationship_status: d["relationship_status"],
+                            snores: d["snores"] === "" ? false : true,
+                            bathroom_trip: d["frequent bathroom trips in the night"] === "" ? false : true,
+                            sick: d["sick"] === "" ? false : true,
+                            intimacy: d["no longer physically intimate"] === "" ? false : true,
+                            temperature: d["different temperature preferences for the room"] === "" ? false : true,
+                            fight: d["argument/fight"] === "" ? false : true,
+                            space: d["not enough space"] === "" ? false : true,
+                            cover_sharing: d["do not want to share the covers"] === "" ? false : true,
+                            child: d["needs to sleep with a child"] === "" ? false : true,
+                            work: d["night working/very different sleeping times"] === "" ? false : true,
+                            others: d["Unnamed: 19"] === "" ? false : true
+                        }
+                        data.push(obj)
+                    }
+
+                }
+            })
+
+            plotDetailedChart(svg3, margin2, data, mappingReasons, chartHeight, chartWidth);
+
+            svg3.append("text")
+                .attr("x", width2 / 2 - 20) // Center the title
+                .attr("y", margin2.top / 2 +20) // Position the title near the top of the SVG
+                .attr("text-anchor", "middle") // Ensure the title is centered
+                .style("font-size", "24px") // Adjust font size as needed
+                .style("font-weight", "bold") // Make the title bold
+                .text("Reasons for sleeping apart"); // Your title text
+
+            uniq_value = [...new Set(data.map(item => item.sleep_freq))]
+
+            let groupedData = getDataMapping(data);
+
+            const colorScale = d3.scaleOrdinal()
+                .domain(['Once a year or less', 'A few times per month', 'Never', 'Once a month or less', 'A few times per week', 'Every night'])
+                .range(['#ccffcc', '#99ff99', '#66ff66', '#33cc33', '#009900', '#006600']);
+
+
+            plotCircles(svg, groupedData, data, projection, map, colorScale, mappingReasons, svg3, margin2, chartHeight, chartWidth );
+
+            const legendX = 50;
+            const legendY = 100;
+            const legendSpacing = 20;
+            const circleRadius = 5;
+
+            svg2.append("text")
+                .attr("x", legendX - 10)
+                .attr("y", legendY - 20)
+                .text("How often couples sleep in separate beds?")
+                .style("font-size", "16px")
+                .style("font-weight", "bold");
+
+            const legend = svg2.selectAll(".legend")
+                .data(uniq_value)
+                .enter().append("g")
+                .attr("class", "legend")
+                .attr("transform", (d, i) => `translate(0, ${legendY + i * legendSpacing})`);
+
+            legend.append("circle")
+                .attr("cx", legendX)
+                .attr("cy", 0)
+                .attr("r", circleRadius)
+                .style("fill", d => colorScale(d));
+
+            legend.append("text")
+                .attr("x", legendX + 20)
+                .attr("y", 0)
+                .attr("dy", ".35em")
+                .text(d => d)
+                .style("font-size", "12px");
+
+        }
+        requestData();
+
+        function getDataMapping(data) {
+
+            //derived from ChatGPT
+            const locations = [
+                { name: "Pacific", coordinates: [-122.4194, 37.7749] }, // Example coordinates for San Francisco
+                { name: "South Atlantic", coordinates: [-80.1918, 25.7617] }, // Example coordinates for Miami
+                { name: "Middle Atlantic", coordinates: [-74.0060, 40.7128] }, // Example coordinates for New York City
+                { name: "East North Central", coordinates: [-87.6298, 41.8781] }, // Example coordinates for Chicago
+                { name: "West North Central", coordinates: [-93.2650, 44.9778] }, // Example coordinates for Minneapolis
+                { name: "New England", coordinates: [-71.0589, 42.3601] }, // Example coordinates for Boston
+                { name: "East South Central", coordinates: [-86.7816, 36.1627] }, // Example coordinates for Nashville
+                { name: "West South Central", coordinates: [-95.3698, 29.7604] }, // Example coordinates for Houston
+            ];
+
+            const groupedData = {};
+            data.forEach(item => {
+                const locationKey = item.location;
+                const sleepFreqKey = item.sleep_freq;
+
+                if (!groupedData[locationKey]) {
+                    groupedData[locationKey] = {};
+                }
+                if (!groupedData[locationKey][sleepFreqKey]) {
+                    groupedData[locationKey][sleepFreqKey] = [];
+                }
+                groupedData[locationKey][sleepFreqKey].push(item);
+            });
+
+            let aggregatedData = []
+            for (let key in groupedData) {
+                let chileObj = groupedData[key];
+                let childArray = []
+                for (let childKey in chileObj) {
+                    let child = {
+                        freq: childKey,
+                        items: chileObj[childKey],
+                        count: chileObj[childKey].length
+                    }
+                    childArray.push(child)
+                }
+                let obj = {
+                    location: key,
+                    coordinates: locations.find(it => it.name === key).coordinates,
+                    items: childArray
+                }
+                aggregatedData.push(obj)
+            }
+
+            return aggregatedData;
+
+        }
+
+        function plotCircles(svg, data, fullData, projection, map, colorScale, mappingReasons, svg3, margin, chartHeight, chartWidth ) {
+            let currentZoomScale = 1;
+            const detailsDiv = d3.select("#details");
+            const zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on('zoom', (event) => {
+                    currentZoomScale = event.transform.k;
+                    map.attr('transform', event.transform);
+                    if (currentZoomScale < 20) {
+                        detailsDiv.style("display", "none");
+                        plotDetailedChart(svg3, margin, fullData, mappingReasons, chartHeight, chartWidth)
+                    }
+                    else {
+                        detailsDiv.style("visibility", "visible")
+                        detailsDiv.style("display", "block");
+                    }
+                });
+
+            svg.call(zoom);
+
+            const flatData = data.flatMap(d =>
+                d.items.map(item => ({
+                    coordinates: d.coordinates,
+                    count: item.count,
+                    freq: item.freq,
+                    items: item.items
+                }))
+            );
+            let sizeScale = d3.scaleSqrt()
+                .domain([0, d3.max(flatData, d => d["count"])])
+                .range([3, 30]);
+
+            const simulation = d3.forceSimulation(flatData)
+                .force('x', d3.forceX(d => projection(d.coordinates)[0]).strength(0.2))
+                .force('y', d3.forceY(d => projection(d.coordinates)[1]).strength(0.2))
+                .force('collide', d3.forceCollide(d => sizeScale(d.count)))
+                .on('tick', ticked);
+
+            function ticked() {
+                const circles = map.selectAll('circle')
+                    .data(flatData)
+                    .join('circle')
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y)
+                    .attr("opacity", 0.8)
+                    .attr('r', d => sizeScale(d.count))
+                    .style('fill', d => colorScale(d.freq))
+                    .on('mouseover', function (event, d) {
+                        if (d.freq !== "Never") {
+                            d3.select(this)
+                                .transition()
+                                .duration(200)
+                                .attr('r', d => sizeScale(d.count) + 5)
+                                .style('stroke', 'black')
+                                .style('stroke-width', 10);
+                            plotDetailedChart(svg3, margin, d.items, mappingReasons, chartHeight, chartWidth)
+
+                            //showDetails(d)
+                        }
+
+                    })
+                    .on('click', function (event, d) {
+                        event.stopPropagation();
+
+                        const x = d.x;
+                        const y = d.y;
+                        const circleDiameter = sizeScale(d.count) * 2;
+                        const svgSmallerDimension = Math.min(width, height);
+                        const padding = 10;
+                        const scale = (svgSmallerDimension - padding) / circleDiameter;
+
+                        const translateX = (width / 2 - scale * x);
+                        const translateY = (height / 2 - scale * y);
+                        svg.transition().duration(750).call(
+                            zoom.transform,
+                            d3.zoomIdentity.translate(translateX, translateY).scale(scale)
+                        );
+                        console.log("scale", scale)
+                        if (scale > 20) {
+                            showDetails(true, d);
+                        }
+                        if (scale <20) {
+                            plotDetailedChart(svg3, margin, fullData, mappingReasons, chartHeight, chartWidth)
+                        }
+                        else{
+                            plotDetailedChart(svg3, margin, d.items, mappingReasons, chartHeight, chartWidth)
+                            
+                        }
+                    })
+                    .on('mouseout', function (event, d) {
+                        d3.select(this)
+                            .transition()
+                            .duration(200)
+                            .attr('r', d => sizeScale(d.count))
+                            .style('stroke', 'none');
+                        
+                        plotDetailedChart(svg3, margin, fullData, mappingReasons, chartHeight, chartWidth)
+                    });
+                svg.on('click', () => {
+                    map.transition().duration(750).attr("transform", "translate(0,0)scale(1)");
+                    circles.transition().duration(750).style("stroke-width", "1px");
+                });
+            }
+        }
+
+        function showDetails(showDiv, datapoint) {
+            const detailsDiv = d3.select("#details");
+            if (showDiv) {
+                let counts = {};
+                datapoint.items.forEach(item => {
+                    Object.entries(item).forEach(([key, value]) => {
+                        if (typeof value === 'boolean') {
+                            counts[key] = (counts[key] || 0) + (value ? 1 : 0);
+                        }
+                    });
+                });
+
+                const categoryCount = Object.keys(counts).map(key => ({
+                    text: key,
+                    size: counts[key]
+                }));
+                detailsDiv.style("visibility", "visible")
+                detailsDiv.style("display", "block");
+            }
+            else {
+                detailsDiv.style("display", "none")
+            }
+        }
+
+        function plotDetailedChart(svg, margin, data,mappingReasons, chartHeight, chartWidth) {
+            console.log("detail Data", data)
+            svg.selectAll("g").remove();
+            const detailChart = svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + 40 + ")");
+            let counts = {
+                bathroom_trip: 0,
+                child: 0,
+                cover_sharing: 0,
+                fight: 0,
+                intimacy: 0,
+                sick: 0,
+                snores: 0,
+                space: 0,
+                temperature: 0,
+                work: 0
+            };
+            data.forEach(row => {
+                // Check each key in the counts object
+                for (let key in counts) {
+                    
+                    if (row[key] === true) {
+                        counts[key]++;
+                    }
+                }
+            });
+            let countsArray = Object.keys(counts).map(key => ({
+                category: key,
+                count: counts[key],
+                description: mappingReasons[key]
+            }));
+            countsArray.sort((a, b) => b.count - a.count); // Sort descending by count
+            const top5Categories = new Set(countsArray.slice(0, 5).map(d => d.category));
+            const rootData = {
+                name: "Root",
+                children: countsArray
+            };
+            const countsData = countsArray.map(d => d.count);
+            const maxCount = d3.max(countsData);
+            const minCount = d3.min(countsData);
+            const countColorScale = d3.scaleSequential([minCount, maxCount], d3.interpolateBlues);
+            const tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("position", "absolute")
+                .style("visibility", "hidden")
+                .style("background-color", "#fff")
+                .style("padding", "10px")
+                .style("border-radius", "5px")
+                .style("border", "1px solid #ccc")
+                .style("box-shadow", "0 2px 4px rgba(0, 0, 0, 0.1)");
+
+
+            const treemap = d3.treemap()
+                .size([chartWidth, chartHeight])
+                .padding(1);
+
+            const root = d3.hierarchy(rootData)
+                .sum(d => d.count); // Define how to calculate the size of each rectangle
+
+            treemap(root);
+
+            detailChart.selectAll("rect")
+                .data(root.leaves())
+                .enter().append("rect")
+                .attr("x", d => d.x0)
+                .attr("y", d => d.y0)
+                .attr("width", d => d.x1 - d.x0)
+                .attr("height", d => d.y1 - d.y0)
+                .attr("fill", d => countColorScale(d.value))
+                .on("mouseover", function (event, d) {
+                    tooltip.html(`${d.data.description.original}<br>Count: ${d.value}`)
+                        .style("visibility", "visible");
+                })
+                .on("mousemove", function (event) {
+                    tooltip.style("top", (event.pageY - 10) + "px")
+                        .style("left", (event.pageX + 10) + "px");
+                })
+                .on("mouseout", function () {
+                    tooltip.style("visibility", "hidden");
+                });
+
+            // Add labels
+            detailChart.selectAll("text")
+                .data(root.leaves())
+                .enter().append("text")
+                .filter(d => top5Categories.has(d.data.category)) // Only add labels for top 5
+                .attr("x", d => d.x0 + 5)
+                .attr("y", d => d.y0 + 20)
+                .text(d => `${d.data.description.trunc}`)
+                .attr("font-size", "12px")
+                .attr("fill", "white");
+
+        }
+    </script>
+</body>
+
+</html>

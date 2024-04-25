@@ -1,0 +1,126 @@
+<html lang="en">
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Couple Sleeping Habits</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+</head>
+<style>
+    .state {
+        fill: lightgrey;
+    }
+
+    .outline {
+        fill: none;
+        stroke: black;
+        stroke-width: 1px;
+    }
+
+    .graticule {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1px;
+    }
+
+    #details {
+        position: absolute;
+        right: 5%;
+        width: 250px;
+        padding: 10px;
+        background-color: #ffffff69;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<body>
+    <div style="display: flex;height: 100%; align-items: center;">
+        <button onclick="updatePie(pie2)">Data 2</button>
+        <svg id="plot" height="500" width="500" style="background: transparent">
+        </svg>
+        <div id="details" style="visibility:hidden;"></div>
+    </div>
+
+    <script>
+        const svg = d3.select("#plot");
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const radius = Math.min(width, height) / 2;
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+
+        const pieChart = svg.append("g").attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+
+        const requestData = async function () {
+            const oGdata = await d3.csv("./sleeping-pattern-formatted.csv");
+            let data = []
+
+
+            console.log("data", oGdata)
+            const sleepFrequencies = oGdata.map(item => item.sleep_freq);
+            const uniqueSleepFrequencies = new Set(sleepFrequencies);
+            const uniqueSleepFrequenciesArray = [...uniqueSleepFrequencies];
+            console.log("uniqueSleepFrequenciesArray", uniqueSleepFrequenciesArray)
+            const totalCount = oGdata.length;
+            const count = (data, frequency) => {
+                return data.reduce((count, item) => {
+                    if (item.sleep_freq === frequency) {
+                        return count + 1;
+                    }
+                    return count;
+                }, 0);
+            };
+            const pieValue = [{ label: 'Never', value: count(oGdata, "Never") }, { label: "Once a year or less", value: count(oGdata, "Once a year or less") }, { label: "A few times per month", value: count(oGdata, "A few times per month") }, { label: "Once a month or less", value: count(oGdata, "Once a month or less") }, { label: "A few times per week", value: count(oGdata, "A few times per week") }, { label: "Every night", value: count(oGdata, "Every night") }];
+            const colorScale = d3.scaleOrdinal()
+                .domain(['Never', "Once a year or less", "A few times per month", "Once a month or less", "A few times per week", "Every night"])
+                .range(["#8CC7F6", "#666BA8", "#8589C3", "#9B9ED0", "#AAADE1", "#C9CCF0"]);
+            oGdata.forEach(d => {
+
+
+            })
+            console.log("pieValue", pieValue)
+
+            updatePie(pieValue, pieChart, colorScale, radius, -2 * Math.PI / 2, 360)
+        }
+
+
+        requestData();
+
+        function updatePie(pieValue, pieChart, colorScale, radius, startAngle, endAngle) {
+            const pie = d3.pie()
+                .value(d => d.value)
+                .sort(null)
+                .startAngle(startAngle) // Start at 90 degrees
+                .endAngle(endAngle);
+
+            // Define the arc generator
+            const arc = d3.arc()
+                .innerRadius(0)
+                .outerRadius(radius);
+
+            // Create the initial pie chart
+            const paths = pieChart.selectAll('path')
+                .data(pie(pieValue))
+                .enter()
+                .append('path')
+                .attr('d', arc)
+                .attr('fill', d => colorScale(d.data.label))
+                .transition()
+                .duration(1000)
+                .attrTween('d', function (d) {
+                    const interpolate = d3.interpolate(this._current, d);
+                    this._current = interpolate(0);
+                    return t => arc(interpolate(t));
+                });
+        }
+
+
+
+    </script>
+</body>
+
+</html>
