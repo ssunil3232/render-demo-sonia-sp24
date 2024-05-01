@@ -35,187 +35,505 @@
         border-radius: 15px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    button {
+        width: 150px;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+
+    #sentimentButtonAll {
+        background: #778458;
+        border: none;
+        border-radius: 8px;
+    }
+
+    #sentimentButton1 {
+        background: #976b9d;
+        border: none;
+        border-radius: 8px;
+    }
+
+    #sentimentButton2 {
+        background: #c98686;
+        border: none;
+        border-radius: 8px;
+    }
+
+    #sentimentButton3 {
+        background: #f2b880;
+        border: none;
+        border-radius: 8px;
+    }
 </style>
 
-<body>
-    <div style="display: flex;height: 100%; align-items: center;">
-        <div style="display: flex; flex-direction:column;">
-            <svg id="plot2" height="250" width="400" style="background: transparent">
-            </svg>
-            <svg id="plot3" height="450" width="400" style="background: transparent">
+<body style="display: flex; flex-direction: column;">
+    <div style="display: flex;height: 100%; align-items: center;justify-content: center;">
+        <div style="display: flex; flex-direction:column; height: 100%; ">
+            <svg id="text1" width="500" style="background: transparent;">
+                <div>some text</div>
             </svg>
         </div>
-
-        <svg id="plot" height="700" width="900" style="background: transparent">
-        </svg>
+        <div>
+            <svg id="map" height="600" width="600" style="background: transparent">
+            </svg>
+        </div>
         <div id="details" style="visibility:hidden;"></div>
+    </div>
+    <div style="display: flex; width:100%; height: 30%; justify-content: center;">
+        <!-- <svg id="text2" width="500" style="background: transparent;"> -->
+        <div>some text</div>
+        <!-- </svg> -->
+    </div>
+    <div style="display: flex;height: 70%; align-items: center;justify-content: space-evenly;border: 1px solid black;">
+        <div style="display: flex; height: 100%; align-items: center; justify-content: start;">
+            <svg id="pie" width="500" height="450" style="background: transparent;">
+            </svg>
+        </div>
+        <div>
+            <svg id="reasons" height="400" width="600" style="background: transparent">
+            </svg>
+        </div>
+    </div>
+    <div id="sentimentDisplay" style="display: flex;height: 50%; align-items: center;justify-content: center;">
+        <div style="display: flex; flex-direction:column; height: 100%; ">
+            <svg id="text1" width="400" style="background: transparent;">
+                <div>some text</div>
+            </svg>
+        </div>
+        <div style="display:flex; flex-direction: row;">
+            <svg id="sentiment" height="350" width="600" style="background: transparent">
+            </svg>
+            <div id="sentimentBtn" style="display:flex; flex-direction: column; margin-left: 10px;">
+                <button id="sentimentButtonAll">Overall Sentiment</button>
+                <button id="sentimentButton1">Sentiment 1</button>
+                <button id="sentimentButton2">Sentiment 2</button>
+                <button id="sentimentButton3">Sentiment 3</button>
+                <svg id="sentimentLgd" height="100" width="320" style="background: transparent"></svg>
+                <div id="genderDiv" style="display:none; justify-content: center;">
+                    <span id="womanText">Default text</span>
+                    <img id="woman" src="./woman.svg" alt="Woman" height="150">
+                    <img id="man" src="./man.svg" alt="Man" height="150">
+                    <span id="manText">Default text</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const svg = d3.select("#plot");
-        const svg2 = d3.select("#plot2");
-        const svg3 = d3.select("#plot3")
+        const svg = d3.select("#map");
         const width = svg.attr("width");
         const height = svg.attr("height");
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
         const mapWidth = width - margin.left - margin.right;
         const mapHeight = height - margin.top - margin.bottom;
-        const margin2 = { top: 20, right: 30, bottom: 40, left: 10 };
-        const width2 = svg3.attr("width");
-        const height2 = svg3.attr("height");
-        const chartWidth = width2 - margin2.left - margin2.right;
-        const chartHeight = height2 - margin2.top - margin2.bottom;
+        const map = svg.append("g").attr("transform", "translate(" + (margin.left + 10) + "," + (margin.top + 30) + ")");
 
-        const map = svg.append("g")
-            .attr("transform", "translate(" + (margin.left + 10) + "," + (margin.top + 20) + ")");
+        const pie = d3.select("#pie");
+        const pieWidth = pie.attr("width");
+        const pieHeight = pie.attr("height");
+        const radius = Math.min(pieWidth, pieHeight) / 2.5;
+        const pieMargin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const pieChart = pie.append("g").attr("transform", `translate(${pieWidth / 2}, ${pieHeight / 2})`);
 
-        const requestData = async function () {
-            const oGdata = await d3.csv("./sleeping-alone-data-reformat.csv");
-            let data = []
+        const reasons = d3.select("#reasons");
+        const reasonsWidth = reasons.attr("width");
+        const reasonsHeight = reasons.attr("height");
+        const reasonsMapWidth = reasonsWidth - margin.left - margin.right;
+        const reasonsMapHeight = reasonsHeight - margin.top - margin.bottom;
+        const reasonsMap = reasons.append("g").attr("transform", "translate(" + (margin.left + 10) + "," + (margin.top + 30) + ")");
 
-            const us = await d3.json("./us-smaller.json");
-            var states = topojson.feature(us, us.objects.states);
-            var statesMesh = topojson.mesh(us, us.objects.states);
-            var projection = d3.geoAlbersUsa().fitSize([mapWidth, mapHeight], states);
-            var path = d3.geoPath().projection(projection);
+        const sentiment = d3.select("#sentiment");
+        // const genderBreakdown = document.getElementById('genderDiv')
+        const sentimentWidth = sentiment.attr("width");
+        const sentimentHeight = sentiment.attr("height") * 0.8;
+        const sentimentMapWidth = sentimentWidth - margin.left - margin.right;
+        const sentimentMapHeight = sentimentHeight - margin.top - margin.bottom;
+        const sentimentMap = sentiment.append("g").attr("transform", "translate(50,40)");
+        var clickedSliceLabel;
+        var sentimentDisplay = document.getElementById("sentimentDisplay");
+        sentimentDisplay.style.display = "none";  // H
 
-            let statePaths = map.selectAll("path.state").data(states.features)
-                .join("path")
-                .attr("class", "state")
-                .attr("d", path);
+        window.onload = function () {
+            // Get the button element
+            var sentimentAll = document.getElementById("sentimentButtonAll");
+            var sentiment1 = document.getElementById("sentimentButton1");
+            var sentiment2 = document.getElementById("sentimentButton2");
+            var sentiment3 = document.getElementById("sentimentButton3");
+            const requestData = async function () {
+                const oGdata = await d3.csv("./sleeping-pattern-formatted.csv");
+                let data = []
 
-            map.append("path").datum(statesMesh)
-                .attr("class", "outline")
-                .attr("d", path);
-
-            const mappingReasons = {
-                    snores: {
-                        original: "Snoring",
-                        trunc: "Snoring"
-                    },
-                    bathroom_trip: {
-                        original: "Frequent bathroom trips in the night",
-                        trunc: "Frequenting bathroom"
-                    },
-                    sick: {
-                        original: "Sick/Ill",
-                        trunc: "Sick/Ill"
-                    },
-                    intimacy: {
-                        original: "No longer physically intimate",
-                        trunc: "Physically intimacy"
-                    },
-                    temperature: {
-                        original: "Different temperature preferences for the room",
-                        trunc: "Temperature preference"
-                    },
-                    fight: {
-                        original: "Argument/Fight",
-                        trunc: "Argument/Fight"
-                    },
-                    space: {
-                        original: "Not enough space to sleep",
-                        trunc: "Sleeping space"
-                    },
-                    cover_sharing: {
-                        original: "Do not want to share the covers",
-                        trunc: "Sharing covers"
-                    },
-                    child: {
-                        original: "One needs to sleep with the child",
-                        trunc: "Child needs"
-                    },
-                    work: {
-                        original: "Night working/Very different sleeping times",
-                        trunc: "Different sleeping times"
-                    },
-                    others: {
-                        original: "Others",
-                        trunc: "Others"
+                oGdata.forEach(d => {
+                    for (let key in d) {
+                        if (d[key] === "True") {
+                            d[key] = true;
+                        } else if (d[key] === "False") {
+                            d[key] = false;
+                        }
                     }
+                    d["Our sex life has improved as a result of sleeping in separate beds"] = d["our sex life has improved as a result of sleeping in separate beds."]
+                    d["Sleeping in separate beds helps us to stay together"] = d["sleeping in separate beds helps us to stay together."]
+                    d["We sleep better when we sleep in separate beds"] = d["we sleep better when we sleep in separate beds."]
+
+                });
+                console.log(oGdata);
+
+                //////////////////////////////////TOPOJSON MAP/////////////////////////////////////////
+                const us = await d3.json("./us-smaller.json");
+                var states = topojson.feature(us, us.objects.states);
+                var statesMesh = topojson.mesh(us, us.objects.states);
+                var projection = d3.geoAlbersUsa().fitSize([mapWidth, mapHeight], states);
+                var path = d3.geoPath().projection(projection);
+
+                let statePaths = map.selectAll("path.state").data(states.features)
+                    .join("path")
+                    .attr("class", "state")
+                    .attr("d", path);
+
+                map.append("path").datum(statesMesh)
+                    .attr("class", "outline")
+                    .attr("d", path);
+
+                //////////////////////////////////////////////////////////////////////////////////////
+
+                const sleepFrequencies = oGdata.map(item => item.sleep_freq);
+                const uniqueSleepFrequencies = new Set(sleepFrequencies);
+                const uniqueSleepFrequenciesArray = [...uniqueSleepFrequencies];
+                const totalCount = oGdata.length;
+                const count = (data, frequency) => {
+                    return data.reduce((count, item) => {
+                        if (item.sleep_freq === frequency) {
+                            return count + 1;
+                        }
+                        return count;
+                    }, 0);
+                };
+                const pieValue = [{ label: 'Never', value: count(oGdata, "Never") }, { label: "Once a year or less", value: count(oGdata, "Once a year or less") }, { label: "A few times per month", value: count(oGdata, "A few times per month") }, { label: "Once a month or less", value: count(oGdata, "Once a month or less") }, { label: "A few times per week", value: count(oGdata, "A few times per week") }, { label: "Every night", value: count(oGdata, "Every night") }];
+                const colorScale = d3.scaleOrdinal()
+                    .domain(['Never', "Once a year or less", "A few times per month", "Once a month or less", "A few times per week", "Every night"])
+                    .range(["#8CC7F6", "#666BA8", "#8589C3", "#9B9ED0", "#AAADE1", "#C9CCF0"]);
+
+                updatePie(pieValue, pieChart, colorScale, radius, -2 * Math.PI / 2, 360, oGdata, reasons, reasonsMapHeight, reasonsMapWidth, sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
+                reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, "");
+                //sentimentChart(oGdata, "", "overview", sentimentMap, sentimentMapHeight, sentimentMapWidth)
+
+                // Add an event listener to the button
+                sentimentAll.addEventListener("click", function () {
+                    sentimentChart(oGdata, clickedSliceLabel, 'overview', sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
+                });
+                sentiment1.addEventListener("click", function () {
+                    sentimentChart(oGdata, clickedSliceLabel, 'Our sex life has improved as a result of sleeping in separate beds', sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
+                });
+                sentiment2.addEventListener("click", function () {
+                    sentimentChart(oGdata, clickedSliceLabel, 'Sleeping in separate beds helps us to stay together', sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
+                });
+                sentiment3.addEventListener("click", function () {
+                    sentimentChart(oGdata, clickedSliceLabel, 'We sleep better when we sleep in separate beds', sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
+                });
+
+                //updateDensity(reasonCounts, densityMapWidth, densityMapHeight, densityMap);
+
+                //plotDetailedChart(svg3, margin2, data, mappingReasons, chartHeight, chartWidth);
+
+                // svg3.append("text")
+                //     .attr("x", width2 / 2 - 20) // Center the title
+                //     .attr("y", margin2.top / 2 +20) // Position the title near the top of the SVG
+                //     .attr("text-anchor", "middle") // Ensure the title is centered
+                //     .style("font-size", "24px") // Adjust font size as needed
+                //     .style("font-weight", "bold") // Make the title bold
+                //     .text("Reasons for sleeping apart"); // Your title text
+
+                //uniq_value = [...new Set(data.map(item => item.sleep_freq))]
+
+                //let groupedData = getDataMapping(data);
+
+                // const colorScale = d3.scaleOrdinal()
+                //     .domain(['Once a year or less', 'A few times per month', 'Never', 'Once a month or less', 'A few times per week', 'Every night'])
+                //     .range(['#ccffcc', '#99ff99', '#66ff66', '#33cc33', '#009900', '#006600']);
+
+
+                //plotCircles(svg, groupedData, data, projection, map, colorScale, mappingReasons, svg3, margin2, chartHeight, chartWidth );
+
+
+
             }
 
-            oGdata.forEach(d => {
+            requestData();
+        };
 
-                if (d["location"] !== "Response" && d["location"] !== "Mountain" && d["location"] !== "") {
-                    if (d["relationship_status"] !== "Response" && d["relationship_status"] !== "Divorced" && d["relationship_status"] !== "Widowed" && d["relationship_status"] !== "Separated") {
-                        let obj = {
-                            location: d["location"],
-                            sleep_freq: d["sleep_freq"],
-                            relationship_years: d["relationship_years"],
-                            relationship_status: d["relationship_status"],
-                            snores: d["snores"] === "" ? false : true,
-                            bathroom_trip: d["frequent bathroom trips in the night"] === "" ? false : true,
-                            sick: d["sick"] === "" ? false : true,
-                            intimacy: d["no longer physically intimate"] === "" ? false : true,
-                            temperature: d["different temperature preferences for the room"] === "" ? false : true,
-                            fight: d["argument/fight"] === "" ? false : true,
-                            space: d["not enough space"] === "" ? false : true,
-                            cover_sharing: d["do not want to share the covers"] === "" ? false : true,
-                            child: d["needs to sleep with a child"] === "" ? false : true,
-                            work: d["night working/very different sleeping times"] === "" ? false : true,
-                            others: d["Unnamed: 19"] === "" ? false : true
-                        }
-                        data.push(obj)
+        function updatePie(pieValue, pieChart, colorScale, radius, startAngle, endAngle, oGdata, reasons, reasonsMapHeight, reasonsMapWidth, sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth) {
+            var clickedSlice = null;
+            var arc = d3.arc()
+                .innerRadius(0)
+                .outerRadius(radius);
+
+            var tooltip = d3.select('body').append('div')
+                .attr('class', 'tooltip')
+                .style('position', 'absolute')
+                .style('background-color', 'black')
+                .style('padding', '5px')
+                .style('border', '1px solid black')
+                .style('color', 'white')
+                .style('visibility', 'hidden');
+
+            var pie = d3.pie()
+                .startAngle(startAngle)
+                .endAngle(endAngle)
+                .value(function (d) { return d.value; })
+                .sort(null);
+
+            var arcs = pieChart.selectAll('g.arc')
+                .data(pie(pieValue))
+                .enter()
+                .append('g')
+                .attr('class', 'arc');
+
+            var arcOver = d3.arc()
+                .innerRadius(0)
+                .outerRadius(radius + 10);
+
+            arcs.append('path')
+                .attr('d', arc)
+                .attr('fill', function (d, i) { return colorScale(d.data.label); })
+                .style('cursor', 'pointer')
+                .on('mouseover', function (event, d) {
+                    if (clickedSlice !== null) {
+                        return;  // Return early if clickedSlice is not null
                     }
+                    if (d.data.label === "Never") {
+                        return;
+                    }
+                    if (clickedSlice === null) {
+                        reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, d.data.label);
+                    }
+                    //reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, d.data.label);
+                    d3.select(this).transition()
+                        .duration(500)
+                        .attr('d', arcOver)
+                        .attr('stroke', '#dee599')
+                        .attr('stroke-width', '4');
 
-                }
-            })
+                    window.requestAnimationFrame(function () {
+                        tooltip.style('visibility', 'visible')
+                            .text(d.data.label + ': ' + d.data.value)
+                            .style('left', (d3.pointer(event)[0] + 10) + 'px')
+                            .style('top', (d3.pointer(event)[1] - 10) + 'px');
+                    });
+                })
+                .on('click', function (event, d) {  // Add this block
 
-            plotDetailedChart(svg3, margin2, data, mappingReasons, chartHeight, chartWidth);
+                    var sentimentDisplay = document.getElementById("sentimentDisplay");
+                    if (d.data.label === "Never") {
+                        return;
+                    }
+                    if (clickedSlice === this) {
+                        d3.select(clickedSlice).transition()
+                            .duration(500)
+                            .attr('d', arc)
+                            .attr('stroke', 'none');
+                        clickedSlice = null;
+                        sentimentDisplay.style.display = "none";  // Hide the sentimentDisplay element
+                    } else {
+                        if (clickedSlice !== null) {
+                            sentimentDisplay.style.display = "none";
+                            d3.select(clickedSlice).transition()
+                                .duration(500)
+                                .attr('d', arc)
+                                .attr('stroke', 'none');
+                        }
+                        clickedSlice = this;
+                        d3.select(clickedSlice).transition()
+                            .duration(500)
+                            .attr('d', arcOver)
+                            .attr('stroke', '#dee599')
+                            .attr('stroke-width', '4');
+                        sentimentDisplay.style.display = "flex";  // Show the sentimentDisplay element
+                        sentimentChart(oGdata, d.data.label, 'overview', sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
+                        sentimentDisplay.scrollIntoView({ behavior: 'smooth' });  // Scroll to the sentimentDisplay element
+                    }
+                    reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, d.data.label);
+                    clickedSliceLabel = d.data.label;
+                })
+                .on('mouseout', function (d) {
+                    if (clickedSlice !== null) {
+                        return;
+                    }
+                    if (this !== clickedSlice) {
+                        reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, "");
+                        d3.select(this).transition()
+                            .duration(500)
+                            .attr('d', arc)
+                            .attr('stroke', 'none');
+                        window.requestAnimationFrame(function () {
+                            tooltip.style('visibility', 'hidden');
+                        });
+                    }
+                });
 
-            svg3.append("text")
-                .attr("x", width2 / 2 - 20) // Center the title
-                .attr("y", margin2.top / 2 +20) // Position the title near the top of the SVG
-                .attr("text-anchor", "middle") // Ensure the title is centered
-                .style("font-size", "24px") // Adjust font size as needed
-                .style("font-weight", "bold") // Make the title bold
-                .text("Reasons for sleeping apart"); // Your title text
-
-            uniq_value = [...new Set(data.map(item => item.sleep_freq))]
-
-            let groupedData = getDataMapping(data);
-
-            const colorScale = d3.scaleOrdinal()
-                .domain(['Once a year or less', 'A few times per month', 'Never', 'Once a month or less', 'A few times per week', 'Every night'])
-                .range(['#ccffcc', '#99ff99', '#66ff66', '#33cc33', '#009900', '#006600']);
-
-
-            plotCircles(svg, groupedData, data, projection, map, colorScale, mappingReasons, svg3, margin2, chartHeight, chartWidth );
-
-            const legendX = 50;
-            const legendY = 100;
-            const legendSpacing = 20;
-            const circleRadius = 5;
-
-            svg2.append("text")
-                .attr("x", legendX - 10)
-                .attr("y", legendY - 20)
-                .text("How often couples sleep in separate beds?")
-                .style("font-size", "16px")
-                .style("font-weight", "bold");
-
-            const legend = svg2.selectAll(".legend")
-                .data(uniq_value)
-                .enter().append("g")
-                .attr("class", "legend")
-                .attr("transform", (d, i) => `translate(0, ${legendY + i * legendSpacing})`);
-
-            legend.append("circle")
-                .attr("cx", legendX)
-                .attr("cy", 0)
-                .attr("r", circleRadius)
-                .style("fill", d => colorScale(d));
-
-            legend.append("text")
-                .attr("x", legendX + 20)
-                .attr("y", 0)
-                .attr("dy", ".35em")
-                .text(d => d)
-                .style("font-size", "12px");
+            arcs.append('text')
+                .attr('transform', function (d) { return 'translate(' + arc.centroid(d) + ')'; })
+                .attr('text-anchor', 'middle')
+                .text(function (d) { return d.data.label === 'Never' ? d.data.label : ''; });
 
         }
-        requestData();
+
+        function reasonsMapping(oGdata, svg, reasonsMapHeight, reasonsMapWidth, filterVariable) {
+            if (filterVariable !== "") {
+                oGdata = oGdata.filter(d => d.sleep_freq === filterVariable);
+            }
+            //svg.selectAll("g").remove();
+            svg.selectAll("*").remove();
+            const mappingReasons = {
+                "snores": {
+                    original: "Snoring",
+                    trunc: "Snoring"
+                },
+                "frequent bathroom trips in the night": {
+                    original: "Frequent bathroom trips in the night",
+                    trunc: "Frequenting bathroom"
+                },
+                "sick": {
+                    original: "Sick/Ill",
+                    trunc: "Sick/Ill"
+                },
+                "no longer physically intimate": {
+                    original: "No longer physically intimate",
+                    trunc: "No physical intimacy"
+                },
+                "different temperature preferences for the room": {
+                    original: "Different temperature preferences for the room",
+                    trunc: "Temperature preference"
+                },
+                "argument/fight": {
+                    original: "Argument/Fight",
+                    trunc: "Argument/Fight"
+                },
+                "not enough space": {
+                    original: "Not enough space to sleep",
+                    trunc: "Sleeping space"
+                },
+                "do not want to share the covers": {
+                    original: "Do not want to share the covers",
+                    trunc: "Sharing covers"
+                },
+                "needs to sleep with a child": {
+                    original: "One needs to sleep with the child",
+                    trunc: "Child needs"
+                },
+                "night working/very different sleeping times": {
+                    original: "Night working/Very different sleeping times",
+                    trunc: "Different sleeping times"
+                }
+            };
+            var reasonCounts = countTrueAttributes(oGdata);
+            var data = Object.keys(reasonCounts).map(function (key) {
+                return {
+                    attribute: key,
+                    detail: mappingReasons[key],
+                    count: reasonCounts[key]
+                };
+            });
+
+            data.sort((a, b) => b.count - a.count); // Sort descending by count
+            const top5Categories = new Set(data.slice(0, 5).map(d => d.attribute));
+            const rootData = {
+                name: "Root",
+                children: data
+            };
+            const countsData = data.map(d => d.count);
+            const maxCount = d3.max(countsData);
+            const minCount = d3.min(countsData);
+            const countColorScale = d3.scaleSequential(d3.interpolateRgb("white", "#bf4fd3")).domain([minCount, maxCount]);
+            const tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("position", "absolute")
+                .style("visibility", "hidden")
+                .style("background-color", "#fff")
+                .style("padding", "10px")
+                .style("border-radius", "5px")
+                .style("border", "1px solid #ccc")
+                .style("box-shadow", "0 2px 4px rgba(0, 0, 0, 0.1)");
+
+
+            const treemap = d3.treemap()
+                .size([reasonsMapWidth, reasonsMapHeight])
+                .padding(1);
+
+            const root = d3.hierarchy(rootData)
+                .sum(d => d.count);
+
+            treemap(root);
+            //svg.selectAll("rect").remove();
+            svg.selectAll("rect")
+                .data(root.leaves())
+                .enter().append("rect")
+                .attr("x", d => d.x0)
+                .attr("y", d => d.y0)
+                .attr("width", d => d.x1 - d.x0)
+                .attr("height", d => d.y1 - d.y0)
+                .attr("fill", d => countColorScale(d.value))
+                .on("mouseover", function (event, d) {
+                    tooltip.html(`${d.data.detail.original}<br>Count: ${d.value}`)
+                        .style("visibility", "visible");
+                })
+                .on("mousemove", function (event) {
+                    tooltip.style("top", (event.pageY - 10) + "px")
+                        .style("left", (event.pageX + 10) + "px");
+                })
+                .on("mouseout", function () {
+                    tooltip.style("visibility", "hidden");
+                });
+
+
+            //svg.selectAll("text").remove();
+            svg.selectAll("text")
+                .data(root.leaves())
+                .enter().append("text")
+                .filter(d => top5Categories.has(d.data.attribute))
+                .attr("x", d => d.x0 + 5)
+                .attr("y", d => d.y0 + 20)
+                .text(d => `${d.data.detail.trunc}`)
+                .attr("font-size", "12px")
+                .attr("fill", d => {
+                    return d3.lab(countColorScale(d.value)).l < 70 ? "white" : '#82857e';
+                });
+
+        }
+
+
+        function countTrueAttributes(data) {
+            var attributes = [
+                "different temperature preferences for the room",
+                "do not want to share the covers",
+                "frequent bathroom trips in the night",
+                "needs to sleep with a child",
+                "night working/very different sleeping times",
+                "no longer physically intimate",
+                "not enough space",
+                "sick",
+                "snores",
+                "argument/fight"
+            ];
+
+            var counts = {};
+
+            // Initialize the counts
+            attributes.forEach(function (attribute) {
+                counts[attribute] = 0;
+            });
+
+            // Count the true values
+            data.forEach(function (obj) {
+                attributes.forEach(function (attribute) {
+                    if (obj[attribute] === true) {
+                        counts[attribute]++;
+                    }
+                });
+            });
+
+            return counts;
+        }
 
         function getDataMapping(data) {
 
@@ -269,7 +587,7 @@
 
         }
 
-        function plotCircles(svg, data, fullData, projection, map, colorScale, mappingReasons, svg3, margin, chartHeight, chartWidth ) {
+        function plotCircles(svg, data, fullData, projection, map, colorScale, mappingReasons, svg3, margin, chartHeight, chartWidth) {
             let currentZoomScale = 1;
             const detailsDiv = d3.select("#details");
             const zoom = d3.zoom()
@@ -346,16 +664,15 @@
                             zoom.transform,
                             d3.zoomIdentity.translate(translateX, translateY).scale(scale)
                         );
-                        console.log("scale", scale)
                         if (scale > 20) {
                             showDetails(true, d);
                         }
-                        if (scale <20) {
+                        if (scale < 20) {
                             plotDetailedChart(svg3, margin, fullData, mappingReasons, chartHeight, chartWidth)
                         }
-                        else{
+                        else {
                             plotDetailedChart(svg3, margin, d.items, mappingReasons, chartHeight, chartWidth)
-                            
+
                         }
                     })
                     .on('mouseout', function (event, d) {
@@ -364,7 +681,7 @@
                             .duration(200)
                             .attr('r', d => sizeScale(d.count))
                             .style('stroke', 'none');
-                        
+
                         plotDetailedChart(svg3, margin, fullData, mappingReasons, chartHeight, chartWidth)
                     });
                 svg.on('click', () => {
@@ -398,11 +715,10 @@
             }
         }
 
-        function plotDetailedChart(svg, margin, data,mappingReasons, chartHeight, chartWidth) {
-            console.log("detail Data", data)
+        function plotDetailedChart(svg, margin, data, mappingReasons, chartHeight, chartWidth) {
             svg.selectAll("g").remove();
             const detailChart = svg.append("g")
-            .attr("transform", "translate(" + margin.left + "," + 40 + ")");
+                .attr("transform", "translate(" + margin.left + "," + 40 + ")");
             let counts = {
                 bathroom_trip: 0,
                 child: 0,
@@ -418,7 +734,7 @@
             data.forEach(row => {
                 // Check each key in the counts object
                 for (let key in counts) {
-                    
+
                     if (row[key] === true) {
                         counts[key]++;
                     }
@@ -490,6 +806,192 @@
                 .attr("font-size", "12px")
                 .attr("fill", "white");
 
+        }
+
+        function sentimentChart(oGdata, filterVariable, subSection, sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth) {
+            const sentimentDegree = ['Strongly disagree', 'Somewhat disagree', 'Neither agree nor disagree', 'Somewhat agree', 'Strongly agree'];
+            const sentimentTopic = [
+                "Our sex life has improved as a result of sleeping in separate beds",
+                "Sleeping in separate beds helps us to stay together",
+                "We sleep better when we sleep in separate beds"
+            ];
+
+            if (filterVariable !== "") {
+                oGdata = oGdata.filter(d => d.sleep_freq === filterVariable);
+            }
+            const counts = countSentiments(oGdata, sentimentTopic, sentimentDegree)
+            var data = Object.keys(counts).map(function (key) {
+                return {
+                    attribute: key,
+                    count: counts[key]
+                };
+            });
+
+            if (subSection !== "overview") {
+                data = data.filter(d => d.attribute === subSection);
+            }
+            console.log(data);
+
+            const legendSvg = d3.select("#sentimentLgd");
+            const legendWidth = legendSvg.attr("width");
+            const legendHeight = legendSvg.attr("height");
+            legendSvg.selectAll("*").remove();
+            sentimentMap.selectAll("*").remove();
+            sentiment.selectAll("text").remove();
+
+            var x = d3.scaleBand()
+                .domain(sentimentDegree)
+                .range([0, sentimentMapWidth])
+                .padding(0.1);
+
+            var xSubgroup = d3.scaleBand()
+                .domain(data.map(function (d) { return d.attribute; }))
+                .range([0, x.bandwidth()])
+                .padding(0.05);
+
+            var y = d3.scaleLinear()
+                .domain([0, d3.max(data, function (d) { return d3.max(sentimentDegree, function (degree) { return d.count[degree].total; }); })])
+                .range([sentimentMapHeight, 0]);
+
+            sentimentMap.append("g")
+                .attr("transform", "translate(0," + sentimentMapHeight + ")")
+                .call(d3.axisBottom(x));
+
+            sentimentMap.append("g")
+                .call(d3.axisLeft(y));
+
+            var color = d3.scaleOrdinal()
+                .domain(sentimentTopic)
+                .range(["#966b9d", "#c98686", "#f2b880"]);
+
+            var groups = sentimentMap.selectAll("g.attribute")
+                .data(sentimentDegree)
+                .enter().append("g")
+                .attr("class", "attribute")
+                .attr("transform", function (d) { return "translate(" + x(d) + ",0)"; });
+
+            // Add a rect for each sentiment degree
+            groups.selectAll("rect")
+                .data(function (d) {
+                    if (subSection === "overview") {  // Check the value of subSection here
+                        return data.map(function (item) {
+                            return { attribute: item.attribute, count: item.count[d].total || 0, male: item.count[d].male || 0, female: item.count[d].female || 0 };
+                        });
+                    } else {
+                        return [{ attribute: d, count: data[0].count[d].total || 0, male: data[0].count[d].male || 0, female: data[0].count[d].female || 0 }];  // Return a single-element array if subSection is not "overview"
+                    }
+                })
+                .enter().append("rect")
+                .attr("x", function (d) { return xSubgroup(d.attribute); })
+                .attr("y", function (d) { return y(d.count); })
+                .attr("width", xSubgroup.bandwidth())
+                .attr("height", function (d) { return sentimentMapHeight - y(d.count); })
+                .attr("fill", function (d) {
+                    if (subSection === "overview") {
+                        return color(d.attribute);
+                    } else {
+                        return color(subSection);
+                    }
+                })
+                .on('mouseover', function (event, d) {
+                    // Get the gender distribution for the current attribute
+                    var femalePerc = (d.female / d.count * 100).toFixed(1);
+                    var malePerc = (d.male / d.count * 100).toFixed(1);
+                    document.getElementById('womanText').textContent = `${femalePerc}%`;
+                    document.getElementById('manText').textContent = `${malePerc}%`;
+                    document.getElementById('genderDiv').style.display = 'flex';
+                    // Log the gender distribution to the console
+                    // console.log('Male: ' + genderDistribution[0].Male);
+                    // console.log('Female: ' + genderDistribution[0].Female);
+                })
+                .on('mouseout', function (event, d) {
+                    document.getElementById('genderDiv').style.display = 'none';
+                });
+
+            sentimentMap.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x))  // Add this line
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-65)");
+
+            // Add a label for the x-axis
+            sentimentMap.append("text")
+                .attr("transform", "translate(" + (sentimentMapWidth / 2) + " ," + (sentimentMapHeight + 40) + ")")
+                .style("text-anchor", "middle")
+                .text("Sentiment Degree");
+
+            sentimentMap.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - 50)
+                .attr("x", 0 - (sentimentHeight / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("Sentiment Counts");
+
+            sentiment.append("text")
+                .attr("x", sentimentMapWidth / 2 + 50)
+                .attr("y", 0)
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .style("font-size", "14px")
+                .style("font-weight", "bold")
+                .text(`Sleeping apart... ${filterVariable}`);
+
+
+            var legend = legendSvg.selectAll('.legend')
+                .data(subSection !== 'overview' ? [subSection] : sentimentTopic)
+                .enter()
+                .append('g')
+                .attr('class', 'legend')
+                .attr('transform', function (d, i) { return 'translate(' + (-legendWidth + 20) + ',' + ((i * 20) + 10) + ')'; });
+
+            legend.append('rect')
+                .attr('x', legendWidth - 18)
+                .attr('width', 18)
+                .attr('height', 18)
+                .style('fill', function (d) { return color(d); });
+
+            legend.append('text')
+                .attr('x', legendWidth - 24 + 18 + 10)
+                .attr('y', 9)
+                .attr('dy', '.35em')
+                .style('font-size', '11px')
+                .style('text-anchor', 'start')
+                .text(function (d) { return d; });
+
+        }
+
+        function countSentiments(data, sentimentTopic, sentimentDegree) {
+            var counts = {};
+
+            // Initialize the counts
+            sentimentTopic.forEach(function (topic) {
+                counts[topic] = {};
+                sentimentDegree.forEach(function (degree) {
+                    counts[topic][degree] = { male: 0, female: 0, total: 0 };
+                });
+            });
+
+            // Count the sentiments
+            data.forEach(function (obj) {
+                sentimentTopic.forEach(function (topic) {
+                    sentimentDegree.forEach(function (degree) {
+                        if (obj[topic] === degree) {
+                            counts[topic][degree].total++;
+                            if (obj["Gender"] === 'Male') {
+                                counts[topic][degree].male++;
+                            } else if (obj["Gender"] === 'Female') {
+                                counts[topic][degree].female++;
+                            }
+                        }
+                    });
+                });
+            });
+
+            return counts;
         }
     </script>
 </body>
