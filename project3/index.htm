@@ -10,12 +10,12 @@
 </head>
 <style>
     .state {
-        fill: lightgrey;
+        fill: #b07264;
     }
 
     .outline {
         fill: none;
-        stroke: black;
+        stroke: rgb(146, 140, 140);
         stroke-width: 1px;
     }
 
@@ -239,10 +239,10 @@
                 const pieValue = [{ label: 'Never', value: count(oGdata, "Never") }, { label: "Once a year or less", value: count(oGdata, "Once a year or less") }, { label: "A few times per month", value: count(oGdata, "A few times per month") }, { label: "Once a month or less", value: count(oGdata, "Once a month or less") }, { label: "A few times per week", value: count(oGdata, "A few times per week") }, { label: "Every night", value: count(oGdata, "Every night") }];
                 const colorScale = d3.scaleOrdinal()
                     .domain(['Never', "Once a year or less", "A few times per month", "Once a month or less", "A few times per week", "Every night"])
-                    .range(["#8CC7F6", "#666BA8", "#8589C3", "#9B9ED0", "#AAADE1", "#C9CCF0"]);
+                    .range(["#958C6F", "#894435", "#97A29D", "#DDD8CC", "#4B5A5B", "#E1886A"]);
 
                 updatePie(pieValue, pieChart, colorScale, radius, -2 * Math.PI / 2, 360, oGdata, reasons, reasonsMapHeight, reasonsMapWidth, sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
-                reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, "");
+                reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, "", "#434537");
 
                 sentimentAll.addEventListener("click", function () {
                     sentimentChart(oGdata, clickedSliceLabel, 'overview', sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
@@ -308,7 +308,7 @@
                         return;
                     }
                     if (clickedSlice === null) {
-                        reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, d.data.label);
+                        reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, d.data.label, colorScale(d.data.label));
                     }
                     d3.select(this).transition()
                         .duration(500)
@@ -354,7 +354,7 @@
                         sentimentChart(oGdata, d.data.label, 'overview', sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
                         sentimentDisplay.scrollIntoView({ behavior: 'smooth' });
                     }
-                    reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, d.data.label);
+                    reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, d.data.label, colorScale(d.data.label));
                     clickedSliceLabel = d.data.label;
                 })
                 .on('mouseout', function (d) {
@@ -362,7 +362,7 @@
                         return;
                     }
                     if (this !== clickedSlice) {
-                        reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, "");
+                        reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, "", "#434537");
                         d3.select(this).transition()
                             .duration(500)
                             .attr('d', arc)
@@ -374,13 +374,14 @@
                 });
 
             arcs.append('text')
-                .attr('transform', function (d) { return 'translate(' + arc.centroid(d) + ')'; })
+                .attr('transform', function (d) { return 'translate(-80,0)'; })
                 .attr('text-anchor', 'middle')
+                .style('fill', 'white')
                 .text(function (d) { return d.data.label === 'Never' ? d.data.label : ''; });
 
         }
 
-        function reasonsMapping(oGdata, svg, reasonsMapHeight, reasonsMapWidth, filterVariable) {
+        function reasonsMapping(oGdata, svg, reasonsMapHeight, reasonsMapWidth, filterVariable, color) {
             if (filterVariable !== "") {
                 oGdata = oGdata.filter(d => d.sleep_freq === filterVariable);
             }
@@ -445,7 +446,7 @@
             const countsData = data.map(d => d.count);
             const maxCount = d3.max(countsData);
             const minCount = d3.min(countsData);
-            const countColorScale = d3.scaleSequential(d3.interpolateRgb("white", "#bf4fd3")).domain([minCount, maxCount]);
+            const countColorScale = d3.scaleSequential(d3.interpolateRgb("white", color)).domain([minCount, maxCount]);
             const tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip")
                 .style("position", "absolute")
