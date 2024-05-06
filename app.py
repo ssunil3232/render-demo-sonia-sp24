@@ -25,11 +25,6 @@ app.wsgi_app = WhiteNoise(app.wsgi_app,
                           index_file='index.htm', 
                           autorefresh=True)
 
-app.wsgi_app = WhiteNoise(app.wsgi_app, 
-                          root='project4/', 
-                          prefix='/project4/', 
-                          index_file='index.htm', 
-                          autorefresh=True)
 
 if __name__ == "__main__":
     app.run(threaded=True, port=5000)
