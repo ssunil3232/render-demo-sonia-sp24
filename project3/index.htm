@@ -43,31 +43,41 @@
     }
 
     #sentimentButtonAll {
-        background: #778458;
+        background: #97A29D;
         border: none;
         border-radius: 8px;
     }
 
     #sentimentButton1 {
-        background: #976b9d;
+        background: #958C6F;
         border: none;
         border-radius: 8px;
     }
 
     #sentimentButton2 {
-        background: #c98686;
+        background: #894435;
         border: none;
         border-radius: 8px;
     }
 
     #sentimentButton3 {
-        background: #f2b880;
+        background: #E1886A;
         border: none;
         border-radius: 8px;
     }
     body {
-        background: #D8C6BB;
-    }
+     
+    margin: 0; 
+    padding: 0;
+    background-image: url('Background Design for Visualized Article.png'); 
+    background-position: center center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: scroll; /* Optional: fixes the background */
+    background-size: cover; /* Cover the entire viewport */
+    height: 741px; /* Minimum height of viewport */
+    width: 1104px; /* Minimum width of viewport */
+}
+    
 </style>
 
 <body style="display: flex; flex-direction: column;">
@@ -986,13 +996,7 @@
 
             const mapTitle = d3.select('#mapTitle');
 
-            mapTitle.append('text')
-                .attr('x', 450)
-                .attr('y', 30)
-                .attr('text-anchor', 'middle')
-                .style('font-size', '24px')
-                .style('font-weight', 'bold')
-                .text('Relationship Years and Sleeping apart');
+          
         }
 
         function getCounts(data) {
