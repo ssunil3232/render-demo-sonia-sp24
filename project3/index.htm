@@ -80,12 +80,14 @@
     
 </style>
 
-<body style="display: flex; flex-direction: column;">
-    <div style="display: flex;height: 100%; align-items: center;justify-content: center;">
-        <div style="display: flex; flex-direction:column; height: 100%; ">
-            <svg id="text1" width="450" style="background: transparent;">
-                <div>some text</div>
-            </svg>
+<body style="display: flex; flex-direction: column;" >
+    <div style="display: flex; height:453px; flex-direction: column;background: url('background-title.svg') no-repeat top center; background-size: 100% auto;"></div>
+    <div style="display: flex; width:100%; height: 38.8%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
+        <div>some text</div>
+    </div>
+    <div style="display: flex;height: 733px; align-items: center;justify-content: center; background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
+        <div id="text1" style="background: transparent; width: 1300px;">
+            <div style="padding-left: 100px;">some text</div>
         </div>
         <div>
             <svg id="mapTitle" height="50" width="900"></svg>
@@ -120,20 +122,22 @@
             <svg id="mapLegend" height="180" width="900"></svg>
         </div>
     </div>
-    <div style="display: flex; width:100%; height: 30%; justify-content: center;">
+    <div style="display: flex; width:100%; height: 38.8%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
         <div>some text</div>
     </div>
-    <div style="display: flex;height: 70%; align-items: center;justify-content: space-evenly;border: 1px solid black;">
-        <div style="display: flex; height: 100%; align-items: center; justify-content: start;">
-            <svg id="pie" width="500" height="450" style="background: transparent;">
+    <div id="pie-reasons" style="display: flex;height: 66%; align-items: start;justify-content: space-evenly;background: url('background-end.svg') no-repeat bottom center; background-size: 100% auto;">
+        <div style="display: flex; height: 100%; align-items: center; justify-content: start; flex-direction: column;">
+            <svg id="pieTitle" height="50" width="500"></svg>
+            <svg id="pie" width="500" height="400" style="background: transparent;">
             </svg>
         </div>
-        <div>
+        <div style="display: flex;flex-direction: column;">
+            <svg id="reasonsTitle" height="70" width="600"></svg>
             <svg id="reasons" height="400" width="600" style="background: transparent">
             </svg>
         </div>
     </div>
-    <div id="sentimentDisplay" style="display: flex;height: 50%; align-items: center;justify-content: center;">
+    <div id="sentimentDisplay" style="display: flex;height: 58%; align-items: center;justify-content: center;background: url('background-end-expand.svg') no-repeat bottom center; background-size: 100% auto;">
         <div style="display: flex; flex-direction:column; height: 100%; ">
             <svg id="text1" width="400" style="background: transparent;">
                 <div>some text</div>
@@ -195,6 +199,24 @@
         var clickedSliceLabel;
         var sentimentDisplay = document.getElementById("sentimentDisplay");
         sentimentDisplay.style.display = "none";
+
+        const pieTitle = d3.select("#pieTitle");
+        pieTitle.append('text')
+                .attr('x', 250)
+                .attr('y', 30)
+                .attr('text-anchor', 'middle')
+                .style('font-size', '24px')
+                .style('font-weight', 'bold')
+                .text('Sleeping apart frequency');
+
+        const reasonsTitle = d3.select("#reasonsTitle");
+        reasonsTitle.append('text')
+                .attr('x', 150)
+                .attr('y', 30)
+                .attr('text-anchor', 'middle')
+                .style('font-size', '24px')
+                .style('font-weight', 'bold')
+                .text('Reasons for sleeping apart');
 
         window.onload = function () {
             var sentimentAll = document.getElementById("sentimentButtonAll");
@@ -348,6 +370,8 @@
                             .attr('d', arc)
                             .attr('stroke', 'none');
                         clickedSlice = null;
+                        document.getElementById('pie-reasons').style.height = '66%';
+                        document.getElementById('pie-reasons').style.backgroundImage = 'background-end.svg';
                         sentimentDisplay.style.display = "none";
                     } else {
                         if (clickedSlice !== null) {
@@ -358,6 +382,9 @@
                                 .attr('stroke', 'none');
                         }
                         clickedSlice = this;
+                        document.getElementById('pie-reasons').style.height = '70%';
+                        document.getElementById('pie-reasons').style.backgroundImage = "url('background-body.svg')";
+
                         d3.select(clickedSlice).transition()
                             .duration(500)
                             .attr('d', arcOver)
@@ -383,6 +410,8 @@
                         window.requestAnimationFrame(function () {
                             tooltip.style('visibility', 'hidden');
                         });
+                        document.getElementById('pie-reasons').style.height = '66%';
+                        document.getElementById('pie-reasons').style.backgroundImage = "url('background-end.svg')";
                     }
                 });
 
