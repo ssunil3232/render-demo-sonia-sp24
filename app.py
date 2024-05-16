@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index(): 
-    return render_template("intro.html")
+    return render_template("home.html")
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
                           root='project1/', 
@@ -22,6 +22,12 @@ app.wsgi_app = WhiteNoise(app.wsgi_app,
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
                           root='project3/', 
                           prefix='/project3/', 
+                          index_file='intro.htm', 
+                          autorefresh=True)
+
+app.wsgi_app = WhiteNoise(app.wsgi_app, 
+                          root='project3/', 
+                          prefix='/project3/article/', 
                           index_file='index.htm', 
                           autorefresh=True)
 
