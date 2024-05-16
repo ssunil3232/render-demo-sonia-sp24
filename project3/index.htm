@@ -555,7 +555,7 @@
 
                     window.requestAnimationFrame(function () {
                         tooltip.style('visibility', 'visible')
-                            .text(d.data.label + ': ' + (d.data.value/oGdata.length*100).toFixed(2) + '%')
+                            .text(d.data.label + ': ' + (d.data.value / oGdata.length * 100).toFixed(2) + '%')
                             .style('left', (d3.pointer(event)[0] + 10) + 'px')
                             .style('top', (d3.pointer(event)[1] - 10) + 'px');
                     });
@@ -604,7 +604,7 @@
                     clickedSliceLabel = d.data.label;
                     window.requestAnimationFrame(function () {
                         tooltip.style('visibility', 'visible')
-                            .text(d.data.label + ': ' + (d.data.value/oGdata.length*100).toFixed(2) + '%')
+                            .text(d.data.label + ': ' + (d.data.value / oGdata.length * 100).toFixed(2) + '%')
                             .style('left', (d3.pointer(event)[0] + 10) + 'px')
                             .style('top', (d3.pointer(event)[1] - 10) + 'px');
                     });
@@ -741,7 +741,7 @@
                 });
 
 
-            svg.selectAll("text")
+            let textElements = svg.selectAll("text")
                 .data(root.leaves())
                 .enter().append("text")
                 .filter(d => top5Categories.has(d.data.attribute))
@@ -752,6 +752,9 @@
                 .attr("fill", d => {
                     return d3.lab(countColorScale(d.value)).l < 70 ? "white" : '#82857e';
                 });
+            textElements.each(function (d) {
+                wrapText(d3.select(this), 80); // Assuming 100 is the max width for text
+            });
 
         }
 
@@ -1265,6 +1268,32 @@
             }, {});
             return counts;
         }
+        function wrapText(text, width) {
+            text.each(function () {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    x = text.attr("x"),
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy") || 0),
+                    tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop(); // Remove the word that overflows
+                        tspan.text(line.join(" ")); // Set the text without the overflowing word
+                        line = [word]; // Start a new line with the overflowing word
+                        tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                }
+            });
+        }
+
     </script>
 </body>
 
