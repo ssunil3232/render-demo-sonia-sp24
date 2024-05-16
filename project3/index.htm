@@ -7,8 +7,26 @@
     <title>Couple Sleeping Habits</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap" rel="stylesheet">
 </head>
 <style>
+    .montecarlo-regular {
+        font-family: "MonteCarlo", cursive;
+        font-weight: 400;
+        font-style: normal;
+        fill: #894435;
+    }
+
+    .montecarlo-large {
+        font-family: "MonteCarlo", cursive;
+        font-weight: 400;
+        font-style: normal;
+        color: #894435;
+        font-size: 40px;
+    }
+
     .state {
         fill: #b07264;
     }
@@ -43,31 +61,36 @@
     }
 
     #sentimentButtonAll {
-        background: #97A29D;
+        background: #647364;
         border: none;
+        color: white;
         border-radius: 8px;
     }
 
     #sentimentButton1 {
-        background: #958C6F;
+        background: #152E49;
         border: none;
+        color: white;
         border-radius: 8px;
     }
 
     #sentimentButton2 {
-        background: #894435;
+        background: #AF674E;
         border: none;
+        color: white;
         border-radius: 8px;
     }
 
     #sentimentButton3 {
-        background: #E1886A;
+        background: #452F38;
         border: none;
+        color: white;
         border-radius: 8px;
     }
+
     body {
-     background: #D8C6BA;
-    /* margin: 0; 
+        background: #D8C6BA;
+        /* margin: 0; 
     padding: 0;
     background-image: url('Background Design for Visualized Article.png'); 
     background-position: center center;
@@ -76,18 +99,68 @@
     background-size: cover;
     height: 741px;
     width: 1104px; Minimum width of viewport */
-}
-    
+    }
 </style>
 
-<body style="display: flex; flex-direction: column;" >
-    <div style="display: flex; height:453px; flex-direction: column;background: url('background-title.svg') no-repeat top center; background-size: 100% auto;"></div>
-    <div style="display: flex; width:100%; height: 38.8%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
-        <div>some text</div>
+<body style="display: flex; flex-direction: column;">
+    <div
+        style="display: flex; height:430px; flex-direction: column;background: url('background-title.svg') no-repeat top center; background-size: 100% auto;">
     </div>
-    <div style="display: flex;height: 733px; align-items: center;justify-content: center; background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
+    <div
+        style="display: flex; width:100%; height: 39.8%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
+        <div style="width: 50%; text-align: justify;">Beneath the gentle glow of gas lamps and amidst the whispering
+            silks of the night, the Rzeszotarski Society embarks on a journey to unravel the mysteries of modern
+            slumber. Sleep, that enigmatic and essential aspect of human existence, has always held a place of reverence
+            and curiosity. From the grand halls of Victorian mansions to the cozy bedrooms of contemporary homes, the
+            manner in which we sleep offers profound insights into our relationships, health, and well-being.<br>
+
+            <br>This grand exposé highlights the sleeping habits of couples across the United States, seeking to
+            understand how these nocturnal patterns reflect broader societal trends and personal preferences. Through
+            meticulous analysis and elegant visualizations, we illuminate the factors that influence whether couples
+            share a bed or choose separate slumbers, and how these choices evolve over the course of a relationship.
+            Herein, we present a detailed analysis of contemporary American sleeping patterns, through the lens of a
+            Victorian-inspired inquiry.
+        </div>
+    </div>
+    <div
+        style="display: flex; width:100%; height: 10%; align-items: start; justify-content: center;background: url('background-body.svg') repeat top center; background-size: 100% auto;">
+        <div
+            style="display: flex; width:100%; height: 100%; align-items: center; justify-content: center;background: url('victoriandivider.svg') no-repeat top center; background-size: contain;">
+        </div>
+    </div>
+    <!-- <div
+        style="display: flex; width:100%; height: 10%; align-items: center; justify-content: center;background: url('victoriandivider.svg') no-repeat top center; background-size: contain;">
+    </div> -->
+    <div
+        style="display: flex;height: 825px; align-items: start;justify-content: center; background: url('background-body.svg') repeat top center; background-size: 100% auto;">
         <div id="text1" style="background: transparent; width: 1300px;">
-            <div style="padding-left: 100px;">some text</div>
+            <div style="padding-left: 100px; margin-top: 20px; text-align: justify;">Our journey through the nocturnal
+                world of American couples would be incomplete without a grand map to guide us. Imagine a map, delicately
+                adorned with the faces of people in our esteemed society, stretching from the bustling metropolises of
+                the Pacific to the tranquil abodes of the South Atlantic. Each region whispers its own unique tale of
+                nocturnal habits and conjugal customs.<br>
+
+                <br>As we traverse this varied landscape, the map begins to reveal an elegant pattern: a correlation
+                between the length of relationships and the practice of sleeping apart. In the stately Middle Atlantic
+                and the genteel South Atlantic regions, we find that couples who have been together for many years often
+                embrace separate beds. This inclination towards separate slumbers among long-term partners suggests a
+                mature understanding of the importance of personal space and the quest for quality rest. These couples,
+                seasoned by years of companionship, appear to value a restful night’s sleep, untroubled by the nocturnal
+                movements of their beloved.<br>
+
+                <br>Conversely, in the vibrant Pacific region, couples exhibit a slightly lower tendency towards
+                sleeping apart, regardless of the length of their relationships. Here, the breezy, relaxed attitudes of
+                the West Coast seem to foster a different approach to co-sleeping. Cultural and lifestyle differences
+                play a significant role, even among those who have shared many years together, showcasing the diverse
+                nature of American slumber.<br>
+
+                <br>By visualizing these patterns, we gain profound insights into how relationship duration and regional
+                characteristics shape the way couples approach their sleeping arrangements. Each region, with its
+                distinct customs and traditions, adds a unique flavor to the collective narrative of sleep. This map,
+                much like a tapestry, weaves together the rich and varied experiences of couples across the nation,
+                painting a picture of American society as diverse and multifaceted as the stars that adorn the night
+                sky.
+            </div>
         </div>
         <div>
             <svg id="mapTitle" height="50" width="900"></svg>
@@ -119,13 +192,44 @@
                     </pattern>
                 </defs>
             </svg>
-            <svg id="mapLegend" height="180" width="900"></svg>
+            <svg id="mapLegend" height="280" width="900"></svg>
         </div>
     </div>
-    <div style="display: flex; width:100%; height: 38.8%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
-        <div>some text</div>
+    <div
+        style="display: flex; width:100%; height: 10%; align-items: start; justify-content: center;background: url('background-body.svg') repeat top center; background-size: 100% auto;">
+        <div
+            style="display: flex; width:100%; height: 100%; align-items: center; justify-content: center;background: url('victoriandivider.svg') no-repeat top center; background-size: contain;">
+        </div>
     </div>
-    <div id="pie-reasons" style="display: flex;height: 66%; align-items: start;justify-content: space-evenly;background: url('background-end.svg') no-repeat bottom center; background-size: 100% auto;">
+    <div
+        style="display: flex; width:100%; height: 44.8%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
+        <div style="width: 80%; text-align: justify;">The reasons for this separation of bedchambers are as varied as
+            the colors of a debutante's ballgowns. With the aid of a pie chart, we depict the frequency of sleeping
+            apart among our respondents. The largest segment, 'Never', suggests a majority who remain steadfast in their
+            shared slumber. This finding highlights the enduring value many couples place on the intimacy and closeness
+            of sharing a bed, despite the potential challenges.<br>
+
+            Yet, as we delve deeper, we find that a significant portion of couples experience occasional separations, be
+            it 'Once a year or less' or 'A few times per month'. *Gasp*These occasional separations often coincide with
+            specific circumstances, such as one partner's temporary health issues or a particularly stressful period
+            that disrupts regular sleeping patterns.<br>
+
+            <br>A significant count asserts that snoring is the mischievous sprite that drives couples apart. And pray,
+            do not forget the nocturnal pilgrimages, frequent, though not for reasons divine, but rather the siren calls
+            of nature’s duties. Others cite the noble pursuit of better rest, or even a child's comfort, as the cause
+            for their nightly exodus. And though many might speculate otherwise, few confess that a lover's quarrel
+            sends them to seek refuge in the solitude of their personal chambers. Disparate slumber preferences, a cause
+            for many a nighttime fray, are surprisingly less contentious, with few choosing to battle over room
+            temperatures or the cruel theft of covers.<br>
+
+            <br>Together, these factors weave a complex tapestry of modern relationships, showing that the decision to
+            sleep apart is often a pragmatic one, rooted in a desire for mutual well-being. Despite the occasional
+            retreat to separate chambers, the underlying bond remains strong, underscoring the dynamic nature of
+            contemporary partnerships.
+        </div>
+    </div>
+    <div id="pie-reasons"
+        style="display: flex;height: 66%; align-items: start;justify-content: space-evenly;background: url('background-body.svg') repeat bottom center; background-size: 100% auto;">
         <div style="display: flex; height: 100%; align-items: center; justify-content: start; flex-direction: column;">
             <svg id="pieTitle" height="50" width="500"></svg>
             <svg id="pie" width="500" height="400" style="background: transparent;">
@@ -137,28 +241,103 @@
             </svg>
         </div>
     </div>
-    <div id="sentimentDisplay" style="display: flex;height: 58%; align-items: center;justify-content: center;background: url('background-end-expand.svg') no-repeat bottom center; background-size: 100% auto;">
-        <div style="display: flex; flex-direction:column; height: 100%; ">
-            <svg id="text1" width="400" style="background: transparent;">
-                <div>some text</div>
-            </svg>
+    <div id="sentimentDisplayBorder"
+        style="display: flex; width:100%; height: 10%; align-items: start; justify-content: center;background: url('background-body.svg') repeat top center; background-size: 100% auto;">
+        <div
+            style="display: flex; width:100%; height: 100%; align-items: center; justify-content: center;background: url('victoriandivider.svg') no-repeat top center; background-size: contain;">
         </div>
-        <div style="display:flex; flex-direction: row;">
-            <svg id="sentiment" height="350" width="600" style="background: transparent">
-            </svg>
-            <div id="sentimentBtn" style="display:flex; flex-direction: column; margin-left: 10px;">
-                <button id="sentimentButtonAll">Overall Sentiment</button>
-                <button id="sentimentButton1">Sentiment 1</button>
-                <button id="sentimentButton2">Sentiment 2</button>
-                <button id="sentimentButton3">Sentiment 3</button>
-                <svg id="sentimentLgd" height="100" width="320" style="background: transparent"></svg>
-                <div id="genderDiv" style="display:none; justify-content: center;">
-                    <span id="womanText">Default text</span>
-                    <img id="woman" src="./woman.svg" alt="Woman" height="150">
-                    <img id="man" src="./man.svg" alt="Man" height="150">
-                    <span id="manText">Default text</span>
+    </div>
+    <div id="sentimentDisplay"
+        style="display: flex;height: 100%; align-items: center;justify-content: center;background: url('background-body.svg') repeat bottom center; background-size: 100% auto;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <div
+                style="width: 50%; display: flex; justify-content: center; flex-direction: column; margin-bottom: 50px;">
+                <div class="montecarlo-large" style="text-align: center;">Sentiments Towards Sleeping Apart</div><br>
+                <div style="text-align: justify;">In our exploration of the sentiments towards the practice of sleeping
+                    apart, we unveil the manifold perspectives held by couples. Some find that such an arrangement
+                    fortifies their amorous connection and enhances their intimate relations, while others remain
+                    indifferent or even opposed. These multifaceted views are depicted with grace in the accompanying
+                    bar charts, where opinions span from 'Strongly disagree' to 'Strongly agree'.<br></div>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div style="display: flex; flex-direction:column; height: 100%; margin-left: 100px; width: 30%;">
+                    <!-- <svg id="text1" width="400" style="background: transparent;"> -->
+                    <div style="text-align: justify;">For certain couples, the act of sleeping apart rekindles a sense
+                        of intimacy and gratitude for the moments shared. It alleviates nightly disturbances and
+                        augments overall well-being. These pairs often recount how separate beds have rejuvenated their
+                        union, providing a harmonious balance between closeness and personal space.<br>
+
+                        <br>Conversely, there are those who perceive sleeping apart as a diminishment of their intimacy,
+                        deeming the shared bed a cornerstone of their affectionate bond. This divergence in sentiment
+                        underscores the profoundly personal nature of sleeping arrangements, where one couple’s solution
+                        may not suit another’s preference.<br>
+
+                        <br>It is indeed a curious and intriguing observation to note that ladies and gentlemen of our
+                        time display distinct variations in their sentiments. The gentlemen generally express, with mild
+                        agreement, that sleeping apart can lead to a more satisfying slumber. In stark contrast, ladies
+                        assert with greater conviction that the benefits of such arrangements extend well beyond mere
+                        restfulness, profoundly enhancing their nightly peace. Both genders maintain a neutral stance on
+                        the effects such arrangements have on their romantic relations, with gentlemen showing notable
+                        skepticism about any positive impact on their intimate interactions.
+
+                    </div>
+                    <!-- </svg> -->
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div style="display:flex; flex-direction: column;">
+                        <div id="sentimentBtn"
+                            style="display:flex; flex-direction: row; margin-left: 10px; justify-content: space-between;">
+                            <div style="display:flex; flex-direction: column;">
+                                <button id="sentimentButtonAll">Overall Sentiment</button>
+                                <button id="sentimentButton1">Sentiment 1</button>
+                                <button id="sentimentButton2">Sentiment 2</button>
+                                <button id="sentimentButton3">Sentiment 3</button>
+                            </div>
+                            <svg id="sentimentLgd" height="100" width="320" style="background: transparent"></svg>
+                        </div>
+                        <div style="display:flex; flex-direction: row;">
+                            <svg id="sentiment" height="350" width="600" style="background: transparent">
+                            </svg>
+                        </div>
+
+                    </div>
+                    <div >
+
+                    </div>
+                    <div id="genderDiv" style="display:flex; justify-content: center;">
+                        <span id="womanText">Default text</span>
+                        <img id="woman" src="./woman.svg" alt="Woman" height="150">
+                        <img id="man" src="./man.svg" alt="Man" height="150">
+                        <span id="manText">Default text</span>
+                    </div>
                 </div>
             </div>
+
+        </div>
+
+
+    </div>
+    <div
+        style="display: flex; width:100%; height: 10%; align-items: start; justify-content: center;background: url('background-body.svg') repeat top center; background-size: 100% auto;">
+        <div
+            style="display: flex; width:100%; height: 100%; align-items: center; justify-content: center;background: url('victoriandivider.svg') no-repeat top center; background-size: contain;">
+        </div>
+    </div>
+    <div
+        style="display: flex;height: 42.5%; align-items: start;justify-content: space-evenly;background: url('background-end.svg') no-repeat bottom center; background-size: 100% auto;">
+        <div style="width: 80%; text-align: justify;">
+            <span class="montecarlo-large">Thus, </span><span>
+                the dance of nightly repose plays on, each couple to their own rhythm, each soul to their own silent
+                reverie. As we bid you goodnight, we hope that our findings have illuminated the delicate dance of sleep
+                and relationships in the modern age, inspired by the elegance and propriety of the Victorian era. As
+                your faithful chronicler, we shall continue to observe, ever ready to inscribe the evolving mores of our
+                time. But patience, gentle reader, while the boudoir's secrets are plentiful, one must recall that
+                discretion is the better part of valor.<br>
+
+                <br>Yours devotedly amidst the whispered secrets of night,<br>
+                <span class="montecarlo-large">Lady Sonia and Sir Bandar</span>
+
+            </span>
         </div>
     </div>
 
@@ -199,24 +378,28 @@
         var clickedSliceLabel;
         var sentimentDisplay = document.getElementById("sentimentDisplay");
         sentimentDisplay.style.display = "none";
+        var sentimentDisplayBorder = document.getElementById("sentimentDisplayBorder");
+        sentimentDisplayBorder.style.display = "none";
 
         const pieTitle = d3.select("#pieTitle");
         pieTitle.append('text')
-                .attr('x', 250)
-                .attr('y', 30)
-                .attr('text-anchor', 'middle')
-                .style('font-size', '24px')
-                .style('font-weight', 'bold')
-                .text('Sleeping apart frequency');
+            .attr('x', 270)
+            .attr('y', 30)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '35px')
+            .style('font-weight', 'bold')
+            .attr("class", "montecarlo-regular")
+            .text('Frequency of Nocturnal Divergence');
 
         const reasonsTitle = d3.select("#reasonsTitle");
         reasonsTitle.append('text')
-                .attr('x', 150)
-                .attr('y', 30)
-                .attr('text-anchor', 'middle')
-                .style('font-size', '24px')
-                .style('font-weight', 'bold')
-                .text('Reasons for sleeping apart');
+            .attr('x', 205)
+            .attr('y', 30)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '35px')
+            .style('font-weight', 'bold')
+            .attr("class", "montecarlo-regular")
+            .text('Rationales for Nocturnal Separation');
 
         window.onload = function () {
             var sentimentAll = document.getElementById("sentimentButtonAll");
@@ -361,6 +544,7 @@
                 .on('click', function (event, d) {
 
                     var sentimentDisplay = document.getElementById("sentimentDisplay");
+                    var sentimentDisplayBorder = document.getElementById("sentimentDisplayBorder");
                     if (d.data.label === "Never") {
                         return;
                     }
@@ -370,20 +554,22 @@
                             .attr('d', arc)
                             .attr('stroke', 'none');
                         clickedSlice = null;
-                        document.getElementById('pie-reasons').style.height = '66%';
-                        document.getElementById('pie-reasons').style.backgroundImage = 'background-end.svg';
+                        //document.getElementById('pie-reasons').style.height = '66%';
+                        //document.getElementById('pie-reasons').style.backgroundImage = 'background-end.svg';
                         sentimentDisplay.style.display = "none";
+                        sentimentDisplayBorder.style.display = "none";
                     } else {
                         if (clickedSlice !== null) {
                             sentimentDisplay.style.display = "none";
+                            sentimentDisplayBorder.style.display = "none";
                             d3.select(clickedSlice).transition()
                                 .duration(500)
                                 .attr('d', arc)
                                 .attr('stroke', 'none');
                         }
                         clickedSlice = this;
-                        document.getElementById('pie-reasons').style.height = '70%';
-                        document.getElementById('pie-reasons').style.backgroundImage = "url('background-body.svg')";
+                        //document.getElementById('pie-reasons').style.height = '70%';
+                        //document.getElementById('pie-reasons').style.backgroundImage = "url('background-body.svg')";
 
                         d3.select(clickedSlice).transition()
                             .duration(500)
@@ -391,6 +577,7 @@
                             .attr('stroke', '#dee599')
                             .attr('stroke-width', '4');
                         sentimentDisplay.style.display = "flex";
+                        sentimentDisplayBorder.style.display = "flex";
                         sentimentChart(oGdata, d.data.label, 'overview', sentiment, sentimentMap, sentimentMapHeight, sentimentMapWidth);
                         sentimentDisplay.scrollIntoView({ behavior: 'smooth' });
                     }
@@ -410,8 +597,8 @@
                         window.requestAnimationFrame(function () {
                             tooltip.style('visibility', 'hidden');
                         });
-                        document.getElementById('pie-reasons').style.height = '66%';
-                        document.getElementById('pie-reasons').style.backgroundImage = "url('background-end.svg')";
+                        //document.getElementById('pie-reasons').style.height = '66%';
+                        //document.getElementById('pie-reasons').style.backgroundImage = "url('background-end.svg')";
                     }
                 });
 
@@ -720,7 +907,7 @@
 
             var color = d3.scaleOrdinal()
                 .domain(sentimentTopic)
-                .range(["#966b9d", "#c98686", "#f2b880"]);
+                .range(["#152E49", "#AF674E", "#452F38"]);
 
             var groups = sentimentMap.selectAll("g.attribute")
                 .data(sentimentDegree)
@@ -957,7 +1144,7 @@
                             );
                             zoomedBubble = d;
                         }
-                        })
+                    })
                     .on('mouseover', function (event, d) {
                         circles.style('opacity', 0.5);
                         circles.filter(d2 => d2.coordinates[0] === d.coordinates[0] && d2.coordinates[1] === d.coordinates[1])
@@ -993,11 +1180,11 @@
                 .data(colorScale.domain())
                 .enter().append('g')
                 .attr('class', 'legend')
-                .attr('transform', function (d, i) { return 'translate(' + i * 150 + ', 120)'; });
+                .attr('transform', function (d, i) { return 'translate(' + i * 150 + ', 180)'; });
 
             legendSvg.append('text')
                 .attr('x', 130)
-                .attr('y', 30)
+                .attr('y', 80)
                 .attr('text-anchor', 'middle')
                 .style('font-size', '18px')
                 .style('font-weight', 'bold')
@@ -1029,11 +1216,12 @@
                 .attr('x', 450)
                 .attr('y', 30)
                 .attr('text-anchor', 'middle')
-                .style('font-size', '24px')
+                .style('font-size', '40px')
                 .style('font-weight', 'bold')
-                .text('Relationship Years and Sleeping apart');
+                .attr("class", "montecarlo-regular")
+                .text('Relationship Years and Sleeping Apart');
 
-          
+
         }
 
         function getCounts(data) {
