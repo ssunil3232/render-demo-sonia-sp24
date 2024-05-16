@@ -114,14 +114,13 @@
 
 <body style="display: flex; flex-direction: column;">
     <div
-        style="display: flex; height:430px; flex-direction: column;background: url('background-title.svg') no-repeat top center; background-size: 100% auto;">
+        style="display: flex; height:440px; flex-direction: column;background: url('background-title.svg') no-repeat top center; background-size: 100% auto;">
     </div>
     <div
-        style="display: flex; width:100%; height: 39.8%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
+        style="display: flex; width:100%; height: 39%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
         <div style="display: flex; align-items: start; justify-content: center;">
             <div
-                style="display: flex; width: 150px; height: 10px; background: url('stamp.svg'); background-size: contain;">
-
+                style="display: flex; width: 150px; height: 150px; background: url('stamp.svg'); background-size: contain;">
             </div>
             <div style="width: 50%; text-align: justify;">Beneath the gentle glow of gas lamps and amidst the whispering
                 silks of the night, the Rzeszotarski Society embarks on a journey to unravel the mysteries of modern
@@ -152,7 +151,7 @@
         style="display: flex; width:100%; height: 10%; align-items: center; justify-content: center;background: url('victoriandivider.svg') no-repeat top center; background-size: contain;">
     </div> -->
     <div
-        style="display: flex;height: 825px; align-items: start;justify-content: center; background: url('background-body.svg') repeat top center; background-size: 100% auto;">
+        style="display: flex;height: 821px; align-items: start;justify-content: center; background: url('background-body.svg') repeat top center; background-size: 100% auto;">
         <div id="text1" style="background: transparent; width: 1300px;">
             <div style="padding-left: 100px; margin-top: 20px; text-align: justify;">Our journey through the nocturnal
                 world of American couples would be incomplete without a grand map to guide us. Imagine a map, delicately
@@ -213,6 +212,9 @@
                 </defs>
             </svg>
             <svg id="mapLegend" height="280" width="900"></svg>
+            <div id="mapTooltip"
+                style="position: absolute; display: none; background: rgba(0,0,0,0.6); color: white; padding: 5px; border-radius: 5px; font-size: 12px;">
+            </div>
         </div>
     </div>
     <div
@@ -222,7 +224,7 @@
         </div>
     </div>
     <div
-        style="display: flex; width:100%; height: 44.8%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
+        style="display: flex; width:100%; height: 45.3%; align-items: center; justify-content: center;background: url('background-body.svg') no-repeat top center; background-size: 100% auto;">
         <div style="width: 80%; text-align: justify;">The reasons for this separation of bedchambers are as varied as
             the colors of a debutante's ballgowns. With the aid of a pie chart, we depict the frequency of sleeping
             apart among our respondents. The largest segment, 'Never', suggests a majority who remain steadfast in their
@@ -305,31 +307,44 @@
                 </div>
                 <div style="display: flex; flex-direction: row;">
                     <div style="display:flex; flex-direction: column;">
-                        <div id="sentimentBtn"
-                            style="display:flex; flex-direction: row; margin-left: 10px; justify-content: space-between;">
-                            <div style="display:flex; flex-direction: column;">
+                        <div id="sentimentBtn" style="display:flex; flex-direction: row; margin-left: 10px;">
+                            <svg id="sentimentLgd" height="100" width="320" style="background: transparent"></svg>
+                            <div style="display:flex; flex-direction: column;margin-left: 300px;">
                                 <button id="sentimentButtonAll">Overall Sentiment</button>
                                 <button id="sentimentButton1">Sentiment 1</button>
                                 <button id="sentimentButton2">Sentiment 2</button>
                                 <button id="sentimentButton3">Sentiment 3</button>
                             </div>
-                            <svg id="sentimentLgd" height="100" width="320" style="background: transparent"></svg>
+
                         </div>
-                        <div style="display:flex; flex-direction: row;">
+                        <div style="display:flex; flex-direction: row; margin-right: 280px; position: relative;">
                             <svg id="sentiment" height="350" width="600" style="background: transparent">
                             </svg>
+                            <div id="genderDiv"
+                                style="display:none; justify-content: center; position: absolute; right: -35%; top: 10%;">
+                                <div style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="montecarlo-large">Gender Opinions</span>
+                                    <div style="display: flex; flex-direction: row; align-items: center;">
+                                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                            <span id="womanText">Default text</span>
+                                            <img id="woman" src="./woman.svg" alt="Woman" height="150">
+                                        </div>
+                                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                            <span id="manText">Default text</span>
+                                            <img id="man" src="./man.svg" alt="Man" height="150">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
                         </div>
 
                     </div>
-                    <div>
+                    <!-- <div> -->
 
-                    </div>
-                    <div id="genderDiv" style="display:flex; justify-content: center;">
-                        <span id="womanText">Default text</span>
-                        <img id="woman" src="./woman.svg" alt="Woman" height="150">
-                        <img id="man" src="./man.svg" alt="Man" height="150">
-                        <span id="manText">Default text</span>
-                    </div>
+                    <!-- </div> -->
+
                 </div>
             </div>
 
@@ -556,7 +571,7 @@
 
                     window.requestAnimationFrame(function () {
                         tooltip.style('visibility', 'visible')
-                            .text(d.data.label + ': ' + d.data.value)
+                            .text(d.data.label + ': ' + (d.data.value / oGdata.length * 100).toFixed(2) + '%')
                             .style('left', (d3.pointer(event)[0] + 10) + 'px')
                             .style('top', (d3.pointer(event)[1] - 10) + 'px');
                     });
@@ -603,6 +618,12 @@
                     }
                     reasonsMapping(oGdata, reasons, reasonsMapHeight, reasonsMapWidth, d.data.label, colorScale(d.data.label));
                     clickedSliceLabel = d.data.label;
+                    window.requestAnimationFrame(function () {
+                        tooltip.style('visibility', 'visible')
+                            .text(d.data.label + ': ' + (d.data.value / oGdata.length * 100).toFixed(2) + '%')
+                            .style('left', (d3.pointer(event)[0] + 10) + 'px')
+                            .style('top', (d3.pointer(event)[1] - 10) + 'px');
+                    });
                 })
                 .on('mouseout', function (d) {
                     if (clickedSlice !== null) {
@@ -736,7 +757,7 @@
                 });
 
 
-            svg.selectAll("text")
+            let textElements = svg.selectAll("text")
                 .data(root.leaves())
                 .enter().append("text")
                 .filter(d => top5Categories.has(d.data.attribute))
@@ -747,6 +768,9 @@
                 .attr("fill", d => {
                     return d3.lab(countColorScale(d.value)).l < 70 ? "white" : '#82857e';
                 });
+            textElements.each(function (d) {
+                wrapText(d3.select(this), 80); // Assuming 100 is the max width for text
+            });
 
         }
 
@@ -1175,12 +1199,21 @@
                         legend.selectAll('.legend-count')
                             .text(d => (counts[d] / fullD.length) ? `${((counts[d] / fullD.length) * 100).toFixed(1)}%` : "0%");
 
+                        var tooltip = document.getElementById('mapTooltip');
+                        tooltip.style.display = 'block';
+                        tooltip.style.left = event.pageX + 10 + 'px'; // Position the tooltip 10px to the right of the cursor
+                        tooltip.style.top = event.pageY + 10 + 'px'; // Position the tooltip 10px below the cursor
+                        tooltip.innerHTML = d.location; // Set the tooltip content
+
                     })
                     .on('mouseout', function () {
                         circles.style('opacity', 1);
                         const counts = getCounts(flatData);
                         legend.selectAll('.legend-count')
                             .text(d => (counts[d] / fulldata.length) ? `${((counts[d] / fulldata.length) * 100).toFixed(1)}%` : "0%");
+
+                        var tooltip = document.getElementById('mapTooltip');
+                        tooltip.style.display = 'none';
                     });
             }
             const legendSvg = d3.select('#mapLegend');
@@ -1227,6 +1260,9 @@
                 .attr('class', 'legend-count')
                 .attr('x', 24)
                 .attr('y', 30)
+                .style('font-size', '30px')
+                .style('font-weight', 'bold')
+                .style('fill', '#894435')
                 .attr('dy', '.35em')
                 .text(d => `${((counts[d] / fulldata.length) * 100).toFixed(1)}%` || "0%");
 
@@ -1251,6 +1287,32 @@
             }, {});
             return counts;
         }
+        function wrapText(text, width) {
+            text.each(function () {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    x = text.attr("x"),
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy") || 0),
+                    tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop(); // Remove the word that overflows
+                        tspan.text(line.join(" ")); // Set the text without the overflowing word
+                        line = [word]; // Start a new line with the overflowing word
+                        tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                }
+            });
+        }
+
     </script>
 </body>
 
