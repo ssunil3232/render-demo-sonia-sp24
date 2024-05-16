@@ -15,12 +15,24 @@
             font-style: normal;
         }
 
-        .container {
-            background-image: url('Inro Page.png');
+        body {
+            background-image: url('/static/introPage.png');
             background-size: cover;
-            background-position: center;
-            width: 100%;
-            height: 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            /* background-image: url('/introPage.png');
+            background-size: cover;
+            background-position: center; */
+            width: 80vw;
+            height: 60vh;
             position: relative;
         }
 
@@ -31,6 +43,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            border-radius: 20px;
+
         }
 
         .content {
@@ -63,20 +77,24 @@
         button:hover {
             background-color: rgba(255, 255, 255, 1);
         }
+
         nav {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 50px;
         }
 
         nav a {
+            font-size: 40px;
+            font-weight: 700;
             text-decoration: none;
             color: #333;
             background-color: #fff;
-            padding: 10px 20px;
+            padding: 15px 40px;
             margin: 0 5px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
+
         nav a:hover {
             background-color: #ddd;
         }
@@ -87,15 +105,18 @@
     <div class="container">
         <div class="overlay">
             <div class="square-peg-regular">
-                <p>Step into a mesmerizing journey through the nocturnal world of American slumber. Uncover the hidden
+                <p style="margin: 20px; font-size: 40px; color: white; text-align: center;">
+                    Step into a mesmerizing journey through the nocturnal world of American slumber. Uncover the hidden
                     tales our sleeping patterns whisper about our relationships, health, and daily lives. With exquisite
                     illustrations and insightful analysis, this article unveils the secrets of how we sleep. Join us as
                     we explore the delicate nuances of American sleepscapes and discover what your rest reveals about
                     you!</p>
                 <!-- <button>Under the Covers</button> -->
-                <nav>
+                <nav style="position: relative;">
                     <a href="/project3/">Under the Covers</a>
                 </nav>
+                <img src="/static/featherpen.png" alt="featherPen" style="width: 300px; height: auto; position: absolute;
+                right: -50px; top: 200px;">
             </div>
         </div>
     </div>
