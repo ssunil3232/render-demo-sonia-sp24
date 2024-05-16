@@ -326,8 +326,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
+
+
                             </div>
                         </div>
 
@@ -502,7 +502,17 @@
                 });
 
                 let groupedData = getDataMapping(oGdata);
-                plotCircles(oGdata, groupedData, projection, map, mapHeight, mapWidth);
+                let isCirclesAnimated = false; // Flag to ensure animation runs only once
+                //document.addEventListener('DOMContentLoaded', function () {
+                    var element = document.getElementById('map');
+                    window.addEventListener('scroll', function () {
+                        if (isInViewport(element) && !isCirclesAnimated) {
+                            plotCircles(oGdata, groupedData, projection, map, mapHeight, mapWidth);
+                            isCirclesAnimated = true; // Prevent further animations
+                        }
+                    });
+                //});
+
 
             }
 
@@ -1206,6 +1216,10 @@
                         var tooltip = document.getElementById('mapTooltip');
                         tooltip.style.display = 'none';
                     });
+                circles.transition()
+                    .duration(800) // Duration in milliseconds
+                    .delay((d, i) => i * 500)
+                    .attr('r', d => sizeScale(d.count));
             }
             const legendSvg = d3.select('#mapLegend');
             const imageUrls = {
@@ -1302,6 +1316,15 @@
                     }
                 }
             });
+        }
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
         }
 
     </script>
