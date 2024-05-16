@@ -36,9 +36,9 @@ df.rename(columns={'To what extent do you agree with the following statement:"ou
 df = df.iloc[1:]
 df = df[(df["location"] != "Response") & (df["location"] != "Mountain") & (df["location"] != "")& df["location"].notna()]
 df = df[(df["relationship_status"] != "Response") & (df["relationship_status"] != "Divorced") & (df["relationship_status"] != "Widowed") & (df["relationship_status"] != "Separated")]
-df = df[(df['sleeping in separate beds helps us to stay together.'].notna())]
-df = df[(df['we sleep better when we sleep in separate beds.'].notna())]
-df = df[(df['our sex life has improved as a result of sleeping in separate beds.'].notna())]
+#df = df[(df['sleeping in separate beds helps us to stay together.'].notna())]
+#df = df[(df['we sleep better when we sleep in separate beds.'].notna())]
+#df = df[(df['our sex life has improved as a result of sleeping in separate beds.'].notna())]
 
 columns_to_assign = ['snores', 'frequent bathroom trips in the night', 'sick','no longer physically intimate', 'different temperature preferences for the room','argument/fight','not enough space','do not want to share the covers','needs to sleep with a child','night working/very different sleeping times']
 
@@ -47,4 +47,4 @@ for col in columns_to_assign:
         df[col] = df[col].apply(lambda x: False if pd.isna(x) else True)
         
 
-df.to_csv('./sleeping-patterns-data-formatted.csv', encoding='utf-8', index=False)
+df.to_csv('./sleeping-pattern-formatted.csv', encoding='utf-8', index=False)
