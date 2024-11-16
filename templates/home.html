@@ -7,7 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 100px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -44,7 +44,6 @@
             width: 600px;
             text-align: center;
             color: #7e8686;
-            margin-bottom: 60px;
         }
 
         .highlighter{
@@ -57,19 +56,120 @@
         nav a:hover {
             background-color: #ddd;
         }
+        .grass {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            height: 300px;
+            background-image: url('/static/grass2.png');
+            background-repeat: repeat-x;
+            background-size: contain;
+        }
+
+        .content {
+            flex: 1;
+            position: relative;
+            flex: 1;
+            position: relative;
+            justify-content: space-between;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .content-text {
+            text-align: center;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+
+        .button {
+            background-image: url('/static/apple.png');
+            background-size: cover;
+            width: 200px;
+            height: 200px;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button:hover {
+            animation: shake 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        .button-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 0%);
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .button-text {
+            width: 100px;
+            font-size: 20px;
+            text-align: center;
+            color: white;
+            padding-top: 30px;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Data Visualisations</h1>
-    <span class="subtitle">The aim of this project is to learn how to create interactive and user-intuitive data visuals using <p class="highlighter">D3.js and Javascript</p>.<br><br>
-        This encompasses some of my favourite works that I have created so far, displaying the versatility in my use of various charts to bring out a story that the data tells.</span>
-    <nav>
-        <a href="/tswift-discography/">TSwift Discography</a>
-        <a href="/yelp-pittsburgh/">Yelp Food Pittsburgh</a>
-        <a href="/under-the-covers/">Under the Covers</a>
-    </nav>
-    
+    <div class="content">
+        <div class="content-text">
+            <h1>Data Visualisations</h1>
+            <span class="subtitle">The aim of this project is to learn how to create interactive and user-intuitive data visuals using <p class="highlighter">D3.js and Javascript</p>.<br><br>
+                This encompasses some of my favourite works that I have created so far, displaying the versatility in my use of various charts to bring out a story that the data tells.</span>
+        </div>
+        <!--<nav>
+            <a href="/tswift-discography/">TSwift Discography</a>
+            <a href="/yelp-pittsburgh/">Yelp Food Pittsburgh</a>
+            <a href="/under-the-covers/">Under the Covers</a>
+        </nav>-->
+        <canvas id="plantCanvas" width="1000" height="500"></canvas>
+    </div>
+    <div class="grass"></div>
+    <div class="button-container fade-in" id="buttonContainer">
+        <button class="button" onclick="location.href='/tswift-discography/'"><p class="button-text">TSwift Discography</p></button>
+        <button class="button" onclick="location.href='/yelp-pittsburgh/'"><p class="button-text">Yelp Food Pittsburgh</p></button>
+        <button class="button" onclick="location.href='/under-the-covers/'"><p class="button-text">Under the Covers</p></button>
+    </div>
+    <script src="/static/plant.js"></script>
+    <script>
+        function fadeInButtons() {
+            const buttonContainer = document.getElementById('buttonContainer');
+            buttonContainer.style.opacity = 1;
+        }
+    </script>
 </body>
 
 </html>
