@@ -9,25 +9,25 @@ def index():
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
                           root='project1/', 
-                          prefix='/project1/', 
+                          prefix='/tswift-discography/', 
                           index_file='index.htm', 
                           autorefresh=True)
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
                           root='project2/', 
-                          prefix='/project2/', 
+                          prefix='/yelp-pittsburgh/', 
                           index_file='index.htm', 
                           autorefresh=True)
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
                           root='project3/', 
-                          prefix='/project3/', 
+                          prefix='/under-the-covers/', 
                           index_file='intro.htm', 
                           autorefresh=True)
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, 
                           root='project3/', 
-                          prefix='/project3/article/', 
+                          prefix='/under-the-covers/article/', 
                           index_file='index.htm', 
                           autorefresh=True)
 

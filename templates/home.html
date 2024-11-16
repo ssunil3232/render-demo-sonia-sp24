@@ -7,7 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 100px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -40,6 +40,19 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
+        .subtitle{
+            width: 600px;
+            text-align: center;
+            color: #7e8686;
+            margin-bottom: 60px;
+        }
+
+        .highlighter{
+            display: inline;
+            background: #d7d9fa54;
+            border-radius: 20px;
+            color: black;
+        }
 
         nav a:hover {
             background-color: #ddd;
@@ -49,10 +62,12 @@
 
 <body>
     <h1>Data Visualisations</h1>
+    <span class="subtitle">The aim of this project is to learn how to create interactive and user-intuitive data visuals using <p class="highlighter">D3.js and Javascript</p>.<br><br>
+        This encompasses some of my favourite works that I have created so far, displaying the versatility in my use of various charts to bring out a story that the data tells.</span>
     <nav>
-        <a href="/project1/">TSwift Discography</a>
-        <a href="/project2/">Yelp Food Pittsburgh</a>
-        <a href="/project3/">Under the Covers</a>
+        <a href="/tswift-discography/">TSwift Discography</a>
+        <a href="/yelp-pittsburgh/">Yelp Food Pittsburgh</a>
+        <a href="/under-the-covers/">Under the Covers</a>
     </nav>
     
 </body>
